@@ -1,0 +1,15 @@
+Se necesita hacer listas, donde la lista tenga actividades, elementos o tareas, 
+
+Entonces no se podría pensar que es una lista con actividades de actividades, si no diferentes "eventos" guardados en una lista, **(podría ser lista de listas)
+
+Las lista se tiene que crear (Agregar elementos), ademas tiene que tener un estado, (pendiente, haciendo, terminado)
+
+El proxy tarea ficticia, hay qe analizar esto, una forma seria agregar una tarea como "ligada" a otra, p hacer una tarea de un grupo de tareas"
+
+Definir responsables ("personas"), donde se debe definir el tiempo
+
+Recursos a asignar (materiales, equipo, personas,)"
+
+Se debe editar, modificar, excluir  ***Categoriazar???? tareas, responsables, 
+
+Se debe permitir crear administar y gestionar un conjunto de diversas listas, 
