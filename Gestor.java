@@ -15,8 +15,8 @@ public class Gestor
      */
     public Gestor()
     {
-        x = 100;
-        System.out.println("TestTest");
+        x = 0;
+        System.out.println("PRueba adicion de codigo");
     }
 
     /**
