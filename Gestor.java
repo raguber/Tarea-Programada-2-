@@ -21,6 +21,7 @@ public class Gestor
         System.out.println("PRUEBA");
         System.out.println("Prueba mezcla de archivos");
         System.out.println("Sin conflictos");
+        System.out.println("Uno dos tres cuatro");
         System.out.println("PRueba adicion de codigo");
     }
 
