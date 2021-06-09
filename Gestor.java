@@ -16,6 +16,7 @@ public class Gestor
     public Gestor()
     {
         x = 0;
+        System.out.println("PRueba Merge");
         System.out.println("Prueba mezcla de archivos");
         System.out.println("PRueba adicion de codigo");
     }
