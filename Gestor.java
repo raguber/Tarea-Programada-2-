@@ -16,9 +16,10 @@ public class Gestor
     public Gestor()
     {
         x = 0;
+        System.out.println("PR");
         System.out.println("PRueba Merge");
         System.out.println("Prueb");
-        System.out.println("Prueba numero 500");
+        System.out.println("Prueba numero 5asdf00");//Peuba
         System.out.println("PRUEBA");///Prueba
         System.out.println("Prueba mezcla de archivos");
         System.out.println("Sin conflictos");
