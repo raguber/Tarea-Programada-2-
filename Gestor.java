@@ -18,7 +18,7 @@ public class Gestor
         x = 0;
         System.out.println("PRueba Merge");
         System.out.println("Prueb");
-        System.out.println("PRUEBA");
+        System.out.println("PRUEBA");///Prueba
         System.out.println("Prueba mezcla de archivos");
         System.out.println("Sin conflictos");
         System.out.println("Uno dos tres cuatro");
