@@ -17,6 +17,7 @@ public class Gestor
     {
         // initialise instance variables
         x = 0;
+        System.out.println("PRueba adicion de codigo");
     }
 
     /**
