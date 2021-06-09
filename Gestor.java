@@ -15,8 +15,8 @@ public class Gestor
      */
     public Gestor()
     {
-        // initialise instance variables
-        x = 0;
+        x = 100;
+        System.out.println("TestTest");
     }
 
     /**
