@@ -1,15 +1,63 @@
-Se necesita hacer listas, donde la lista tenga actividades, elementos o tareas, 
+///*** Este documento, se realizo para anotar las ideas que se van discutiendo en las reuniones de Zoom ***\\\
 
-Entonces no se podría pensar que es una lista con actividades de actividades, si no diferentes "eventos" guardados en una lista, **(podría ser lista de listas)
 
-Las lista se tiene que crear (Agregar elementos), ademas tiene que tener un estado, (pendiente, haciendo, terminado)
+
+Para la estimacion (progreso) podria ser generarica o, en otro caso, tiempo, dinero ( agregar a cada actividad de forma individual) , esfuerzo, en caso de ser esfuerzo, se tendría que hacer una unidad cuantificables, (Habría que decidir que unidad usar) **Posible solicitud al usuario de seleccion de tipo estimacion
+
+Los estados de la tarea deberian ser similares a  "por hacer" "haciendoo", "terminado", se deberian representar por columnas, ademas de tener que hacer archivos para guardar/leer datos, en cada tipo.
+
+Las aactividades pueden depender de otra(s) o no.
+
+La fecha de inicio tendría una planificada y otra real (revisar esto), (modificable por el usuario).Se deberia hacer por semana.
+Se tednría que calcular tambien las horas por persona, semanalmente, de ahí tambien dependeria el progreso.. Ahora se tiene tambien Fecha entonces no solo seria calcular las semanas si no tomar en cuenta meses, dias. Se podŕia usar algo ya programadao de  java *Ver calendario gregoriano". AHora se podría ignorar las fechas, pasando todo a dias  (1 semana = 7 dias), entonces no haria falta nada relacionado a fechas, la fecha seria solo relevante al usuario como fecha de inicio, al menos que cuando se termine o progrse se lleve un conteo de la fecha.
+
+Hay que analizar lo de las tareas ficticias (proxys), en realidad parecen ser como "subtareas" para poder realizar una tarea
 
 El proxy tarea ficticia, hay qe analizar esto, una forma seria agregar una tarea como "ligada" a otra, p hacer una tarea de un grupo de tareas"
 
-Definir responsables ("personas"), donde se debe definir el tiempo
+Definir responsables ("personas"), donde se debe definir el tiempo; podrían tener varios, pero analizar.
+Para las tareas se tiene nombre e identificacion, sin embargo para asignarTarea, se pediria uno
+** id responsable podría ser el num+Nom???, ademas para pedir se podría pedir un numero como opcion seleccionada.******
 
-Recursos a asignar (materiales, equipo, personas,)"
+***Cuando estamos mostrando, mostrar "Dependen de tarea x", y tarea x = se le asigna "pendiente"
+
+El calculo de la la duracion se toma en cuaenta la cantidad asignada de horas, (debe cada responsable tener un maximo de horas), esto asignaria una tarea de 40 horas por ejmplo para un trabajador que trabaja 20, duraria dos semanas.
+
+
+Para programar se dependera el progreso de la tarea con lo ingrsado por el usuario, 
+Tarea tendria que tener un porcentaje, se va a medir tiempo, 100 horas, 40, semana m
+***Clase actividades 
+***Clase responsables ( se pueden agregar, eliminar , sustiuir, (tanto eliminar como sustituir, sin embargo, tanto como aviso, se paraliza la tarea, entonces en la tarea, se tiene que guarda y revisar si tiene responsables solo para progresaer.
+
+Recursos a asignar (materiales, equipo, personas,)"; Se usan por porcentaj3e **Posible clase.
+**Aqui se tiene que darle la posibilidad de agregar recursos. Archivos, (se tienen que gaurdar archvivos);
+****Verlos como objetos, la idea hay que preguntar, mostrarle al ususario se "agregaran mas recursos", esto n
+no deberia excluir el echo/**Mostar recursos disponibles, y pedir opcion de agregar usar los que se tienen, etc
+
+
+
+Una tarea puede depednder de una mas o de ninguna tara
+****Controlar
 
 Se debe editar, modificar, excluir  ***Categoriazar???? tareas, responsables, 
 
 Se debe permitir crear administar y gestionar un conjunto de diversas listas, 
+
+Se supondra tarea proxy, tarea que depende de otra, se dara de por completa, y de forma simultanea
+se pogrsara en la tarea general un porcentaje de completitud. una vez dos tareas de forma simultanea se puedean realizar, entonecs se contua con la tarea general a partir de cierto porcentajes
+
+Recursos podrían ser reutilizables o no.
+
+              Clases (Esquema basico)
+Gestor: R y A
+Listas: nombre identificador, descripcion, composicion de actividades R
+
+Recursos: nombre, cantidad, un uso, si es renovable A
+
+Responsables: Cantidad Tiempo (modificable, maximo 40), Tareas Asignadas, Nombre Id (num + 3 letras Nombre), cantidad horas disponibles, (se tendria una vez terminada la tarea agregar horas disponibles)**
+
+Tareas: id nombre, fecha inicio, fecha de fin, responsable, estimacion (tiempo, dinero, esfuerzo*, grado avance, estados recursos necesarios, categoria.) A
+
+
+
+EntraDatos R
