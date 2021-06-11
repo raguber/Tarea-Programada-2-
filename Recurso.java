@@ -1,19 +1,19 @@
 
 /**
- * Write a description of class Ckas here.
+ * Write a description of class Recursos here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Ckas
+public class Recurso
 {
     // instance variables - replace the example below with your own
     private int x;
 
     /**
-     * Constructor for objects of class Ckas
+     * Constructor for objects of class Recursos
      */
-    public Ckas()
+    public Recurso()
     {
         // initialise instance variables
         x = 0;

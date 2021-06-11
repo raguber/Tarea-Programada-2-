@@ -1,41 +1,20 @@
-
 /**
- * Write a description of class Gestor here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * Estudiantes:
+ *  Randy Jossue Aguero Bermudez Carne B90082
+ * 
  */
 public class Gestor
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Gestor
-     */
+   
     public Gestor()
     {
-        x = 0;
-        System.out.println("PR");
-        System.out.println("PRueba Merge");
-        System.out.println("Prueb");
-        System.out.println("Prueba numero 5asdf00");//Peuba
-        System.out.println("PRUEBA");///Prueba
-        System.out.println("Prueba mezcla de archivos");
-        System.out.println("Sin conflictos");
-        System.out.println("Uno dos tres cuatro");
-        System.out.println("PRueba adicion de codigo");
+        
+  
+    }
+    public static void main (String args[])
+    {
+        Gestor gestorListas = new Gestor();
+        
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
-    }
 }

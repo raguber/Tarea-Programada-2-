@@ -1,19 +1,19 @@
 
 /**
- * Write a description of class Clase1 here.
- * 
- * @author (your name) 
+ * Write a description of class EntradaDatos here.
+ *
+ * @author (your name)
  * @version (a version number or a date)
  */
-public class Clase1
+public class EntradaDatos
 {
     // instance variables - replace the example below with your own
     private int x;
 
     /**
-     * Constructor for objects of class Clase1
+     * Constructor for objects of class EntradaDatos
      */
-    public Clase1()
+    public EntradaDatos()
     {
         // initialise instance variables
         x = 0;
@@ -21,9 +21,9 @@ public class Clase1
 
     /**
      * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
      */
     public int sampleMethod(int y)
     {
