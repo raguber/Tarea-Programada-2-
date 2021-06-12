@@ -1,7 +1,7 @@
 /**
  * Estudiantes:
  *  Randy Jossue Aguero Bermudez Carne B90082
- * 
+ *  Andrés Esteban Serrano Robles Carne C07483
  */
 public class Gestor
 {

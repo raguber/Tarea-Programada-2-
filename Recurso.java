@@ -1,33 +1,42 @@
-
 /**
- * Write a description of class Recursos here.
+ * Objetos que representan recursos
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Randy Agüero B90082 y Andrés Serrano C07483
+ * @version 11/6/2021
  */
-public class Recurso
-{
-    // instance variables - replace the example below with your own
-    private int x;
-
+public class Recurso{
+    String nombre;
+    int cantidad;
+    boolean reusable;
     /**
-     * Constructor for objects of class Recursos
-     */
-    public Recurso()
-    {
-        // initialise instance variables
-        x = 0;
+     *El constructor acepta un nombre, una cantidad inicial y si es reusable 
+       */
+    public Recurso(String nom, int cant,boolean re){
+        nombre=nom;
+        cantidad=cant;
+        reusable=re;
     }
-
+    
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * Aumenta la cantidad de este recurso
      */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public void mas(int cant){
+        cantidad+=cant;
+    }
+    
+    /**
+     * Restar la cantidad de recursos. Si se resta más de lo que se tiene actualmente, la cantidad se iguala a 0.
+     * Si el recurso es reusable, el método termina sin hacer cambios.
+       */
+    public void menos(int cant){
+        if(reusable==false){
+            if(cant<=cantidad){
+                cantidad-=cant;
+            }else if(cant>cantidad){
+                cantidad=0;
+            }
+        }else{
+            return;
+        }
     }
 }
