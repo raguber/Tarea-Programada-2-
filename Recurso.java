@@ -11,6 +11,11 @@ public class Recurso{
     /**
      *El constructor acepta un nombre, una cantidad inicial y si es reusable 
        */
+      
+      //Aqui tambien podria hacerse desde el main, pedir datos para que se llenr,
+      //Desde la clase es mucho mejor que desde el gestor, 
+      //Desde el gestor se llenaria mucho de datos
+      //Ver como lo hice en Lista
     public Recurso(String nom, int cant,boolean re){
         nombre=nom;
         cantidad=cant;

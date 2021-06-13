@@ -16,6 +16,15 @@ public class Tarea{
     /**
      * El constructor no solicita todos los valores. Solicita el nombre, dinero(0 si no es necesario), esfuerzo, y horas
        */
+      
+      ///Ver que quiza sea buena idea asignar valores desde esta clase y no desde el gestor
+      //Quiza el gestor sea mas conveniente tenerlo para que solo indique que se haga una tarea,
+      //Se podria hacer un metodo main, que llame a los metodos para que llenen los datos.
+      //Esto seria importante para reducir el codigo en el gestor,
+      
+      //Esto tambien ayudaria a simplificar la Clase Lista
+      //Por supuesto solo es una idea.
+      
     public Tarea(String nom,int din,int esf,int hor,Responsable resp){
         nombre = nom;
         dinero = din;
@@ -27,6 +36,7 @@ public class Tarea{
         recursos = new ArrayList<Recurso>();
         dependencias = new ArrayList<Tarea>();
     }
+    //Agregar metodo para que asigne responsable
     
     public String modifiqueDescripcion(String desc){
         descripcion=desc;
@@ -78,6 +88,9 @@ public class Tarea{
             return"La actividad "+nombre+" aún no puede completarse";
         }
     }
+    
+    
+    
     
     //Si se completa una tarea de la que esta depende, cómo lo puede saber el Array de tareas que está aquí.
 }
