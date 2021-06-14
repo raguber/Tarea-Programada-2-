@@ -6,6 +6,12 @@ import java.util.ArrayList;
  * @version 11-6-2021
  */
 public class Tarea{
+    //cada tarea, deberia tener un atibuto con el nombre de la lista a la cual pertenece, mas que todo es util cuando se muestren todas las tareas
+    //O tareas asignadas a determinado responsable (cuando se muestra la informacion de un responsable)
+    //Indirectamente, si el nombre de las listas, o otras cosas se modifican (deberia de poderse) se deberia actualizar la informacion
+    //Esto indica que hay que hacer un metodo que cambie el nombre de listaPerteneciente;
+    
+    //String listaPerteneciente; //Descomentar si se va a usar
     int id,dinero,esfuerzo,horas;
     boolean completada;
     String nombre,descripcion,fechaInicio,fechaFin;
@@ -23,6 +29,7 @@ public class Tarea{
       //Esto seria importante para reducir el codigo en el gestor,
       
       //Esto tambien ayudaria a simplificar la Clase Lista
+      //Ya que las listas tienen tareas, No solo el gesto
       //Por supuesto solo es una idea.
       
     public Tarea(String nom,int din,int esf,int hor,Responsable resp){
@@ -88,9 +95,17 @@ public class Tarea{
             return"La actividad "+nombre+" aún no puede completarse";
         }
     }
-    
-    
-    
+    //********
+    //Agregue unos metodos
+    public String deNombre()
+    {
+        return nombre;
+    }
+    public String deListaPerteneciente()
+    {
+        
+        return "listaPerteciente";
+    }
     
     //Si se completa una tarea de la que esta depende, cómo lo puede saber el Array de tareas que está aquí.
 }
