@@ -8,25 +8,40 @@ public class Recurso{
     String nombre;
     int cantidad;
     boolean reusable;
+    EntradaDatos entrada; 
     /**
-     *El constructor acepta un nombre, una cantidad inicial y si es reusable 
+     *MODIFICADO: El constructor solicita un nombre
        */
       
       //Aqui tambien podria hacerse desde el main, pedir datos para que se llenr,
       //Desde la clase es mucho mejor que desde el gestor, 
       //Desde el gestor se llenaria mucho de datos
       //Ver como lo hice en Lista
-    public Recurso(String nom, int cant,boolean re){
+    public Recurso(String nom){
         nombre=nom;
-        cantidad=cant;
-        reusable=re;
+        cantidad=0;
+        reusable=false;
+    }
+    
+    public void modifiqueNombre(){
+        String mensaje="Inserte el nuevo nombre de este recurso: ";
+        nombre=entrada.pedirTexto(mensaje);
+    }
+    
+    public void hagaReusable(){
+        reusable=true;
+    }
+    
+    public void hagaAgotable(){
+        reusable=false;
     }
     
     /**
      * Aumenta la cantidad de este recurso
      */
-    public void mas(int cant){
-        cantidad+=cant;
+    public void mas(){
+        String mensaje="Inserte un número para aumentar la cantidad";
+        cantidad+=entrada.pedirNumero(mensaje,1);
     }
     
     /**

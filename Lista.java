@@ -14,6 +14,7 @@ public class Lista
         nombre = " ";
         numeroLista = numLista;//Se usara un contador Momentaneamente desde el gestor, sin embargo podria ser aleatorio o dado por el usario
         //el ultimo seria problematico por razones de limite de digitos de los numeros, sin embargo util seria el tamaño del array como codigo de lista;
+        //A: Mejor que el contador no sea aleatorio, sino que sea un contador normal.
         //Revisar si arrayList deja espacios vacios o acomodo automaticamente los espacios vacios
         identificacion =" "; //Identificador podria ser el 3 letras del nombre mas un numero o un contador;
         descripcion = " ";
@@ -39,7 +40,6 @@ public class Lista
     {
         String mensaje = ""; //esta variable se le mostrara al usuario cuando se pida al usuario un dato
         mensaje = ("Digite la descripcion de la tarea");
-        
         descripcion = entrada.pedirTexto(mensaje);
     }
     public void agregueTarea()
@@ -52,6 +52,11 @@ public class Lista
         //Se deja como comentario porque se necesesita reparar tarea;
         //Tarea tarea ;// new Tarea();
         //tareas.add(tarea);
+        
+        //A: constructor actual: Tarea x = new Tarea(ID,nombre,lista)
+        //Tarea b = new Tarea(002,"Practicar piano","Música");
+        //tareas.add(b);
+        //El constructor tiene los atributos que consideré obligatorios para que una tarea exista. Los otros atributos son adicionales
         
     }
 

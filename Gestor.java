@@ -7,11 +7,15 @@ import java.util.ArrayList;
 public class Gestor
 {
     ArrayList<Responsable> listaResponsables;
+    ArrayList<Lista> listas;
+    ArrayList<Tarea> tareas;
     EntradaDatos entrada;
 
     public Gestor()
     {
         listaResponsables = new ArrayList<Responsable>();
+        listas = new ArrayList<Lista>();
+        tareas = new ArrayList<Tarea>();
         entrada = new EntradaDatos();
     }
     //********************************************************
@@ -23,8 +27,11 @@ public class Gestor
     public void administreGestor()
     {
         int opcionElegidaUsuario = 0;
-        String mensaje = ("Seleccione una opcion");//se debe agregar mas
+        String mensaje = ("Seleccione una opcion\n");//se debe agregar mas
+        //A: creo que la opción de ver tareas debería estar en dentro de administrar listas
         mensaje += ("Digite 1 si desea ver las tareas, Digite 2 si desea administrar las listas, Digite 3 si desea administrar los responsables\nDigite 4 si desea administar los recursos");
+        //A:agregué dígitos 5 y 6. Podemos discutirlos en la próxima reunión
+        mensaje += "Digite 5 si desea administrar sus categorías, Digite 6 para crear un filtro de tareas\n ";
         opcionElegidaUsuario = entrada.pedirNumeroRango(mensaje,4,1);
         switch (opcionElegidaUsuario)
         {
@@ -48,8 +55,28 @@ public class Gestor
 
     public void muestreTareas()
     {
-    }
+        String informe="";
+        //mostrar lista, luego tareas
+        for(int i=0;i<listas.size();i++){
+            informe+="("+i+") "+listas.get(i).nombre+"\n\n";
+            for(int t=0;t<listas.get(i).tareas.size();i++){
+                informe+= "\t"+t+". "+listas.get(i).tareas.get(t).nombre+"\n";
+            }
+            informe+="\n\n";
+        }
+        //Ejemplo:
+        //(1) Lista de compras
+        
+            //1. comprar queso
+            //2. comprar jabón
+            //3. comprar té
 
+        //(2) Semana 11
+        
+            //1. Entregar TP2
+            //2. Leer el capítulo 11
+    }
+    
     public void administreListas()
     {
 
@@ -114,10 +141,12 @@ public class Gestor
         }
 
     }
-
+    
+    //Porqué aquí y no en su clase
     public void editeCodigoResponsable(int posResp)
     {}
-
+    
+    //Creo que este sí debería estar aquí para facilitar la comunicación con las tareas
     public void modifiqueTareasAsignadas(int posResp)
     {}
 
@@ -131,7 +160,7 @@ public class Gestor
 
     public void eliminarResponsable()
     {
-
+        //listaResponsables.remove();  ?
     }
 
     public int pidaEleccionResponsable ()
@@ -194,19 +223,50 @@ public class Gestor
         {
             listaResponsables.get(i).muestreInformacion();
         }
-
+        //A: sería bueno crear dos métodos: uno muestra info detallada y otro la muestra resumida
     }
 
     public void modiqueHorasResponsable(Responsable respElegido)
     {
 
     }
-
+    
     public void administeRecursos()
     {
 
     }
+    
+    /**
+       OJO: a esto le falta mucho, terminar lo antes posible
+       */
+    public void administreLista(){
+        int opcionElegidaLista=0;
+        String mensaje ="¿Qué desea hacer?\n1. Nueva lista\n2. Nueva tarea en x lista\n3. Mostrar listas\n4.Mostrar tareas de x lista\n5.Borrar lista";
+        opcionElegidaLista=entrada.pedirNumeroRango(mensaje,4,1);
+        switch(opcionElegidaLista){
+            case 1: creeLista();break;
+            case 2:
+            //Inserte aquí método para escoger lista.
+            int indice = listas.indexOf("nombre");//deme el índice de esta lista: "nombre" y guárdelo en int indice
+            listas.get(indice).agregueTarea();//agregue una tarea en la lista que está en el índice "indice"
+            break;
+            case 3:
+            //inserte médoto muestreListas
+            break;
+            case 4:
+            break;
+        }
+    }
 
+    public void creeLista(){
+        Lista x = new Lista(2);
+        listas.add(x);
+    }
+    
+    public void seleccioneLista(){}
+    
+    public void muestreLista(){}
+    
     public static void main (String args[])
     {
         Gestor gestorListas = new Gestor();
@@ -222,5 +282,4 @@ public class Gestor
         }
         System.exit(0);
     }
-
 }
