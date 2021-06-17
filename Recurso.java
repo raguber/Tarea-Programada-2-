@@ -13,6 +13,9 @@ public class Recurso{
      *MODIFICADO: El constructor solicita un nombre
        */
       
+      //Nombre se deberia pedir en el mismo contructor
+      //Lo que 
+      
       //Aqui tambien podria hacerse desde el main, pedir datos para que se llenr,
       //Desde la clase es mucho mejor que desde el gestor, 
       //Desde el gestor se llenaria mucho de datos

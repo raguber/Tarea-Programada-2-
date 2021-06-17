@@ -15,6 +15,13 @@ public class Lista
         numeroLista = numLista;//Se usara un contador Momentaneamente desde el gestor, sin embargo podria ser aleatorio o dado por el usario
         //el ultimo seria problematico por razones de limite de digitos de los numeros, sin embargo util seria el tamaño del array como codigo de lista;
         //A: Mejor que el contador no sea aleatorio, sino que sea un contador normal.
+        
+        //Notar que no se puede tener un numLista fijo, pues podria agregarse una lista, con dos numerosIguales, por eso es
+        //mejor con numero tamaño, y que este sea variable
+        
+        //Entonces en realiadad no se necesita guardar un numero de lista. En cierta manera cada vez que se cargue se debe generar identificacion
+        //Y listas
+        
         //Revisar si arrayList deja espacios vacios o acomodo automaticamente los espacios vacios
         identificacion =" "; //Identificador podria ser el 3 letras del nombre mas un numero o un contador;
         descripcion = " ";
@@ -54,6 +61,9 @@ public class Lista
         //tareas.add(tarea);
         
         //A: constructor actual: Tarea x = new Tarea(ID,nombre,lista)
+        //Nombre debe hacerse en el propio contructor de el no tiene sentido pedirle datos que solo le sirven para guardarse en tareas
+        ///Tampoco necesita ni ,identificador, la idea de guardarlo como el tamaño del array es mucho mejor, en caso de agregar, eliminar entre otros.
+        
         //Tarea b = new Tarea(002,"Practicar piano","Música");
         //tareas.add(b);
         //El constructor tiene los atributos que consideré obligatorios para que una tarea exista. Los otros atributos son adicionales
@@ -62,7 +72,7 @@ public class Lista
 
     public static void main (String Args[])
     {
-        Lista lista1 = new Lista(0);//ver si esto funciona, cuando se pida otro numero de lista-
+        Lista lista1 = new Lista(0);
         lista1.genereNombre();
         lista1.genereIdentificacion();
         lista1.genereDescripcion();

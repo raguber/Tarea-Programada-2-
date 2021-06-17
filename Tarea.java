@@ -31,7 +31,7 @@ public class Tarea{
     /**
      * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
        */
-      
+      // nombre, e identificador, lista ***, responsable no lo veo 
       ///Ver que quiza sea buena idea asignar valores desde esta clase y no desde el gestor
       //Quiza el gestor sea mas conveniente tenerlo para que solo indique que se haga una tarea,
       //Se podria hacer un metodo main, que llame a los metodos para que llenen los datos.
@@ -71,6 +71,8 @@ public class Tarea{
        Solicita un responsable. Sirve para crear o para modificarlo.
        INCONCLUSO: No sé si hace falta un método en EntradaDatos para modificar responsable.
        */
+      
+      //Responsable debe ser un objeto, no un nombre. Se le debe pidar al usuario al usuario la seleccion de un responsable. mas no un nombre
     public String modifiqueResponsable(Responsable resp){
         String mensaje="Inserte el nuevo responsable: ";
         return"Se modificó el responsable de esta actividad: "+nombre;
@@ -170,4 +172,5 @@ public class Tarea{
     public String deListaPerteneciente(){
         return listaPerteneciente;
     }
+    //Agregar main, que pida nombre.
 }

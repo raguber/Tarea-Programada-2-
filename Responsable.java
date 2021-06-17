@@ -12,7 +12,7 @@ public class Responsable
     String nombre;
     String identificacion;//Nom +cod
     EntradaDatos entrada;
-    public Responsable(int codResp)
+    public Responsable(int codResp)//Lo mismo, se deberia cambiar, es poco importante ya que el usuario va a seleccionar un responsable
     {
         codigoResponsable = codResp;
         nombre = " ";
