@@ -269,6 +269,9 @@ public class Gestor
 
     //********Métodos de escritura y lectura*************
     
+ 
+    
+    //guardar toda una lista
     
     public static void main (String args[])
     {
