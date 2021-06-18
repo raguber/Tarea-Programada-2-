@@ -34,30 +34,52 @@ public class Gestor
 
     public void administreGestor()
     {
-        int opcionElegidaUsuario = 0;
-        String mensaje = ("Seleccione una opcion\n");//se debe agregar mas
-        //A: creo que la opción de ver tareas debería estar en dentro de administrar listas
-        mensaje += ("Digite 1 si desea ver las tareas de las listas, Digite 2 si desea administrar las listas\nDigite 3 Si desea agregar una lista,Digite 4 si desea eliminar una lista");
-        //A:agregué dígitos 5 y 6. Podemos discutirlos en la próxima reunión
-        mensaje += "Digite 5 si desea administrar sus categorías, Digite 6 para crear un filtro de tareas\n ";
-        opcionElegidaUsuario = entrada.pedirNumeroRango(mensaje,4,1);
-        switch (opcionElegidaUsuario)
+      //Hay que dejarle a la lista que modifique Tareas.
+        int opcionElegidaLista = 0;
+        String mensaje = "";
+          //En caso de que el usuario quiera ver una lista, y no existan listas, no podria salir ya que se pedira que guarde una lista, que no existe
+          //, entonces solo en caso de que listas tenga algo, se permitira determinadas opciones
+        if(listas == null)
         {
-            case 1:
-            muestreTareas();
-            break;
-            case 2:
-            administreListas();
-            break;
-            case 3:
-            hacerNuevaLista();
-            break;
-            case 4:
-            borreLista();
-            break;
-            default:
-        }
+            mensaje = ("No existen listas agregadas\n Digite 1, si desea crear una nueva lista, digite 2 si desea cargar una lista desde el disco duro, Digite 3 si desa Salir");
+            opcionElegidaLista=entrada.pedirNumeroRango(mensaje,3 ,1);
+            switch(opcionElegidaLista){
+                case 1: 
+                creeLista();
+                break;
+                case 2:
+                cargueLista();
+                break;
+                case 3:
+                salgaPrograma();
+                break;
+            }
 
+        }
+        else
+        {
+            mensaje =("¿Qué desea hacer?\n Digite 1  si desea crear una nueva lista, Digite 2 Mostrar listas\nDigite 3 si desea aministrar una lista, Digite 4 si desea borrar una lista\nDigite 5 si desea salir del gestor");
+
+            opcionElegidaLista=entrada.pedirNumeroRango(mensaje,5,1);
+          
+
+            switch(opcionElegidaLista){
+                case 1: 
+                creeLista();
+                break;
+                case 2:
+                muestreLista();
+                break;
+                case 3:
+                administreListaEspecifica();
+                break;
+                case 4:
+                borreLista();
+                case 5:
+                salgaDelGestor();
+                break;
+            }
+        }
     }
 
     //R: Se deberia analizar muestreTareas como mostrarInformacionTareas para X cantidad de tareas
@@ -204,52 +226,7 @@ public class Gestor
     OJO: a esto le falta mucho, terminar lo antes posible
      */
     public void administreListas(){
-        //Hay que dejarle a la lista que modifique Tareas.
-        int opcionElegidaLista = 0;
-        String mensaje = "";
-          //En caso de que el usuario quiera ver una lista, y no existan listas, no podria salir ya que se pedira que guarde una lista, que no existe
-          //, entonces solo en caso de que listas tenga algo, se permitira determinadas opciones
-        if(listas == null)
-        {
-            mensaje = ("No existen listas agregadas\n Digite 1, si desea crear una nueva lista, digite 2 si desea cargar una lista desde el disco duro, Digite 3 si desa Salir");
-            opcionElegidaLista=entrada.pedirNumeroRango(mensaje,3 ,1);
-            switch(opcionElegidaLista){
-                case 1: 
-                creeLista();
-                break;
-                case 2:
-                cargueLista();
-                break;
-                case 3:
-                salgaPrograma();
-                break;
-            }
-
-        }
-        else
-        {
-            mensaje =("¿Qué desea hacer?\n Digite 1  si desea crear una nueva lista, Digite 2 Mostrar listas\nDigite 3 si desea aministrar una lista, Digite 4 si desea borrar una lista\nDigite 5 si desea salir del gestor");
-
-            opcionElegidaLista=entrada.pedirNumeroRango(mensaje,5,1);
-          
-
-            switch(opcionElegidaLista){
-                case 1: 
-                creeLista();
-                break;
-                case 2:
-                muestreLista();
-                break;
-                case 3:
-                administreListaEspecifica();
-                break;
-                case 4:
-                borreLista();
-                case 5:
-                salgaDelGestor();
-                break;
-            }
-        }
+       
     }
 
     public void administreListaEspecifica()
