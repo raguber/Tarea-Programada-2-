@@ -1,10 +1,11 @@
+import java.io.Serializable;
 /**
  * Objetos que representan recursos
  *
  * @author Randy Agüero B90082 y Andrés Serrano C07483
  * @version 11/6/2021
  */
-public class Recurso{
+public class Recurso implements Serializable{
     String nombre;
     int cantidad;
     boolean reusable;

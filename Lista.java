@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 /**
  * Esta clase se definen tareas de las listas.
  * @author Randy Agüero B90082 y Andrés Serrano C07483
  */
-public class Lista
+public class Lista implements Serializable
 {
     //Cada lista tendra responsables taras y recursos.
     ArrayList<Responsable> listaResponsables;

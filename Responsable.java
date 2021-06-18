@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 /**
  * 
  *@author Randy Agüero B90082 y Andrés Serrano C07483
  */
-public class Responsable
+public class Responsable implements Serializable
 {
     int cantidadHorasDisponibles;
     int cantidadHorasDedicadas;
