@@ -6,46 +6,100 @@ import java.util.ArrayList;
 public class Lista
 {
     ArrayList<Responsable> listaResponsables;
-    
-    String nombre, identificacion, descripcion;
+
+    String nombreLista, identificacion, descripcion;
     ArrayList<Tarea> tareas;
     EntradaDatos entrada;
     int numeroLista;
     public Lista(int numLista)
     {
         listaResponsables = new ArrayList<Responsable>();
-        nombre = " ";
-        numeroLista = numLista;//Se usara un contador Momentaneamente desde el gestor, sin embargo podria ser aleatorio o dado por el usario
-        //el ultimo seria problematico por razones de limite de digitos de los numeros, sin embargo util seria el tamaño del array como codigo de lista;
-        //A: Mejor que el contador no sea aleatorio, sino que sea un contador normal.
-        
-        //Notar que no se puede tener un numLista fijo, pues podria agregarse una lista, con dos numerosIguales, por eso es
-        //mejor con numero tamaño, y que este sea variable
-        
-        //Entonces en realiadad no se necesita guardar un numero de lista. En cierta manera cada vez que se cargue se debe generar identificacion
-        //Y listas
-        
-        //Revisar si arrayList deja espacios vacios o acomodo automaticamente los espacios vacios
-        identificacion =" "; //Identificador podria ser el 3 letras del nombre mas un numero o un contador;
+        nombreLista = " ";
+        numeroLista = numLista;
+        numeroLista = 0;
+        identificacion =" "; 
         descripcion = " ";
         tareas = new ArrayList<Tarea>();
         entrada = new EntradaDatos();
     }
+
     public void administreLista()
     {}
+
+    public void administreResponsables()
+    {
+
+        int opcionElegida = 0;
+        String mensaje = "";
+        //Se deberia mostrar algo similar a
+        //Modificar Responsables
+        //Mostrar Responsables **Esto se podria hacer de una vez; sin necesidad de mostrar dos veces, 
+        //Para elegir un responsables**Por el momento mostrar dos veces parece ser lo mejor
+
+        //muestreInformacionResponsables();
+        //Ver no deberia ser una opcion porque ya se mostro informacion directa;
+        //No deberia porque agregar la opcion "ver responsable" pero no debe ser necesario
+        mensaje = ("Digite 1 si desea editar un responsable, Digite 2 si desea eliminar un responsable, Digite 3 si desea agregar un responsable");
+        opcionElegida = entrada.pedirNumeroRango(mensaje,3,1);
+
+        switch (opcionElegida)
+        {
+            case 1 :
+            editarResponsable();
+            break;
+            case 2 :
+           // eliminarResponsable();
+            break;
+            case 3 :
+           // agregarResponsable();
+
+        }
+    }
+        //Esto lo voy a enviar nuevamente en Responsables;
+    public void editarResponsable()
+    {
+        //Se va a maneja el editado de los responsables mediante el codigo asignado, seria buena idea asignarle un codigo
+        //Podria ser su posicion en la lista, mas esto significaria que es un codigo no permanente
+        //Entonces un codigo aleatorio podria ser una buena idea, sin embargo se tendria que verificar que los codigos de los resposnables no se repitan
+        String mensaje = "";
+        int eleccionEdicion;
+      //  int posicionResponsable = pidaEleccionResponsable();//No se ha modificado el metodo, entonces devuelve un codigo en vez de posicion en la lisa,
+        mensaje = ("Digite 1 si desea modificar el nombre, digite 2 si desea modificar el codigo,Digite 3 si desea modificar la cantidad de horas Dedicadas\nDigite 4 si desea modificar la tareas asignadas");
+        //Hay que analizar como se puede nombrar a todas las horas que se dedica una persona.
+        eleccionEdicion = entrada.pedirNumeroRango(mensaje,4,1);  
+        switch (eleccionEdicion)
+        {
+            case 1:
+            //listaResponsables.get(posicionResponsable).editeNombre();
+            break;
+            case 2:
+            //editeCodigoResponsable(posicionResponsable);
+            break;
+            case 3:
+            //listaResponsables.get(posicionResponsable).editeHorasDedicadas();
+            break;
+            case 4:
+            //modifiqueTareasAsignadas(posicionResponsable);
+            break;
+
+            default:
+        }
+
+    }
 
     public void genereNombre()
     {
         String mensaje = ""; //esta variable se le mostrara al usuario cuando se pida al usuario un dato
         mensaje = ("Digite el nombre de la tarea");
-        nombre = entrada.pedirTexto(mensaje);
+        nombreLista = entrada.pedirTexto(mensaje);
     }
 
     public void genereIdentificacion()
     {
         //se usara el nombre y numero de lista, para generar el identificador
-        identificacion = (numeroLista+nombre);
-     
+        //Se deberia acortar el tamaño de la identificacion, pero depende puede ser la identificacion el codifo de lista
+        identificacion = (numeroLista+nombreLista);
+
     }
 
     public void genereDescripcion()
@@ -54,25 +108,42 @@ public class Lista
         mensaje = ("Digite la descripcion de la tarea");
         descripcion = entrada.pedirTexto(mensaje);
     }
+
     public void agregueTarea()
     {
         //ver si se agrega desde gestor o desde Lista.
         //Por el momento se agregara desde lista, en caso de ser desde gestor,
         //entonces el gestor mandara una tarea al llamar el metodo, en ese caso solo se agregaria a la lista
         //Ahora si se desea hacer el gestor lo mas comprimido posible lo mejor es hacerlo desde aqui.
-        
+
         //Se deja como comentario porque se necesesita reparar tarea;
         //Tarea tarea ;// new Tarea();
         //tareas.add(tarea);
-        
+
         //A: constructor actual: Tarea x = new Tarea(ID,nombre,lista)
         //Nombre debe hacerse en el propio contructor de el no tiene sentido pedirle datos que solo le sirven para guardarse en tareas
         ///Tampoco necesita ni ,identificador, la idea de guardarlo como el tamaño del array es mucho mejor, en caso de agregar, eliminar entre otros.
-        
+
         //Tarea b = new Tarea(002,"Practicar piano","Música");
         //tareas.add(b);
         //El constructor tiene los atributos que consideré obligatorios para que una tarea exista. Los otros atributos son adicionales
-        
+
+    }
+    public int deCodigoLista()
+    {
+        return numeroLista;
+    }
+    public String deNombreLista()
+    {
+        return nombreLista;
+    }
+    public String deIndentifiacion()
+    {
+        return identificacion;
+    }
+    public String deDescripcion()
+    {
+        return descripcion;
     }
 
     public static void main (String Args[])

@@ -11,9 +11,7 @@ public class Gestor
 
     EntradaDatos entrada;
 
-
     GestorFecha gestorFechas = new GestorFecha();
-
     public Gestor()
     {
 
@@ -53,88 +51,62 @@ public class Gestor
         }
 
     }
-    
-    
-    // R: Se deberia mostrar mas informacion
 
+    //R: Se deberia analizar muestreTareas como mostrarInformacionTareas para X cantidad de tareas
+    //R: Se tiene la situacion de como adminstrar tareas, en teoria, podria pedirse la lista a modficar y luego tareas
+
+    //R: Creo que esto esta incompleto, lo anterior y  lo dejo como comentar
     public void muestreTareas()
     {
-        String informe="";
-        for(int i=0;i<listas.size();i++){
-            informe+="("+i+") "+listas.get(i).nombre+"\n\n";
-            for(int t=0;t<listas.get(i).tareas.size();i++){
-                informe+= "\t"+t+". "+listas.get(i).tareas.get(t).nombre+"\n";
-            }
-            informe+="\n\n";
+        boolean agregarMasListas = true;
+        //R: ArrayList no soporta valores si no objetos. 
+        ArrayList<Lista> listasSeleccionadas = new ArrayList<Lista>();
+        while(agregarMasListas)
+        {
+            int seleccionLista = seleccioneLista();
+            listasSeleccionadas.add(listas.get(seleccionLista));
+            agregarMasListas = pidaOpcionContinuarAgregarListas();
+
         }
+
+        //R: Se deberia pedir N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
+        //R: por eso se usa ArrayLista, notar que podria seguir, pidiendo tareas, entonces es prudente preguntar. Si quiere agregar mas o no.
+        String informe="";
+        for(int j=0;j<listasSeleccionadas.size();j++)
+        {
+            for(int i=0;i<listas.size();i++)//No necesariamente se sabe cual es la posicion ni el numero de codigo, se sabe que el numero de lista es la posicion en el array de listas.
+            {
+                if(listasSeleccionadas.get(j).deCodigoLista() == listas.get(i).deCodigoLista())
+                {
+                    informe+="("+i+") "+listas.get(i).nombreLista+"\n\n";
+                    for(int t=0;t<listas.get(i).tareas.size();i++){
+                        informe+= "\t"+t+". "+listas.get(i).tareas.get(t).nombre+"\n";
+                    }
+                    informe+="\n\n";
+                }
+            }
+        }
+        //R: se deberia mostrar con un print desde aqui informe,
 
     }
 
-    //Borrar esto
+    public boolean pidaOpcionContinuarAgregarListas()
+    {
+        boolean continuarAgregandoListas = true;
+        int seleccionUsuario = 0;
+        String mensaje = ("Digite 1 si desea continuar agregando Listas, Digite 2 si no desea continuar agregando Listas");
+        seleccionUsuario = entrada.pedirNumeroRango(mensaje,2,1);
+        if(seleccionUsuario == 2)
+        {
+            continuarAgregandoListas = false;
+        }
+        return continuarAgregandoListas;
+    }
+
     public void administreResponsables()
     {
-        int posListaElegida = seleccioneLista();
-        int opcionElegida = 0;
-        String mensaje = "";
-        //Se deberia mostrar algo similar a
-        //Modificar Responsables
-        //Mostrar Responsables **Esto se podria hacer de una vez; sin necesidad de mostrar dos veces, 
-        //Para elegir un responsables**Por el momento mostrar dos veces parece ser lo mejor
 
-        muestreInformacionResponsables();
-        //Ver no deberia ser una opcion porque ya se mostro informacion directa;
-        //No deberia porque agregar la opcion "ver responsable" pero no debe ser necesario
-        mensaje = ("Digite 1 si desea editar un responsable, Digite 2 si desea eliminar un responsable, Digite 3 si desea agregar un responsable");
-        opcionElegida = entrada.pedirNumeroRango(mensaje,3,1);
-
-        switch (opcionElegida)
-        {
-            case 1 :
-            // editarResponsable();
-            break;
-            case 2 :
-            eliminarResponsable();
-            break;
-            case 3 :
-            agregarResponsable();
-
-        }
     }
-
-    // public void editarResponsable()
-    // {
-    // //Se va a maneja el editado de los responsables mediante el codigo asignado, seria buena idea asignarle un codigo
-    // //Podria ser su posicion en la lista, mas esto significaria que es un codigo no permanente
-    // //Entonces un codigo aleatorio podria ser una buena idea, sin embargo se tendria que verificar que los codigos de los resposnables no se repitan
-    // String mensaje = "";
-    // int eleccionEdicion;
-    // int posicionResponsable = pidaEleccionResponsable();//No se ha modificado el metodo, entonces devuelve un codigo en vez de posicion en la lisa,
-    // mensaje = ("Digite 1 si desea modificar el nombre, digite 2 si desea modificar el codigo,Digite 3 si desea modificar la cantidad de horas Dedicadas\nDigite 4 si desea modificar la tareas asignadas");
-    // //Hay que analizar como se puede nombrar a todas las horas que se dedica una persona.
-    // eleccionEdicion = entrada.pedirNumeroRango(mensaje,4,1);  
-    // switch (eleccionEdicion)
-    // {
-    // case 1:
-    // //listaResponsables.get(posicionResponsable).editeNombre();
-    // break;
-    // case 2:
-    // editeCodigoResponsable(posicionResponsable);
-    // break;
-    // case 3:
-    // //listaResponsables.get(posicionResponsable).editeHorasDedicadas();
-    // break;
-    // case 4:
-    // modifiqueTareasAsignadas(posicionResponsable);
-    // break;
-
-    // default:
-    // }
-
-    // }
-
-    //Porqué aquí y no en su clase
-    public void editeCodigoResponsable(int posResp)
-    {}
 
     //Creo que este sí debería estar aquí para facilitar la comunicación con las tareas
     public void modifiqueTareasAsignadas(int posResp)
@@ -246,7 +218,7 @@ public class Gestor
             administreListaEspecifica();
             break;
             case 4:
-             borreLista();
+            borreLista();
             break;
         }
     }
@@ -261,6 +233,7 @@ public class Gestor
         Lista nuevaLista = new Lista(listas.size());
         listas.add(nuevaLista);
     }
+
     public void borreLista()
     {
         //Tomar en cuenta que se debe cambiar todos los codigos de lista.
