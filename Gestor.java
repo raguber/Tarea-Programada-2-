@@ -10,7 +10,11 @@ public class Gestor
     ArrayList<Lista> listas;
 
     EntradaDatos entrada;
+
     GestorFecha gestorFechas = new GestorFecha();
+
+
+    //A: eliminado el arraylist de tareas
 
     public Gestor()
     {
@@ -58,7 +62,6 @@ public class Gestor
     public void muestreTareas()
     {
         String informe="";
-        //mostrar lista, luego tareas
         for(int i=0;i<listas.size();i++){
             informe+="("+i+") "+listas.get(i).nombre+"\n\n";
             for(int t=0;t<listas.get(i).tareas.size();i++){
@@ -66,6 +69,7 @@ public class Gestor
             }
             informe+="\n\n";
         }
+<<<<<<< HEAD
         //Ejemplo:
         //(1) Lista de compras
 
@@ -74,6 +78,12 @@ public class Gestor
         //3. comprar té
 
         //(2) Semana 11
+=======
+    }
+    
+    public void administreListas()
+    {
+>>>>>>> 19a56958df937952898d46cb7bd78c5bfcb7444b
 
         //1. Entregar TP2
         //2. Leer el capítulo 11
