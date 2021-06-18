@@ -5,15 +5,18 @@ import java.util.ArrayList;
  */
 public class Lista
 {
+    //Cada lista tendra responsables taras y recursos.
     ArrayList<Responsable> listaResponsables;
 
     String nombreLista, identificacion, descripcion;
     ArrayList<Tarea> tareas;
     EntradaDatos entrada;
     int numeroLista;
+    String directorio;
     public Lista(int numLista)
     {
         listaResponsables = new ArrayList<Responsable>();
+        String directorio = "";
         nombreLista = " ";
         numeroLista = numLista;
         numeroLista = 0;
@@ -144,6 +147,15 @@ public class Lista
     public String deDescripcion()
     {
         return descripcion;
+    }
+    public boolean directorioGuardado()
+    {
+        boolean directorioGuardado = true;
+        if(directorio.equals(null)==true)
+        {
+            directorioGuardado = false;
+        }
+        return directorioGuardado;
     }
 
     public static void main (String Args[])

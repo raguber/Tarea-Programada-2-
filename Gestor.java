@@ -14,22 +14,16 @@ public class Gestor
     GestorFecha gestorFechas = new GestorFecha();
     public Gestor()
     {
-
         listas = new ArrayList<Lista>();
         entrada = new EntradaDatos();
     }
-    //********************************************************
-    // Metodos sobre Responsables.
-    //********************************************************
-    //Esto apareceria si el usuario decide modificar Horas de los Responsables, esto mediante menu;
-    //Este metodo podria pedir quien es el responsable, o que se ingrese un parametro de tipo responsable
-    //Temporalmente se usara la segunda opcion
+
     public void administreGestor()
     {
         int opcionElegidaUsuario = 0;
         String mensaje = ("Seleccione una opcion\n");//se debe agregar mas
         //A: creo que la opción de ver tareas debería estar en dentro de administrar listas
-        mensaje += ("Digite 1 si desea ver las tareas, Digite 2 si desea administrar las listas, Digite 3 si desea administrar los responsables\nDigite 4 si desea administar los recursos");
+        mensaje += ("Digite 1 si desea ver las tareas de las listas, Digite 2 si desea administrar las listas\nDigite 3 Si desea agregar una lista,Digite 4 si desea eliminar una lista");
         //A:agregué dígitos 5 y 6. Podemos discutirlos en la próxima reunión
         mensaje += "Digite 5 si desea administrar sus categorías, Digite 6 para crear un filtro de tareas\n ";
         opcionElegidaUsuario = entrada.pedirNumeroRango(mensaje,4,1);
@@ -42,10 +36,10 @@ public class Gestor
             administreListas();
             break;
             case 3:
-            administreResponsables();
+            hacerNuevaLista();
             break;
             case 4:
-            administeRecursos();
+            borreLista();
             break;
             default:
         }
@@ -55,11 +49,10 @@ public class Gestor
     //R: Se deberia analizar muestreTareas como mostrarInformacionTareas para X cantidad de tareas
     //R: Se tiene la situacion de como adminstrar tareas, en teoria, podria pedirse la lista a modficar y luego tareas
 
-    //R: Creo que esto esta incompleto, lo anterior y  lo dejo como comentar
     public void muestreTareas()
     {
         boolean agregarMasListas = true;
-        //R: ArrayList no soporta valores si no objetos. 
+        //R: ArrayList no soporta valores si no objetos, por eso mejor pedi tipo lista. 
         ArrayList<Lista> listasSeleccionadas = new ArrayList<Lista>();
         while(agregarMasListas)
         {
@@ -78,6 +71,7 @@ public class Gestor
             {
                 if(listasSeleccionadas.get(j).deCodigoLista() == listas.get(i).deCodigoLista())
                 {
+                    //R: creo que se deberia mostrar un poco mas de info
                     informe+="("+i+") "+listas.get(i).nombreLista+"\n\n";
                     for(int t=0;t<listas.get(i).tareas.size();i++){
                         informe+= "\t"+t+". "+listas.get(i).tareas.get(t).nombre+"\n";
@@ -188,15 +182,9 @@ public class Gestor
         // //A: sería bueno crear dos métodos: uno muestra info detallada y otro la muestra resumida
     }
 
-    public void modiqueHorasResponsable(Responsable respElegido)
-    {
+  
 
-    }
 
-    public void administeRecursos()
-    {
-
-    }
 
     /**
     OJO: a esto le falta mucho, terminar lo antes posible
@@ -204,22 +192,49 @@ public class Gestor
     public void administreListas(){
         //Hay que dejarle a la lista que modifique Tareas.
         int opcionElegidaLista = 0;
-        String mensaje =("¿Qué desea hacer?\n Digite 1  si desea crear una nueva lista, Digite 2 Mostrar listas\nDigite 3 si desea aministrar una lista, Digite 4 si desea borrar una lista");
+        String mensaje = "";
+          //En caso de que el usuario quiera ver una lista, y no existan listas, no podria salir ya que se pedira que guarde una lista, que no existe
+          //, entonces solo en caso de que listas tenga algo, se permitira determinadas opciones
+        if(listas == null)
+        {
+            mensaje = ("No existen listas agregadas\n Digite 1, si desea crear una nueva lista, digite 2 si desea cargar una lista desde el disco duro, Digite 3 si desa Salir");
+            opcionElegidaLista=entrada.pedirNumeroRango(mensaje,3 ,1);
+            switch(opcionElegidaLista){
+                case 1: 
+                creeLista();
+                break;
+                case 2:
+                cargueLista();
+                break;
+                case 3:
+                salgaPrograma();
+                break;
+            }
 
-        opcionElegidaLista=entrada.pedirNumeroRango(mensaje,4,1);
-        switch(opcionElegidaLista){
-            case 1: 
-            creeLista();
-            break;
-            case 2:
-            muestreLista();
-            break;
-            case 3:
-            administreListaEspecifica();
-            break;
-            case 4:
-            borreLista();
-            break;
+        }
+        else
+        {
+            mensaje =("¿Qué desea hacer?\n Digite 1  si desea crear una nueva lista, Digite 2 Mostrar listas\nDigite 3 si desea aministrar una lista, Digite 4 si desea borrar una lista\nDigite 5 si desea salir del gestor");
+
+            opcionElegidaLista=entrada.pedirNumeroRango(mensaje,5,1);
+          
+
+            switch(opcionElegidaLista){
+                case 1: 
+                creeLista();
+                break;
+                case 2:
+                muestreLista();
+                break;
+                case 3:
+                administreListaEspecifica();
+                break;
+                case 4:
+                borreLista();
+                case 5:
+                salgaDelGestor();
+                break;
+            }
         }
     }
 
@@ -232,6 +247,8 @@ public class Gestor
     public void creeLista(){
         Lista nuevaLista = new Lista(listas.size());
         listas.add(nuevaLista);
+        //Notar que cada vez que listas se agrega, se debe guardar en un archivo
+
     }
 
     public void borreLista()
@@ -252,6 +269,19 @@ public class Gestor
     }
 
     public void muestreLista(){}
+    //Agregado metodo cargueLista
+    public void hacerNuevaLista()
+    {}
+    public void cargueLista()
+    {
+    
+    }
+    public void salgaDelGestor()
+    {}
+    public void salgaPrograma()
+    {
+        System.exit(0);
+    }
 
     public static void main (String args[])
     {
