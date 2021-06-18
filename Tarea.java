@@ -35,16 +35,7 @@ public class Tarea{
       //Ya que las listas tienen tareas, No solo el gesto
       //Por supuesto solo es una idea.
       
-<<<<<<< HEAD
-    public Tarea(int ID){
-        nombre = "";
-        completada = false;
-        descripcion = "";
-        listaPerteneciente = "";
-        id=ID;//id debería actuar como un contador de tareas. Si se crean 5 tareas, id=001,002,003,004,005 por ejemplo.
-        //Si esto se aprueba, quedaría por discutir si es un contador de tareas totales o de tareas de cada lista o de cada categoría
-        //También qué paso con el id cuando se borra y/o termina una tarea
-=======
+
     public Tarea(int ID,String pertenencia){
         id=ID;
         dinero=0; horas=0;
@@ -54,10 +45,6 @@ public class Tarea{
         descripcion="";
         fechaInicio="";
         fechaFin="";//estimación de horas semanales de esta tarea
->>>>>>> 19a56958df937952898d46cb7bd78c5bfcb7444b
-        recursos = new ArrayList<Recurso>();
-        dependencias = new ArrayList<Tarea>();
-        entrada = new EntradaDatos();
     }
     //Agregar metodo para que asigne responsable
     
@@ -208,7 +195,7 @@ public class Tarea{
     }
     public static void main(String args[])
     {
-        Tarea tarea1 = new Tarea(0);
+        Tarea tarea1 = new Tarea(0, "Vacio");
          
     }
 
