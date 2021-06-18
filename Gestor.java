@@ -1,4 +1,12 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 /**
  * Estudiantes:
  *  Randy Jossue Aguero Bermudez Carne B90082
@@ -6,7 +14,13 @@ import java.util.ArrayList;
  */
 public class Gestor
 {
-
+    File file;
+    FileInputStream fis;
+    ObjectInputStream lector;
+    FileOutputStream fos;
+    ObjectOutputStream escritor;
+    JFileChooser chooser;
+    
     ArrayList<Lista> listas;
 
     EntradaDatos entrada;
@@ -253,6 +267,9 @@ public class Gestor
 
     public void muestreLista(){}
 
+    //********Métodos de escritura y lectura*************
+    
+    
     public static void main (String args[])
     {
         Gestor gestorListas = new Gestor();

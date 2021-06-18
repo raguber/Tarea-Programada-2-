@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 /**
  * Write a description of class Tareas here.
  *
  * @author Randy Agüero B90082 y Andrés Serrano C07483
  * @version 11-6-2021
  */
-public class Tarea{
+public class Tarea implements Serializable{
     //cada tarea, deberia tener un atibuto con el nombre de la lista a la cual pertenece, mas que todo es util cuando se muestren todas las tareas
         //R/Ok
     //O tareas asignadas a determinado responsable (cuando se muestra la informacion de un responsable)
