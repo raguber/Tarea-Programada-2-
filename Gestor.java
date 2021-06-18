@@ -8,14 +8,12 @@ public class Gestor
 {
     ArrayList<Responsable> listaResponsables;
     ArrayList<Lista> listas;
-    ArrayList<Tarea> tareas;
     EntradaDatos entrada;
-
+    //A: eliminado el arraylist de tareas
     public Gestor()
     {
         listaResponsables = new ArrayList<Responsable>();
         listas = new ArrayList<Lista>();
-        tareas = new ArrayList<Tarea>();
         entrada = new EntradaDatos();
     }
     //********************************************************
@@ -56,7 +54,6 @@ public class Gestor
     public void muestreTareas()
     {
         String informe="";
-        //mostrar lista, luego tareas
         for(int i=0;i<listas.size();i++){
             informe+="("+i+") "+listas.get(i).nombre+"\n\n";
             for(int t=0;t<listas.get(i).tareas.size();i++){
@@ -64,17 +61,6 @@ public class Gestor
             }
             informe+="\n\n";
         }
-        //Ejemplo:
-        //(1) Lista de compras
-        
-            //1. comprar queso
-            //2. comprar jabón
-            //3. comprar té
-
-        //(2) Semana 11
-        
-            //1. Entregar TP2
-            //2. Leer el capítulo 11
     }
     
     public void administreListas()
