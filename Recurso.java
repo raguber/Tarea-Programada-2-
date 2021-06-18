@@ -20,8 +20,8 @@ public class Recurso{
       //Desde la clase es mucho mejor que desde el gestor, 
       //Desde el gestor se llenaria mucho de datos
       //Ver como lo hice en Lista
-    public Recurso(String nom){
-        nombre=nom;
+    public Recurso(){
+        nombre = genereNombre();
         cantidad=0;
         reusable=false;
     }
@@ -29,6 +29,14 @@ public class Recurso{
     public void modifiqueNombre(){
         String mensaje="Inserte el nuevo nombre de este recurso: ";
         nombre=entrada.pedirTexto(mensaje);
+    }
+    public String genereNombre()
+    {
+        String nom ="";
+        String mensaje =("Digite el nombre del recurso");
+        nom = entrada.pedirTexto(mensaje);
+        
+        return nom;
     }
     
     public void hagaReusable(){

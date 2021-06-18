@@ -115,10 +115,9 @@ public class Responsable
 
     public static void main (String args[])
     {
-        Responsable responsable1 = new Responsable(0);
-        responsable1.genereNombre();
-        responsable1.genereIdentificacion();
-        responsable1.genereCantidadHorasDedicadas();
+        EntradaDatos entrada = new EntradaDatos();
+        int num = entrada.pedirNumero("num",1);
+        Responsable responsable1 = new Responsable(num);
 
     }
 }

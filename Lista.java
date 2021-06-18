@@ -5,12 +5,15 @@ import java.util.ArrayList;
  */
 public class Lista
 {
+    ArrayList<Responsable> listaResponsables;
+    
     String nombre, identificacion, descripcion;
     ArrayList<Tarea> tareas;
     EntradaDatos entrada;
     int numeroLista;
     public Lista(int numLista)
     {
+        listaResponsables = new ArrayList<Responsable>();
         nombre = " ";
         numeroLista = numLista;//Se usara un contador Momentaneamente desde el gestor, sin embargo podria ser aleatorio o dado por el usario
         //el ultimo seria problematico por razones de limite de digitos de los numeros, sin embargo util seria el tamaño del array como codigo de lista;
@@ -28,6 +31,8 @@ public class Lista
         tareas = new ArrayList<Tarea>();
         entrada = new EntradaDatos();
     }
+    public void administreLista()
+    {}
 
     public void genereNombre()
     {

@@ -41,11 +41,11 @@ public class Tarea{
       //Ya que las listas tienen tareas, No solo el gesto
       //Por supuesto solo es una idea.
       
-    public Tarea(int ID,String nom,String lista){
-        nombre = nom;
+    public Tarea(int ID){
+        nombre = "";
         completada = false;
         descripcion = "";
-        listaPerteneciente=lista;
+        listaPerteneciente = "";
         id=ID;//id debería actuar como un contador de tareas. Si se crean 5 tareas, id=001,002,003,004,005 por ejemplo.
         //Si esto se aprueba, quedaría por discutir si es un contador de tareas totales o de tareas de cada lista o de cada categoría
         //También qué paso con el id cuando se borra y/o termina una tarea
@@ -172,5 +172,10 @@ public class Tarea{
     public String deListaPerteneciente(){
         return listaPerteneciente;
     }
-    //Agregar main, que pida nombre.
+    public static void main(String args[])
+    {
+        Tarea tarea1 = new Tarea(0);
+         
+    }
+
 }
