@@ -7,22 +7,20 @@ import java.io.Serializable;
  * @version 11-6-2021
  */
 public class Tarea implements Serializable{
-    //cada tarea, deberia tener un atibuto con el nombre de la lista a la cual pertenece, mas que todo es util cuando se muestren todas las tareas
-        //R/Ok
-    //O tareas asignadas a determinado responsable (cuando se muestra la informacion de un responsable)
-        //R/mejor en clase Responsable
-    //Indirectamente, si el nombre de las listas, u otras cosas se modifican (deberia de poderse) se deberia actualizar la informacion
-    //Esto indica que hay que hacer un metodo que cambie el nombre de listaPerteneciente;
-        //R/Ok    
+       
     String listaPerteneciente;
     int id,dinero,horas;
     boolean completada,estimoDinero,estimoHoras;
     String nombre,descripcion,fechaInicio,fechaFin;
+    GestorFecha gestorFechas;
     Responsable responsable;
+    
+    //Solo para Tarea Proxy
+    ArrayList<Responsable> listaResponsables;
     EntradaDatos entrada;
     ArrayList <Recurso> recursos;//recursos que tiene la tarea
-    ArrayList <Tarea> dependencias;//contiene las tareas de las que esta tarea depende. Para completar esta tarea, todas las tareas que
-    //están en el ArrayList deben estar completadas
+    ArrayList <Tarea> dependencias;
+    
     /**
      * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
        */
@@ -36,15 +34,17 @@ public class Tarea implements Serializable{
       //Ya que las listas tienen tareas, No solo el gesto
       //Por supuesto solo es una idea.
       
-
-    public Tarea(int ID,String pertenencia){
+    //Pertenecia se modifica, mejor desde un metodo.
+    public Tarea(int ID){
         id=ID;
         dinero=0; horas=0;
-        listaPerteneciente=pertenencia;
+        dependencias = new ArrayList<Tarea>();
         completada = false; estimoDinero=false; estimoHoras=false;
         responsable=null;
         descripcion="";
-        fechaInicio="";
+        listaResponsables = new ArrayList<Responsable>();
+        gestorFechas = new GestorFecha();
+        fechaInicio = genereFechaInicio();
         fechaFin="";//estimación de horas semanales de esta tarea
     }
     //Agregar metodo para que asigne responsable
@@ -60,10 +60,18 @@ public class Tarea implements Serializable{
         descripcion=entrada.pedirTexto(mensaje);
         System.out.println("Se modificó la descripción de esta actividad: "+nombre);
     }
+    public String genereFechaInicio ()
+    {
+        String fecha = "";
+        return fecha;
+        
+    }
     
     public void genereResponsable(Responsable resp){
         String mensaje="Inserte el nuevo responsable: ";
+        
         responsable = resp;
+        
     }
     
     /**
@@ -196,7 +204,7 @@ public class Tarea implements Serializable{
     }
     public static void main(String args[])
     {
-        Tarea tarea1 = new Tarea(0, "Vacio");
+        Tarea tarea1 = new Tarea(0);
          
     }
 

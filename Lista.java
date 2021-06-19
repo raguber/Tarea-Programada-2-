@@ -10,7 +10,7 @@ public class Lista implements Serializable
     ArrayList<Responsable> listaResponsables;
     ArrayList<Recurso> listaRecursos;
     String nombreLista, identificacion, descripcion;
-    ArrayList<Tarea> tareas;
+    ArrayList<Tarea> listaTareas;
     EntradaDatos entrada;
     String categoriaLista;
     int numeroLista;
@@ -24,7 +24,7 @@ public class Lista implements Serializable
         numeroLista = numLista;
         identificacion =" "; 
         descripcion = " ";
-        tareas = new ArrayList<Tarea>();
+        listaTareas = new ArrayList<Tarea>();
         entrada = new EntradaDatos();
         genereNombre();//A: solo metí este 
         categoriaLista = "";
@@ -142,6 +142,7 @@ public class Lista implements Serializable
         mostrarInfo += ("Categoria: "+categoriaLista+" Nombre de la lista "+nombreLista+" Identificacion: "+identificacion+"\n");
         mostrarInfo += (deInfoMinResponsables());
         mostrarInfo += (deInfoMinRecursos());
+        mostrarInfo += (deInfoMinTareas());
         
         System.out.println(mostrarInfo);
     }
@@ -159,9 +160,19 @@ public class Lista implements Serializable
         String infoRecursos = "";
         for(int i=0;i<listaRecursos.size();i++)
         {
-            infoRecursos += ("\t Nombre Recurso : "+listaRecursos.get(i).deNombre()+" Identificacion Recurso "+listaRecursos.get(i).deIdentificacion());
+            infoRecursos += ("\t Nombre Recurso : "+listaRecursos.get(i).deNombre()+" Identificacion Recurso "+listaRecursos.get(i).deIdentificacion()+"\n");
+            infoRecursos += ("\t Cantidad disponibles de "+listaRecursos.get(i).deNombre());
         }
         return infoRecursos;
+    }
+    public String deInfoMinTareas()
+    {
+        String infoTareas ="";
+        for(int i=0;i<listaTareas.size();i++)
+        {
+            infoTareas += ("\t Nombre Tarea :"+listaTareas.get(i).deNombre()+" Identificacion Tarea  
+        }
+        return infoTareas;
     }
     
     public String deCategoria()

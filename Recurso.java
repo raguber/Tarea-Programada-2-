@@ -63,7 +63,7 @@ public class Recurso implements Serializable{
      * Aumenta la cantidad de este recurso
      */
     public void mas(){
-        String mensaje="Inserte un número para aumentar la cantidad";
+        String mensaje="Inserte un número para aumentar la cantidad del recurso "+nombre;
         cantidad+=entrada.pedirNumero(mensaje,1);
     }
     public String deIdentificacion()
@@ -72,8 +72,12 @@ public class Recurso implements Serializable{
     }
     public String deNombre()
     {
-    
+
         return nombre;
+    }
+    public int deCantidad()
+    {
+        return cantidad;
     }
     
     /**
