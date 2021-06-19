@@ -12,6 +12,7 @@ public class Lista implements Serializable
     String nombreLista, identificacion, descripcion;
     ArrayList<Tarea> tareas;
     EntradaDatos entrada;
+    String categoriaLista;
     int numeroLista;
     String directorio;
     public Lista(int numLista)
@@ -20,12 +21,12 @@ public class Lista implements Serializable
         String directorio = "";
         nombreLista = " ";
         numeroLista = numLista;
-        numeroLista = 0;
         identificacion =" "; 
         descripcion = " ";
         tareas = new ArrayList<Tarea>();
         entrada = new EntradaDatos();
         genereNombre();//A: solo metí este 
+        categoriaLista = "";
     }
 
     public void administreLista()
@@ -133,6 +134,11 @@ public class Lista implements Serializable
         //tareas.add(b);
         //El constructor tiene los atributos que consideré obligatorios para que una tarea exista. Los otros atributos son adicionales
 
+    }
+    
+    public String deCategoria()
+    {
+        return categoriaLista;
     }
     public int deCodigoLista()
     {
