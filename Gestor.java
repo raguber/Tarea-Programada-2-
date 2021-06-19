@@ -29,7 +29,7 @@ public class Gestor
     BufferedWriter buwr;
     //A: agregué un método para cerrar todo esto, se llama cierreTodo(). Iba a meterlo inicialmente en cierrePrograma pero decídí dejarlo
     //fuera, dígame usted si aprueba meterlo en cierrePrograma
-    
+
     JFileChooser chooser;
     ArrayList<String> categoriasListas;
     ArrayList<Lista> listas;
