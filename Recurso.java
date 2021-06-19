@@ -9,22 +9,15 @@ public class Recurso implements Serializable{
     String nombre;
     int cantidad;
     boolean reusable;
+    String identificacion;
     EntradaDatos entrada; 
-    /**
-     *MODIFICADO: El constructor solicita un nombre
-       */
-      
-      //Nombre se deberia pedir en el mismo contructor
-      //Lo que 
-      
-      //Aqui tambien podria hacerse desde el main, pedir datos para que se llenr,
-      //Desde la clase es mucho mejor que desde el gestor, 
-      //Desde el gestor se llenaria mucho de datos
-      //Ver como lo hice en Lista
-    public Recurso(){
+    int codigoRecurso;
+    public Recurso(int codR){
         nombre = genereNombre();
-        cantidad=0;
+        cantidad= genereCantidadRecurso();
         reusable=false;
+        codigoRecurso = codR;
+        String indentificacion = genereIdentificacion();
     }
     
     public void modifiqueNombre(){
@@ -38,6 +31,24 @@ public class Recurso implements Serializable{
         nom = entrada.pedirTexto(mensaje);
         
         return nom;
+    }
+    public int genereCantidadRecurso()
+    {
+        int cantRecurso= 0;
+        String mensaje =("Digite la cantidad de elementos que existen de "+nombre);
+        cantRecurso = entrada.pedirNumero(mensaje,1);
+        return cantRecurso;
+    }
+    public String genereIdentificacion()
+    {
+        String id = nombre+codigoRecurso;
+        return id;
+    }
+    public void modifiqueCodigoRecurso(int cod)
+    {
+        codigoRecurso = cod;
+        genereIdentificacion();
+        
     }
     
     public void hagaReusable(){
@@ -54,6 +65,15 @@ public class Recurso implements Serializable{
     public void mas(){
         String mensaje="Inserte un número para aumentar la cantidad";
         cantidad+=entrada.pedirNumero(mensaje,1);
+    }
+    public String deIdentificacion()
+    {
+        return identificacion;
+    }
+    public String deNombre()
+    {
+    
+        return nombre;
     }
     
     /**

@@ -47,14 +47,16 @@ public class Responsable implements Serializable
         //tarea.add(tareaAsignada);
     }
     public void editeNombre()
-    {}
+    {
+        genereIdentificacion();
+    }
     public void editeHorasDedicadas()
     {
     }
-    public void editeCodigo()
+    public void editeCodigo(int numCodigo)
     {
-     //Si se edita el codigo es necesario que no se repita, entoncse, hay que solucionar eso, posiblemente es mejor hacerlo
-     //Desde gestor
+     codigoResponsable = numCodigo;
+     genereIdentificacion();
     }
 
     public boolean verifiqueResponsableDesocupado(int cantNuevHoras)
@@ -112,6 +114,14 @@ public class Responsable implements Serializable
     public void cambieCantidadHorasDedicadas(int nuevHoras)
     {
         
+    }
+    public String deNombre()
+    {
+        return nombre;
+    }
+    public String deIdentificacion()
+    {
+        return identificacion;
     }
 
     public static void main (String args[])

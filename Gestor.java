@@ -31,7 +31,7 @@ public class Gestor
         listas = new ArrayList<Lista>();
         entrada = new EntradaDatos();
         categoriasListas = new ArrayList<String>();
-        
+
     }
 
     public void administreGestor()
@@ -92,6 +92,7 @@ public class Gestor
     {
         boolean continuarAgregandoCategorias;
         boolean agregarMasListas = true;
+        String categoria = "";
         //R: ArrayList no soporta valores si no objetos, por eso mejor pedi tipo lista. 
         ArrayList<Lista> listasSeleccionadas = new ArrayList<Lista>();
         continuarAgregandoCategorias = pregunteSiImportaCategoria();
@@ -102,7 +103,7 @@ public class Gestor
             {
                 if(listasSeleccionadas.size()<listas.size())
                 {
-    
+                    categoria = seleccioneCategoria();
                 }
                 else
                 {
@@ -112,7 +113,16 @@ public class Gestor
             }
             while(agregarMasListas)
             {
-                int seleccionLista = seleccioneLista(continuarAgregandoCategorias,"cat");
+                if(continuarAgregandoCategorias == true)
+                {
+                    int listaSeleccionada = seleccioneListaCategorias(categoria);
+                }
+                else
+                {
+                    int listaSeleccionada = seleccioneLista();
+                }
+
+                int seleccionLista = 0;
                 if(verifiqueSiTareaSeleccionada(listas.get(seleccionLista),listasSeleccionadas )== false)
                 {
                     listasSeleccionadas.add(listas.get(seleccionLista));
@@ -128,10 +138,8 @@ public class Gestor
                     continuarAgregandoCategorias =  false;
                 }
             }
-
-            
+            continuarAgregandoCategorias = pregunteSiContinuarFiltrandoCategorias();
         }
-
         //R: Se deberia pedir N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
         //R: por eso se usa ArrayLista, notar que podria seguir, pidiendo tareas, entonces es prudente preguntar. Si quiere agregar mas o no.
         String informe="";
@@ -153,9 +161,47 @@ public class Gestor
         //R: se deberia mostrar con un print desde aqui informe,
         listasSeleccionadas = null;
     }
+
     public void llameMuestreLista()
     {
-    
+
+    }
+
+    public boolean pregunteSiContinuarFiltrandoCategorias()
+    {
+        boolean filtrarCategorias = false;
+
+        String  mensaje =("Digite 1 si desea seguir filtrando la seleccion de listas por categorias, Digite 2 si no desea seguir filtrando la seleccion de listas por categorias");
+        int seleccionUsuario = entrada.pedirNumeroRango(mensaje,2,1);
+        if(seleccionUsuario == 1)
+        {
+            filtrarCategorias = true;
+        }
+
+        return filtrarCategorias;
+    }
+
+    public String seleccioneCategoria()
+    {
+        String categoriaSeleccionada = "";
+        String mensaje = "";
+        int posicionCategoriaSeleccionada = 0;
+
+        mostrarCategoriasListas();
+        mensaje = ("Digite el numero de la categoria que desea seleccionar, debe ser un numero entre 1 y "+categoriasListas.size());
+        posicionCategoriaSeleccionada = entrada.pedirNumeroRango(mensaje,categoriasListas.size(),1);
+
+        categoriaSeleccionada = categoriasListas.get(posicionCategoriaSeleccionada-1);
+        return categoriaSeleccionada;
+    }
+
+    public void mostrarCategoriasListas()
+    {
+        System.out.println("Se mostraran las categorias de listas");
+        for(int i=0;i<categoriasListas.size();i++)
+        {
+            System.out.println("Categoria: "+(i+1)+" "+categoriasListas.get(i));
+        }
     }
 
     public boolean verifiqueSiTareaSeleccionada(Lista list, ArrayList<Lista> listSel)
@@ -189,10 +235,10 @@ public class Gestor
     {
         boolean importaCategoria = pregunteSiImportaCategoria();
         String categoria;
-        
+
         if(importaCategoria == true)
         {
-            
+
         }
         int posListaElegida = 1;
         listas.get(posListaElegida).administreLista();
@@ -200,7 +246,7 @@ public class Gestor
 
     // public Lista preguntePorCategoria()
     // {
-        
+
     // }
 
     public boolean pregunteSiImportaCategoria()
@@ -235,29 +281,66 @@ public class Gestor
 
     }
 
-    public int seleccioneLista(boolean impCat, String cat)
+    public int seleccioneLista()
     {
-        String categoria = cat;
-        boolean importaCategoria = impCat;
 
         int posListaSeleccionada = 0;
         String mensaje = "";
-        muestreLista(importaCategoria, categoria);
+        muestreListas();
         System.out.println("Seleccione una lista");
         mensaje =  ("Digite un numero entre 1 y "+listas.size());
         entrada.pedirNumeroRango(mensaje,listas.size(),1);
         return posListaSeleccionada;
     }
 
-    public void muestreLista(boolean importaCategoria, String categoria){}
+    public int seleccioneListaCategorias(String cat)
+    {
+        int listaSeleccionada = 0;
+
+        boolean listaSeleccionadaIncorrecta = true;
+        while(listaSeleccionadaIncorrecta)
+        { 
+            muestreListasCategoria(cat);
+            String mensaje = ("Digite el numero de la lista que desea seleccionar");
+            listaSeleccionada = entrada.pedirNumeroRango(mensaje,listas.size(),1);
+            for(int i= 0;i<listas.size();i++)
+            {
+                if((listas.get(listaSeleccionada).deCategoria().equals(cat))==true)
+                {
+                    listaSeleccionada = i;
+                    listaSeleccionadaIncorrecta = false;
+                }
+            }
+            System.out.println("La lista seleccionada no es valida, intente de nuevo");
+        }
+        return listaSeleccionada;
+    }
+
+    public void muestreListas()
+    {
+    }
+
+    public void muestreListasCategoria(String cat)
+    {
+        for(int i=0;i<listas.size();i++)
+        {
+            if(listas.get(i).deCategoria().equals(cat)==true)
+            {
+                listas.get(i).mostrarLista();
+            }
+        }
+    }
     //Agregado metodo cargueLista
     public void hacerNuevaLista()
-    {}
+    {
+        categorizeListas();
+    }
 
     public void cargueLista()
     {
-
+        categorizeListas();
     }
+
     public void categorizeListas()
     {
         String categoria = "";
@@ -266,8 +349,13 @@ public class Gestor
         {
             categoria = listas.get(i).deCategoria();
             existeCategoria = verifiqueExistenciaCategoria(categoria);
+            if(existeCategoria=false)
+            {
+                categoriasListas.add(categoria);
+            }
         }
     }
+
     public boolean verifiqueExistenciaCategoria(String cat)
     {
         boolean categoriaGuardada = false;

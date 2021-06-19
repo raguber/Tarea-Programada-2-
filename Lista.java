@@ -8,7 +8,7 @@ public class Lista implements Serializable
 {
     //Cada lista tendra responsables taras y recursos.
     ArrayList<Responsable> listaResponsables;
-
+    ArrayList<Recurso> listaRecursos;
     String nombreLista, identificacion, descripcion;
     ArrayList<Tarea> tareas;
     EntradaDatos entrada;
@@ -18,6 +18,7 @@ public class Lista implements Serializable
     public Lista(int numLista)
     {
         listaResponsables = new ArrayList<Responsable>();
+        listaRecursos = new ArrayList<Recurso>();
         String directorio = "";
         nombreLista = " ";
         numeroLista = numLista;
@@ -134,6 +135,33 @@ public class Lista implements Serializable
         //El constructor tiene los atributos que consideré obligatorios para que una tarea exista. Los otros atributos son adicionales
 
     }
+    public void mostrarLista()
+    {
+        String mostrarInfo ="";
+        mostrarInfo += ("Categoria: "+categoriaLista+" Nombre de la lista "+nombreLista+" Identificacion: "+identificacion+"\n");
+        mostrarInfo += (deInfoMinResponsables());
+        mostrarInfo += (deInfoMinRecursos());
+        
+        System.out.println(mostrarInfo);
+    }
+    public String deInfoMinResponsables()
+    {
+        String infoResponsables ="";
+        for(int i=0;i<listaResponsables.size();i++)
+        {
+            infoResponsables += ("\t Nombre Responsable"+listaResponsables.get(i).deNombre()+"Identificacion "+listaResponsables.get(i).deIdentificacion()+"\n");
+        }
+        return infoResponsables;
+    }
+    public String deInfoMinRecursos()
+    {
+        String infoRecursos = "";
+        for(int i=0;i<listaRecursos.size();i++)
+        {
+            infoRecursos += ("\t Nombre Recurso : "+listaRecursos.get(i).deNombre()+" Identificacion Recurso "+listaRecursos.get(i).deIdentificacion());
+        }
+        return infoRecursos;
+    }
     
     public String deCategoria()
     {
@@ -154,6 +182,10 @@ public class Lista implements Serializable
     public String deDescripcion()
     {
         return descripcion;
+    }
+    public String deDirectorioGuardado()
+    {
+        return directorio;
     }
     public boolean directorioGuardado()
     {
