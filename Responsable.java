@@ -26,13 +26,13 @@ public class Responsable implements Serializable
     public void genereNombre()
     {
         String mensaje = ("Digite el nombre de la persona responsable");
-        nombre = entrada.pedirTexto(mensaje);
+        nombre = entrada.pidaTexto(mensaje);
     }
 
     public void genereCantidadHorasDedicadas()
     {
         String mensaje = ("Digite la cantidad de horas que el responsable usa semanalmente para hacer tareas\nEl responsable debe dedicarse al menos 1 hora y como maximo 40");
-        cantidadHorasDedicadas = entrada.pedirNumeroRango(mensaje,40, 1);
+        cantidadHorasDedicadas = entrada.pidaNumeroRango(mensaje,40, 1);
         cantidadHorasDisponibles = cantidadHorasDedicadas;
     }
 
@@ -66,10 +66,10 @@ public class Responsable implements Serializable
         int cantidadHorasOcupadas = cantidadHorasDedicadas-cantidadHorasDisponibles;//Revisar si esto funciona
         String mensaje = ("Digite la cantidad de horas que el responsable usa semanalmente para hacer tareas\nEl responsable debe dedicarse al menos 1 hora y como maximo 40");
         //Si se tienen horas asignadas, el trabajador no puede dejar tareas sin responsable.
-        //Estaria la posibilidad de pedir solo un numero mayor que cantidad horas ocupadas
+        //Estaria la posibilidad de pida solo un numero mayor que cantidad horas ocupadas
         //Sin embargo lo mejor es informar al usuario y que pregunte si desea eliminar tareas en caso de reducir el numero de horas de Dedicadas y esten ocupadas.
         //Esto tambien daria el caso de tareas que no pueden asignarse.
-        cantidadNuevaHorasDedicadas = entrada.pedirNumeroRango(mensaje, 40,1);
+        cantidadNuevaHorasDedicadas = entrada.pidaNumeroRango(mensaje, 40,1);
         if(cantidadNuevaHorasDedicadas<cantidadHorasDedicadas)
         {
             //En caso de tener tareas, no se pueden dejar sin responsable, al menos que el usuario lo indique.
@@ -127,7 +127,7 @@ public class Responsable implements Serializable
     public static void main (String args[])
     {
         EntradaDatos entrada = new EntradaDatos();
-        int num = entrada.pedirNumero("num",1);
+        int num = entrada.pidaNumero("num",1);
         Responsable responsable1 = new Responsable(num);
 
     }

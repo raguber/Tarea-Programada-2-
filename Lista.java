@@ -13,25 +13,33 @@ public class Lista implements Serializable
     ArrayList<Tarea> listaTareas;
     EntradaDatos entrada;
     String categoriaLista;
-    int numeroLista;
+    int codigoLista;
     String directorio;
-    public Lista(int numLista)
+    public Lista(int codLista,String catLista)
     {
+        entrada = new EntradaDatos();
         listaResponsables = new ArrayList<Responsable>();
         listaRecursos = new ArrayList<Recurso>();
-        String directorio = "";
-        nombreLista = " ";
-        numeroLista = numLista;
-        identificacion =" "; 
-        descripcion = " ";
+        String directorio = " ";
+        nombreLista = "";
+        identificacion = " ";
+        codigoLista = codLista;
+        categoriaLista = catLista;
+       
+        genereNombreLista();
+        genereDescripcion();
+        
+        genereIdentificacion(); 
+        
+        
         listaTareas = new ArrayList<Tarea>();
-        entrada = new EntradaDatos();
-        genereNombre();//A: solo metí este 
-        categoriaLista = "";
+       
     }
 
     public void administreLista()
-    {}
+    {
+    
+    }
 
     public void administreResponsables()
     {
@@ -47,7 +55,7 @@ public class Lista implements Serializable
         //Ver no deberia ser una opcion porque ya se mostro informacion directa;
         //No deberia porque agregar la opcion "ver responsable" pero no debe ser necesario
         mensaje = ("Digite 1 si desea editar un responsable, Digite 2 si desea eliminar un responsable, Digite 3 si desea agregar un responsable");
-        opcionElegida = entrada.pedirNumeroRango(mensaje,3,1);
+        opcionElegida = entrada.pidaNumeroRango(mensaje,3,1);
 
         switch (opcionElegida)
         {
@@ -73,7 +81,7 @@ public class Lista implements Serializable
       //  int posicionResponsable = pidaEleccionResponsable();//No se ha modificado el metodo, entonces devuelve un codigo en vez de posicion en la lisa,
         mensaje = ("Digite 1 si desea modificar el nombre, digite 2 si desea modificar el codigo,Digite 3 si desea modificar la cantidad de horas Dedicadas\nDigite 4 si desea modificar la tareas asignadas");
         //Hay que analizar como se puede nombrar a todas las horas que se dedica una persona.
-        eleccionEdicion = entrada.pedirNumeroRango(mensaje,4,1);  
+        eleccionEdicion = entrada.pidaNumeroRango(mensaje,4,1);  
         switch (eleccionEdicion)
         {
             case 1:
@@ -94,51 +102,48 @@ public class Lista implements Serializable
 
     }
 
-    public void genereNombre()
+    public void genereNombreLista()
     {
         String mensaje = ""; //esta variable se le mostrara al usuario cuando se pida al usuario un dato
-        mensaje = ("Digite el nombre de la tarea");
-        nombreLista = entrada.pedirTexto(mensaje);
+        mensaje = ("Digite el nombre de la lista");
+        
+    
+       nombreLista = entrada.pidaTexto(mensaje);
+      
+    }
+    public void modifiqueNombreLista()
+    {
+        genereIdentificacion();
+    }
+    public void modifiqueCodigoLista(int cod)
+    {
+        codigoLista = cod;
     }
 
     public void genereIdentificacion()
     {
         //se usara el nombre y numero de lista, para generar el identificador
         //Se deberia acortar el tamaño de la identificacion, pero depende puede ser la identificacion el codifo de lista
-        identificacion = (numeroLista+nombreLista);
-
+        identificacion = (codigoLista+nombreLista);
+    
     }
 
     public void genereDescripcion()
     {
         String mensaje = ""; //esta variable se le mostrara al usuario cuando se pida al usuario un dato
-        mensaje = ("Digite la descripcion de la tarea");
-        descripcion = entrada.pedirTexto(mensaje);
+        mensaje = ("Digite la descripcion de la lista");
+        descripcion = entrada.pidaTexto(mensaje);
+        
     }
 
     public void agregueTarea()
     {
-        //ver si se agrega desde gestor o desde Lista.
-        //Por el momento se agregara desde lista, en caso de ser desde gestor,
-        //entonces el gestor mandara una tarea al llamar el metodo, en ese caso solo se agregaria a la lista
-        //Ahora si se desea hacer el gestor lo mas comprimido posible lo mejor es hacerlo desde aqui.
-
-        //Se deja como comentario porque se necesesita reparar tarea;
-        //Tarea tarea ;// new Tarea();
-        //tareas.add(tarea);
-
-        //A: constructor actual: Tarea x = new Tarea(ID,nombre,lista)
-        //Nombre debe hacerse en el propio contructor de el no tiene sentido pedirle datos que solo le sirven para guardarse en tareas
-        ///Tampoco necesita ni ,identificador, la idea de guardarlo como el tamaño del array es mucho mejor, en caso de agregar, eliminar entre otros.
-
-        //Tarea b = new Tarea(002,"Practicar piano","Música");
-        //tareas.add(b);
-        //El constructor tiene los atributos que consideré obligatorios para que una tarea exista. Los otros atributos son adicionales
-
+        
     }
     public void mostrarLista()
     {
         String mostrarInfo ="";
+        mostrarInfo += ("Numero Lista "+codigoLista+"\n");
         mostrarInfo += ("Categoria: "+categoriaLista+" Nombre de la lista "+nombreLista+" Identificacion: "+identificacion+"\n");
         mostrarInfo += (deInfoMinResponsables());
         mostrarInfo += (deInfoMinRecursos());
@@ -182,7 +187,7 @@ public class Lista implements Serializable
     }
     public int deCodigoLista()
     {
-        return numeroLista;
+        return codigoLista;
     }
     public String deNombreLista()
     {
@@ -212,8 +217,8 @@ public class Lista implements Serializable
 
     public static void main (String Args[])
     {
-        Lista lista1 = new Lista(0);
-        lista1.genereNombre();
+        Lista lista1 = new Lista(0,"VAcias");
+        lista1.genereNombreLista();
         lista1.genereIdentificacion();
         lista1.genereDescripcion();
 

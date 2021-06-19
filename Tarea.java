@@ -53,14 +53,14 @@ public class Tarea implements Serializable{
 
     public void modifiqueNombre(){
         String mensaje="Escribe el nuevo nombre";
-        nombre=entrada.pedirTexto(mensaje);
+        nombre=entrada.pidaTexto(mensaje);
         System.out.println("Se modificó el nombre de esta actividad: "+nombre);
         modifiqueIdentificacion();
     }
 
     public void modifiqueDescripcion(){
         String mensaje="Escriba la nueva descripción: ";
-        descripcion=entrada.pedirTexto(mensaje);
+        descripcion=entrada.pidaTexto(mensaje);
         System.out.println("Se modificó la descripción de esta actividad: "+nombre);
     }
 
@@ -104,13 +104,13 @@ public class Tarea implements Serializable{
 
     public void modifiqueHoras(){
         String mensaje="Inserte la nueva cantidad de horas";
-        horas=entrada.pedirNumero(mensaje,0);
+        horas=entrada.pidaNumero(mensaje,0);
         System.out.println("Se modificó el tiempo estimado de esta actividad: "+nombre);
     }
 
     public void modifiqueDinero(){
         String mensaje="Inserte la nueva cantidad de dinero";
-        dinero=entrada.pedirNumero(mensaje,0);
+        dinero=entrada.pidaNumero(mensaje,0);
         System.out.println("Se modificó el dinero estimado de esta actividad: "+nombre);
     }
     public void verifiqueEstado()
@@ -136,13 +136,13 @@ public class Tarea implements Serializable{
 
     public void modifiqueFechaInicio(){
         String mensaje="Inserte la nueva fecha de inicio";
-        fechaInicio=entrada.pedirTexto(mensaje);
+        fechaInicio=entrada.pidaTexto(mensaje);
         System.out.println("Se modificó la fecha de inicio de esta actividad: "+nombre);
     }
 
     public void modifiqueFechaFin(){
         String mensaje="Inserte la nueva fecha final";
-        fechaFin=entrada.pedirTexto(mensaje);
+        fechaFin=entrada.pidaTexto(mensaje);
         System.out.println("Se modificó la fecha final de esta actividad: "+nombre);
     }
 

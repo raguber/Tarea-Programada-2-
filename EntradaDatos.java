@@ -13,7 +13,7 @@ public class EntradaDatos
 
     }
     
-    public int pedirNumeroRango(String mensaje,int opcionMaxima, int opcionMinima)
+    public int pidaNumeroRango(String mensaje,int opcionMaxima, int opcionMinima)
     {
         boolean entradaIncorrecta = true;
         boolean numeroOpcionInvalido = true;
@@ -51,7 +51,7 @@ public class EntradaDatos
     /**
      * Este metodo funciona para pedir un texto, como el nombre
      */
-    public String pedirTexto(String mensaje)
+    public String pidaTexto(String mensaje)
     {
         boolean textoIncorrecto = true;
         String texto = ("");
@@ -78,7 +78,7 @@ public class EntradaDatos
      * Este metodo funciona para pedir un numero
      * necesita un numero minimo
      */
-    public int pedirNumero(String mensaje,int numeroMinimo)
+    public int pidaNumero(String mensaje,int numeroMinimo)
     {
         int numero = 0;
         boolean entradaIncorrecta = true;

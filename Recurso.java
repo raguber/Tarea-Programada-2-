@@ -22,13 +22,13 @@ public class Recurso implements Serializable{
     
     public void modifiqueNombre(){
         String mensaje="Inserte el nuevo nombre de este recurso: ";
-        nombre=entrada.pedirTexto(mensaje);
+        nombre=entrada.pidaTexto(mensaje);
     }
     public String genereNombre()
     {
         String nom ="";
         String mensaje =("Digite el nombre del recurso");
-        nom = entrada.pedirTexto(mensaje);
+        nom = entrada.pidaTexto(mensaje);
         
         return nom;
     }
@@ -36,7 +36,7 @@ public class Recurso implements Serializable{
     {
         int cantRecurso= 0;
         String mensaje =("Digite la cantidad de elementos que existen de "+nombre);
-        cantRecurso = entrada.pedirNumero(mensaje,1);
+        cantRecurso = entrada.pidaNumero(mensaje,1);
         return cantRecurso;
     }
     public String genereIdentificacion()
@@ -64,7 +64,7 @@ public class Recurso implements Serializable{
      */
     public void mas(){
         String mensaje="Inserte un número para aumentar la cantidad del recurso "+nombre;
-        cantidad+=entrada.pedirNumero(mensaje,1);
+        cantidad+=entrada.pidaNumero(mensaje,1);
     }
     public String deIdentificacion()
     {

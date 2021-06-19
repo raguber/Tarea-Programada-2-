@@ -30,6 +30,8 @@ public class Gestor
     //A: agregué un método para cerrar todo esto, se llama cierreTodo(). Iba a meterlo inicialmente en cierrePrograma pero decídí dejarlo
     //fuera, dígame usted si aprueba meterlo en cierrePrograma
 
+    //R: Metalo ahi, porque de eso se trata el metodo
+
     JFileChooser chooser;
     ArrayList<String> categoriasListas;
     ArrayList<Lista> listas;
@@ -51,34 +53,34 @@ public class Gestor
         //Hay que dejarle a la lista que modifique Tareas.
         int opcionElegidaLista = 0;
         String mensaje = "";
-        //En caso de que el usuario quiera ver una lista, y no existan listas, no podria salir ya que se pedira que guarde una lista, que no existe
+        //En caso de que el usuario quiera ver una lista, y no existan listas, no podria salir ya que se pidaa que guarde una lista, que no existe
         //, entonces solo en caso de que listas tenga algo, se permitira determinadas opciones
-        if(listas == null)
+        if(listas.size()==0)
         {
             mensaje = ("No existen listas agregadas\n Digite 1, si desea crear una nueva lista, digite 2 si desea cargar una lista desde el disco duro, Digite 3 si desa Salir");
-            opcionElegidaLista=entrada.pedirNumeroRango(mensaje,3 ,1);
+            opcionElegidaLista=entrada.pidaNumeroRango(mensaje,3 ,1);
             switch(opcionElegidaLista){
                 case 1: 
-                creeLista();
+                creeLista();//listo
                 break;
                 case 2:
                 cargueLista();
                 break;
                 case 3:
-                salgaPrograma();
+                salgaPrograma();//Listo
                 break;
             }
 
         }
         else
         {
-            mensaje =("¿Qué desea hacer?\n Digite 1  si desea crear una nueva lista, Digite 2 Mostrar listas\nDigite 3 si desea aministrar una lista, Digite 4 si desea borrar una lista\nDigite 5 si desea salir del gestor");
+            mensaje =("¿Qué desea hacer?\nDigite 1  si desea crear una nueva lista, Digite 2 Mostrar tareas de las listas\nDigite 3 si desea admnistrar una lista, Digite 4 si desea borrar una lista\nDigite 5 si desea salir del gestor");
 
-            opcionElegidaLista=entrada.pedirNumeroRango(mensaje,5,1);
+            opcionElegidaLista=entrada.pidaNumeroRango(mensaje,5,1);
 
             switch(opcionElegidaLista){
                 case 1: 
-                creeLista();
+                creeLista();//Listo
                 break;
                 case 2:
                 llameMuestreLista();
@@ -98,16 +100,16 @@ public class Gestor
     }
 
     //R: Se deberia analizar muestreTareas como mostrarInformacionTareas para X cantidad de tareas
-    //R: Se tiene la situacion de como adminstrar tareas, en teoria, podria pedirse la lista a modficar y luego tareas
+    //R: Se tiene la situacion de como adminstrar tareas, en teoria, podria pidase la lista a modficar y luego tareas
 
     public void muestreTareasListas()
     {
-        boolean continuarAgregandoCategorias;
+
         boolean agregarMasListas = true;
         String categoria = "";
         //R: ArrayList no soporta valores si no objetos, por eso mejor pedi tipo lista. 
         ArrayList<Lista> listasSeleccionadas = new ArrayList<Lista>();
-        continuarAgregandoCategorias = pregunteSiImportaCategoria();
+        boolean continuarAgregandoCategorias = pregunteSiImportaCategoria();
 
         while(continuarAgregandoCategorias||listasSeleccionadas.size()<listas.size())
         {
@@ -150,9 +152,12 @@ public class Gestor
                     continuarAgregandoCategorias =  false;
                 }
             }
-            continuarAgregandoCategorias = pregunteSiContinuarFiltrandoCategorias();
+            if(continuarAgregandoCategorias == true)
+            {
+                continuarAgregandoCategorias = pregunteSiContinuarFiltrandoCategorias();
+            }
         }
-        //R: Se deberia pedir N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
+        //R: Se deberia pida N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
         //R: por eso se usa ArrayLista, notar que podria seguir, pidiendo tareas, entonces es prudente preguntar. Si quiere agregar mas o no.
         String informe="";
         for(int j=0;j<listasSeleccionadas.size();j++)
@@ -161,7 +166,12 @@ public class Gestor
             {
                 if(listasSeleccionadas.get(j).deCodigoLista() == listas.get(i).deCodigoLista())
                 {
+                    if(listasSeleccionadas.get(j).listaTareas.size()==0)
+                    {
+                        System.out.println("Se ignoro la lista "+listasSeleccionadas.get(j).deNombreLista());
+                    }
                     //R: creo que se deberia mostrar un poco mas de info
+                    //En realidad aqui se deberian mostar ya las listas
                     informe+="("+i+") "+listas.get(i).nombreLista+"\n\n";
                     for(int t=0;t<listas.get(i).listaTareas.size();i++){
                         informe+= "\t"+t+". "+listas.get(i).listaTareas.get(t).nombre+"\n";
@@ -176,7 +186,7 @@ public class Gestor
 
     public void llameMuestreLista()
     {
-
+        muestreTareasListas();
     }
 
     public boolean pregunteSiContinuarFiltrandoCategorias()
@@ -184,7 +194,7 @@ public class Gestor
         boolean filtrarCategorias = false;
 
         String  mensaje =("Digite 1 si desea seguir filtrando la seleccion de listas por categorias, Digite 2 si no desea seguir filtrando la seleccion de listas por categorias");
-        int seleccionUsuario = entrada.pedirNumeroRango(mensaje,2,1);
+        int seleccionUsuario = entrada.pidaNumeroRango(mensaje,2,1);
         if(seleccionUsuario == 1)
         {
             filtrarCategorias = true;
@@ -199,15 +209,15 @@ public class Gestor
         String mensaje = "";
         int posicionCategoriaSeleccionada = 0;
 
-        mostrarCategoriasListas();
+        muestreCategoriasListas();
         mensaje = ("Digite el numero de la categoria que desea seleccionar, debe ser un numero entre 1 y "+categoriasListas.size());
-        posicionCategoriaSeleccionada = entrada.pedirNumeroRango(mensaje,categoriasListas.size(),1);
+        posicionCategoriaSeleccionada = entrada.pidaNumeroRango(mensaje,categoriasListas.size(),1);
 
         categoriaSeleccionada = categoriasListas.get(posicionCategoriaSeleccionada-1);
         return categoriaSeleccionada;
     }
 
-    public void mostrarCategoriasListas()
+    public void muestreCategoriasListas()
     {
         System.out.println("Se mostraran las categorias de listas");
         for(int i=0;i<categoriasListas.size();i++)
@@ -235,7 +245,7 @@ public class Gestor
         boolean continuarAgregandoListas = true;
         int seleccionUsuario = 0;
         String mensaje = ("Digite 1 si desea continuar agregando Listas, Digite 2 si no desea continuar agregando Listas");
-        seleccionUsuario = entrada.pedirNumeroRango(mensaje,2,1);
+        seleccionUsuario = entrada.pidaNumeroRango(mensaje,2,1);
         if(seleccionUsuario == 2)
         {
             continuarAgregandoListas = false;
@@ -247,26 +257,27 @@ public class Gestor
     {
         boolean importaCategoria = pregunteSiImportaCategoria();
         String categoria;
-
+        int posListaElegida = 0;
         if(importaCategoria == true)
         {
-
+            categoria = seleccioneCategoria();
+            posListaElegida = seleccioneListaCategorias(categoria);
+            listas.get(posListaElegida-1).administreLista();
         }
-        int posListaElegida = 1;
-        listas.get(posListaElegida).administreLista();
+        else
+        {
+            posListaElegida = seleccioneLista();
+            listas.get(posListaElegida-1).administreLista();
+        }
+
     }
-
-    // public Lista preguntePorCategoria()
-    // {
-
-    // }
 
     public boolean pregunteSiImportaCategoria()
     {
         boolean importaCategoria = false;
         int seleccionUsuario = 0;
         String mensaje = ("Digite 1 si importa la categoria de la lista, digite 2 si no importa la categoria de la lista");
-        seleccionUsuario = entrada.pedirNumeroRango(mensaje,2,1);
+        seleccionUsuario = entrada.pidaNumeroRango(mensaje,2,1);
         if(seleccionUsuario ==1)
         {
             importaCategoria = true;
@@ -274,13 +285,44 @@ public class Gestor
         return importaCategoria;
 
     }
-    //R: se modifico lista, recordar que se hablo de codigo de lista variable
+
+    public String agregarCategoria()
+    {
+        String categoria = "";
+        String mensaje = ("Digite el nombre de la categoria");
+        categoria = entrada.pidaTexto(mensaje);
+        boolean existeCategoria = verifiqueExistenciaCategoria(categoria);
+        if(categoriasListas.size()==0)
+        {
+            categoriasListas.add(categoria);
+        }
+        else
+        {
+            if(existeCategoria == false)
+            {
+                categoriasListas.add(categoria);
+            }
+        }
+        return categoria;
+    }
+
     public void creeLista(){
-        Lista nuevaLista = new Lista(listas.size());
+        boolean agregarCategoria = pedirOpcionAgregarCategoria();
+        String categoriaSeleccionada ="";
+        if(agregarCategoria == true)
+        {
+            categoriaSeleccionada = agregarCategoria();
+        }
+        else
+        {
+            categoriaSeleccionada = seleccioneCategoria();
+        }
+        Lista nuevaLista = new Lista(listas.size()+1,categoriaSeleccionada);
         listas.add(nuevaLista);
         //Notar que cada vez que listas se agrega, se debe guardar en un archivo
         File nuevoFile = new File(nuevaLista.deNombreLista()+".txt");//<-- el archivo se llama igual que la lista. Se le adiciona el .txt
         listasArchivos.add(nuevoFile);
+        categorizeListas();
     }
 
     public void borreLista()
@@ -292,7 +334,10 @@ public class Gestor
 
     public void modificarCodigosLista()
     {
-
+        for(int i=0;i<listas.size();i++)
+        {
+            listas.get(i).modifiqueCodigoLista(i+1);
+        }
     }
 
     public int seleccioneLista()
@@ -303,7 +348,7 @@ public class Gestor
         muestreListas();
         System.out.println("Seleccione una lista");
         mensaje =  ("Digite un numero entre 1 y "+listas.size());
-        entrada.pedirNumeroRango(mensaje,listas.size(),1);
+        posListaSeleccionada = entrada.pidaNumeroRango(mensaje,listas.size(),1);
         return posListaSeleccionada;
     }
 
@@ -316,22 +361,52 @@ public class Gestor
         { 
             muestreListasCategoria(cat);
             String mensaje = ("Digite el numero de la lista que desea seleccionar");
-            listaSeleccionada = entrada.pedirNumeroRango(mensaje,listas.size(),1);
+            listaSeleccionada = entrada.pidaNumeroRango(mensaje,listas.size(),1);
+            System.out.println(listaSeleccionada);
             for(int i= 0;i<listas.size();i++)
             {
-                if((listas.get(listaSeleccionada).deCategoria().equals(cat))==true)
+                if(listas.get(i).deCategoria()==listas.get(listaSeleccionada-1).deCategoria())
                 {
-                    listaSeleccionada = i;
                     listaSeleccionadaIncorrecta = false;
                 }
             }
-            System.out.println("La lista seleccionada no es valida, intente de nuevo");
+            if(listaSeleccionadaIncorrecta==false)
+            {
+                System.out.println("La lista seleccionada no es valida, intente de nuevo");
+            }
         }
         return listaSeleccionada;
     }
 
+    public boolean pedirOpcionAgregarCategoria()
+    {
+        muestreCategoriasListas();
+        boolean agregarCategoria = false;
+        String mensaje =("Digite 1 si desea agregar una nueva categoria, Digite 2 si desea usar una categoria existente");
+        int opcionCategoria = entrada.pidaNumeroRango(mensaje,2,1);
+        if(opcionCategoria==1)
+        {
+            agregarCategoria = true;
+        }
+        else
+        {
+            if(categoriasListas.size()==0)
+            {
+                System.out.println("No han existido listas agregadas por lo tanto no hay categorias, se tendra que agregar una primer categoria");
+                agregarCategoria = true;
+            }
+        }
+        return agregarCategoria;
+
+    }
+
     public void muestreListas()
     {
+        for(int i=0;i<listas.size();i++)
+        {
+            System.out.println("Lista :"+(i+1));
+            listas.get(i).mostrarLista();
+        }
     }
 
     public void muestreListasCategoria(String cat)
@@ -345,10 +420,6 @@ public class Gestor
         }
     }
     //Agregado metodo cargueLista
-    public void hacerNuevaLista()
-    {
-        categorizeListas();
-    }
 
     public void cargueLista()
     {
@@ -373,11 +444,11 @@ public class Gestor
     public boolean verifiqueExistenciaCategoria(String cat)
     {
         boolean categoriaGuardada = false;
-        if(categoriasListas != null)
+        if(categoriasListas.size() > 0)
         {
             for(int i=0;i<categoriasListas.size();i++)
             {
-                if(cat.equals(categoriasListas)==true)
+                if(categoriasListas.get(i).equals(cat)==true)
                 {
                     categoriaGuardada = true;
                 }
@@ -394,19 +465,18 @@ public class Gestor
         System.exit(0);
     }
 
-    
     public void cierreTodo()throws IOException{
         fis.close(); lector.close();
         fos.close(); escritor.close();
         fire.close(); bure.close();
         fiwr.close(); buwr.close();
     }
-    
+
     //********Métodos de escritura y lectura*************
 
-        /**
-       Método que guarda todas las listas que se tienen actualmente.
-       */
+    /**
+    Método que guarda todas las listas que se tienen actualmente.
+     */
     public void guardeListas()throws IOException,ClassNotFoundException,FileNotFoundException{
         for(int i=0;i<listas.size();i++){
             //1. Se saca archivo del arraylist de archivos(de listas)
@@ -415,36 +485,36 @@ public class Gestor
             if(!guardeEsto.exists()){
                 guardeEsto.createNewFile();
             }
-            
+
             //2. creación de objetos necesaria para guardar objetos
             fos = new FileOutputStream(guardeEsto);
             escritor = new ObjectOutputStream(fos);
-            
+
             //3. Se guarda un objeto lista en este archivo
             escritor.writeObject(listas.get(i));
         }
     }
-    
+
     /**
-       Guarda en un archivo txt el nombre de todas las listas. Este método es necesario para que el gestor conozca el nombre de los archivos
-       que debe llamar.
-       */
+    Guarda en un archivo txt el nombre de todas las listas. Este método es necesario para que el gestor conozca el nombre de los archivos
+    que debe llamar.
+     */
     public void guardeNombresDeListas()throws IOException{
         //1. Se abre el archivo con el nombre "Nombres de listas"
         File nombresDeListas = new File("Nombres de listas.txt");
-        
+
         //2. Si el archivo no existe, créelo
         if(!nombresDeListas.exists()){
             nombresDeListas.createNewFile();
         }
-        
+
         //3. Se crean los objetos necesarios para escribir nombres
         fiwr = new FileWriter(nombresDeListas);
         buwr = new BufferedWriter(fiwr);
-        
+
         //4. Se escribe la cantidad de listas para que pueda leerse cuando el programa se abra de nuevo
         buwr.write(listas.size());
-        
+
         //5. Escriba el nombre de todas las listas en este archivo.
         //Recordar que el nombre de la lista y del archivo es el mismo
         for(int i=0;i<listas.size();i++){
@@ -452,18 +522,18 @@ public class Gestor
             buwr.newLine();
         }
     }
-    
+
     /**
-       Método para abrir las listas
-       */
+    Método para abrir las listas
+     */
     public void cargeListas()throws IOException,ClassNotFoundException,FileNotFoundException{
         //1. Se abre el archivo con el nombre "Nombres de listas" el que contiene los nombres de todas las listas
         File nombresDeListas = new File("Nombres de listas.txt");
-        
+
         //2. Se crean los objetos necesarios para leer este archivo
         fire = new FileReader(nombresDeListas);
         bure = new BufferedReader(fire);
-        
+
         //3. Se lee tamaño, indica la cantidad de listas que había la última vez que se cerró el programa
         int tamaño = Integer.parseInt(bure.readLine());
         String unNombre="";
@@ -475,7 +545,7 @@ public class Gestor
             File cargueEsto = new File(unNombre+".txt");
             //4.3. Agregue este objeto file al arraylist de files/archivos
             listasArchivos.add(cargueEsto);
-            
+
             //4.4. Creción de los objetos necesarios para leer este archivo
             fis = new FileInputStream(cargueEsto);
             lector = new ObjectInputStream(fis);
@@ -485,7 +555,7 @@ public class Gestor
             listas.add(unaLista);
         }
     }
-    
+
     public static void main (String args[])
     {
         Gestor gestorListas = new Gestor();
