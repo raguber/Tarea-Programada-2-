@@ -163,8 +163,8 @@ public class Gestor
                 {
                     //R: creo que se deberia mostrar un poco mas de info
                     informe+="("+i+") "+listas.get(i).nombreLista+"\n\n";
-                    for(int t=0;t<listas.get(i).tareas.size();i++){
-                        informe+= "\t"+t+". "+listas.get(i).tareas.get(t).nombre+"\n";
+                    for(int t=0;t<listas.get(i).listaTareas.size();i++){
+                        informe+= "\t"+t+". "+listas.get(i).listaTareas.get(t).nombre+"\n";
                     }
                     informe+="\n\n";
                 }

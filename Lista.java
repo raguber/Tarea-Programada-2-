@@ -161,7 +161,7 @@ public class Lista implements Serializable
         for(int i=0;i<listaRecursos.size();i++)
         {
             infoRecursos += ("\t Nombre Recurso : "+listaRecursos.get(i).deNombre()+" Identificacion Recurso "+listaRecursos.get(i).deIdentificacion()+"\n");
-            infoRecursos += ("\t Cantidad disponibles de "+listaRecursos.get(i).deNombre());
+            infoRecursos += ("\t Cantidad disponibles de "+listaRecursos.get(i).deNombre()+"\n");
         }
         return infoRecursos;
     }
@@ -170,7 +170,8 @@ public class Lista implements Serializable
         String infoTareas ="";
         for(int i=0;i<listaTareas.size();i++)
         {
-            infoTareas += ("\t Nombre Tarea :"+listaTareas.get(i).deNombre()+" Identificacion Tarea  
+            infoTareas += ("\t Nombre Tarea : "+listaTareas.get(i).deNombre()+" Identificacion Tarea "+listaTareas.get(i).deIdentificacion()+"\n"); 
+            infoTareas += ("\t Responsables  : "+listaTareas.get(i).deResponsablesNombre()+" Estado Tarea : "+listaTareas.get(i).deEstadoTarea()+"\n");
         }
         return infoTareas;
     }
