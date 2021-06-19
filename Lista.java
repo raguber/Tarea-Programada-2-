@@ -25,7 +25,6 @@ public class Lista implements Serializable
         descripcion = " ";
         tareas = new ArrayList<Tarea>();
         entrada = new EntradaDatos();
-        genereNombre();//A: solo metí este 
         categoriaLista = "";
     }
 
