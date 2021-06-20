@@ -57,13 +57,14 @@ public class Gestor
         //, entonces solo en caso de que listas tenga algo, se permitira determinadas opciones
         if(listas.size()==0)
         {
-            mensaje = ("No existen listas agregadas\n Digite 1, si desea crear una nueva lista, digite 2 si desea cargar una lista desde el disco duro, Digite 3 si desa Salir");
+            mensaje = ("No existen listas agregadas\n Digite 1, si desea crear una nueva lista, Digite 2 si desa Salir");
             opcionElegidaLista=entrada.pidaNumeroRango(mensaje,3 ,1);
             switch(opcionElegidaLista){
                 case 1: 
                 creeLista();//listo
                 break;
                 case 2:
+                //R: Cargu Lista Ya no se necesita 
                 //cargueLista();
                 break;
                 case 3:
@@ -74,7 +75,7 @@ public class Gestor
         }
         else
         {
-            mensaje =("¿Qué desea hacer?\nDigite 1  si desea crear una nueva lista, Digite 2 si desea Mostrar o modificar tareas ya creadas \nDigite 3 si desea modificar una lista o agregar tareas a una lista, Digite 4 si desea borrar una lista\nDigite 5 si desea cargar una lista desde disco duro, Digite 6 si desea salir del gestor");
+            mensaje =("¿Qué desea hacer?\nDigite 1  si desea crear una nueva lista, Digite 2 si desea Mostrar o modificar tareas ya creadas \nDigite 3 si desea modificar una lista o agregar tareas a una lista, Digite 4 si desea borrar una lista\nDigite 5 si desea modificar categorias, Digite 6 si desea salir del gestor");
 
             opcionElegidaLista=entrada.pidaNumeroRango(mensaje,5,1);
 
@@ -92,8 +93,7 @@ public class Gestor
                 case 4:
                 borreLista();
                 case 5:
-                //**Revisar
-                //cargueListas();
+                modificarCategorias();
                 case 6:
                 salgaDelGestor();
                 break;
@@ -577,7 +577,35 @@ public class Gestor
         }
         return categoriaGuardada;
     }
-
+    public void modificarCategorias()
+    {
+        String mensaje = ("Digite 1 si desea eliminar una categoria, Digite 2 si desea modificar el nombre de una categoria");
+        int opcionUsuario = entrada.pidaNumeroRango(mensaje,2,1);
+        if(opcionUsuario==1)
+        {
+            String nombreCategoria = seleccioneCategoria();
+            modifiqueCategoria(nombreCategoria,"Sin categoria");
+        }
+        else
+        {
+            String nombreCategoria = seleccioneCategoria();
+            mensaje = ("Escriba el nuevo nombre de la categoria "+nombreCategoria);
+            String nuevNombre = entrada.pidaTexto(mensaje);
+            modifiqueCategoria(nombreCategoria,nuevNombre);
+        }
+        categorizeListas();
+    }
+    public void modifiqueCategoria(String nomAct, String nomNuev)
+    {
+        for(int i=0;i<listas.size();i++)
+        {
+            if (listas.get(i).deCategoria().equals(nomAct) == true)
+            {
+                listas.get(i).modifiqueCategoria(nomNuev);
+            }
+        }
+        
+    }
     public void salgaDelGestor()
     {}
 
@@ -585,6 +613,7 @@ public class Gestor
     {
         System.exit(0);
     }
+    
 
     public void cierreTodo()throws IOException{
         fis.close(); lector.close();

@@ -186,7 +186,10 @@ public class Lista implements Serializable
         //Metodo modNombre, descripcion, aqui.
         //Si se llama a eliminarTaea; entonces hay que generar de nuevo codigos de tarea
     }
-    
+    public void modifiqueCategoria(String nuvCat)
+    {
+        categoriaLista = nuvCat;
+    }
 
     public int deCantidadTareas()
     {
