@@ -74,7 +74,7 @@ public class Gestor
         }
         else
         {
-            mensaje =("¿Qué desea hacer?\nDigite 1  si desea crear una nueva lista, Digite 2 Mostrar tareas de las listas\nDigite 3 si desea admnistrar una lista, Digite 4 si desea borrar una lista\nDigite 5 si desea salir del gestor");
+            mensaje =("¿Qué desea hacer?\nDigite 1  si desea crear una nueva lista, Digite 2 si desea Mostrar o modificar tareas ya creadas \nDigite 3 si desea modificar una lista o agregar tareas a una lista, Digite 4 si desea borrar una lista\nDigite 5 si desea cargar una lista desde disco duro, Digite 6 si desea salir del gestor");
 
             opcionElegidaLista=entrada.pidaNumeroRango(mensaje,5,1);
 
@@ -83,10 +83,11 @@ public class Gestor
                 creeLista();//Listo
                 break;
                 case 2:
-                llameMuestreLista();
+                administreTareas();
                 break;
                 case 3:
                 administreListaEspecifica();
+                //Incompleto
                 break;
                 case 4:
                 borreLista();
@@ -102,7 +103,7 @@ public class Gestor
     //R: Se deberia analizar muestreTareas como mostrarInformacionTareas para X cantidad de tareas
     //R: Se tiene la situacion de como adminstrar tareas, en teoria, podria pidase la lista a modficar y luego tareas
 
-    public void muestreTareasListas()
+    public ArrayList<Lista> seleccioneListasTareas()
     {
 
         boolean agregarMasListas = true;
@@ -123,6 +124,7 @@ public class Gestor
                 {
                     System.out.println("Se han seleccionado todas las listas");
                     agregarMasListas = false;
+                    continuarAgregandoCategorias = false;
                 }
             }
             while(agregarMasListas)
@@ -157,19 +159,133 @@ public class Gestor
                 continuarAgregandoCategorias = pregunteSiContinuarFiltrandoCategorias();
             }
         }
+        //R:Deberia ir eso en un metodo aparte
+
         //R: Se deberia pida N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
         //R: por eso se usa ArrayLista, notar que podria seguir, pidiendo tareas, entonces es prudente preguntar. Si quiere agregar mas o no.
+
+        return listasSeleccionadas;
+    }
+
+    public void administreTareas()
+    {
+        ArrayList<Lista> seleccionLista = seleccioneListasTareas();
+        muestreTareas(seleccionLista);
+        seleccionLista = elimineListasVacias(seleccionLista);
+
+        if(seleccionLista.size() != 0)
+        {
+            System.out.println("Se eliminaron las listas sin tareas");
+            int opcionUsuario = opcionUsuarioAdmTareas();
+            if(opcionUsuario ==1)
+            {
+                
+                int listaSel = pidaCodListaTarea(seleccionLista);//Se pide un codigo de lista, que a su vez es  posicion-1 en el arrayList listas 
+                listaSel--;
+                int tareaSel = pidaTarea(listaSel);
+                listas.get(listaSel).modifiqueTarea(tareaSel);
+            }
+            else
+            {
+                //modificarTiempo
+            }
+            //Se va a usar la identificacion de la lista y la identificacion de la tarea para editar eliminar o algo en las tareas-
+        }
+        else
+        {
+            System.out.println("Todas las listas seleccionadas estan vacias, debe seleccionar otras listas, o agregar tareas para poder gestionar las tareas");
+        }
+    }
+
+    public ArrayList<Lista> elimineListasVacias(ArrayList<Lista> listSel)
+    {
+        ArrayList<Lista> lista = listSel;
+        for(int i=0;i<lista.size();i++)
+        {
+            if(lista.get(i).deCantidadTareas()==0)
+            {
+                System.out.println(lista.get(i).deCantidadTareas());
+                lista.remove(i);
+                System.out.println(lista.size());
+            }
+        }
+        return lista;
+    }
+  
+
+    public int seleccioneTareaEditar(int numLista)
+    {
+        int tareaSeleccionada = 0;
+        int cantTareas = listas.get(numLista).deCantidadTareas();
+        for(int i = 0;i<cantTareas;i++)
+        {
+            System.out.println("Codigo tarea :"+listas.get(numLista).listaTareas.get(i).deCodigoTarea()+" Nombre :"+listas.get(numLista).listaTareas.get(i).deNombre());
+        }
+        String mensaje =("Digite el codigo de la tarea que desea seleccionar");
+        tareaSeleccionada = entrada.pidaNumeroRango(mensaje,cantTareas,1);
+        return tareaSeleccionada;
+    }
+
+    public int pidaCodListaTarea(ArrayList<Lista> listasFil)
+    {
+        int listaSel = 0;
+        boolean codListaIncorrecto = true;
+        for(int i= 0; i<listasFil.size();i++)
+        {
+            System.out.println("Codigo Lista: "+listasFil.get(i).deCodigoLista()+" Nombre  de la Lista"+listasFil.get(i).deNombreLista());
+        }
+        System.out.println("Se eliminaron listas vacias seleccionadas");
+        String  mensaje = ("Digite el codigo de la lista de la tarea que desea editar");
+
+        while(codListaIncorrecto)
+        {
+            listaSel = entrada.pidaNumero(mensaje,1); 
+            boolean listaEncontrada = false;
+            for(int i= 0;i<listasFil.size();i++)
+            {
+                if(listasFil.get(i).deCodigoLista() == listaSel)
+                {
+                    listaEncontrada = true;
+                }
+            }
+            if(listaEncontrada == true)
+            {
+                codListaIncorrecto = false;
+            }
+            else
+            {
+                System.out.println("El codigo de lista ingresado no corresponde a una lista filtradada previamente segun su eleccion de listas");
+            }
+        }
+        return listaSel;  
+    }
+    //Como se muestran todas las tareas
+    public int pidaTarea(int numLista)
+    {
+        int numTarea = 0;
+
+        return numTarea;
+
+    }
+
+    public int opcionUsuarioAdmTareas()
+    {
+        int opcionSeleccionada = 0;
+        String mensaje = ("Digite 1 si desea modificar o eliminar una tarea, Digite 2 si desea progresar el tiempo");
+        opcionSeleccionada = entrada.pidaNumeroRango(mensaje,2,1);
+        return opcionSeleccionada;
+    }
+
+    public void muestreTareas(ArrayList<Lista> selListas)
+    {
         String informe="";
-        for(int j=0;j<listasSeleccionadas.size();j++)
+        for(int j=0;j<selListas.size();j++)
         {
             for(int i=0;i<listas.size();i++)//No necesariamente se sabe cual es la posicion ni el numero de codigo, se sabe que el numero de lista es la posicion en el array de listas.
             {
-                if(listasSeleccionadas.get(j).deCodigoLista() == listas.get(i).deCodigoLista())
+                if(selListas.get(j).deCodigoLista() == listas.get(i).deCodigoLista())
                 {
-                    if(listasSeleccionadas.get(j).listaTareas.size()==0)
-                    {
-                        System.out.println("Se ignoro la lista "+listasSeleccionadas.get(j).deNombreLista());
-                    }
+                    
                     //R: creo que se deberia mostrar un poco mas de info
                     //En realidad aqui se deberian mostar ya las listas
                     informe+="("+i+") "+listas.get(i).nombreLista+"\n\n";
@@ -181,12 +297,6 @@ public class Gestor
             }
         }
         //R: se deberia mostrar con un print desde aqui informe,
-        listasSeleccionadas = null;
-    }
-
-    public void llameMuestreLista()
-    {
-        muestreTareasListas();
     }
 
     public boolean pregunteSiContinuarFiltrandoCategorias()
@@ -276,7 +386,7 @@ public class Gestor
     {
         boolean importaCategoria = false;
         int seleccionUsuario = 0;
-        String mensaje = ("Digite 1 si importa la categoria de la lista, digite 2 si no importa la categoria de la lista");
+        String mensaje = ("Digite 1 si desea filtrar la lista a seleccionar por categoria, digite 2 si no desa filtrar la lista a seleccionar  por categoria");
         seleccionUsuario = entrada.pidaNumeroRango(mensaje,2,1);
         if(seleccionUsuario ==1)
         {
@@ -370,7 +480,7 @@ public class Gestor
                     listaSeleccionadaIncorrecta = false;
                 }
             }
-            if(listaSeleccionadaIncorrecta==false)
+            if(listaSeleccionadaIncorrecta==true)
             {
                 System.out.println("La lista seleccionada no es valida, intente de nuevo");
             }
