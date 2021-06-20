@@ -64,7 +64,7 @@ public class Gestor
                 creeLista();//listo
                 break;
                 case 2:
-                cargueLista();
+                //cargueLista();
                 break;
                 case 3:
                 salgaPrograma();//Listo
@@ -92,7 +92,8 @@ public class Gestor
                 case 4:
                 borreLista();
                 case 5:
-                cargueLista();
+                //**Revisar
+                //cargueListas();
                 case 6:
                 salgaDelGestor();
                 break;
@@ -106,27 +107,26 @@ public class Gestor
     public ArrayList<Lista> seleccioneListasTareas()
     {
 
-        boolean agregarMasListas = true;
         String categoria = "";
         //R: ArrayList no soporta valores si no objetos, por eso mejor pedi tipo lista. 
         ArrayList<Lista> listasSeleccionadas = new ArrayList<Lista>();
         boolean continuarAgregandoCategorias = pregunteSiImportaCategoria();
-
+        boolean agregarMasListas = true;
         while(continuarAgregandoCategorias||listasSeleccionadas.size()<listas.size())
         {
             if(continuarAgregandoCategorias==true)
             {
-                if(listasSeleccionadas.size()<listas.size())
-                {
-                    categoria = seleccioneCategoria();
-                }
-                else
-                {
-                    System.out.println("Se han seleccionado todas las listas");
-                    agregarMasListas = false;
-                    continuarAgregandoCategorias = false;
-                }
+
+                categoria = seleccioneCategoria();
+
             }
+            else
+            {
+
+                agregarMasListas = false;
+                continuarAgregandoCategorias = false;
+            }
+
             while(agregarMasListas)
             {
                 if(continuarAgregandoCategorias == true)
@@ -148,22 +148,39 @@ public class Gestor
                 {
                     System.out.println("Error, La tarea elegida ya ha sido seleccionada");
                 }
-                agregarMasListas = pidaOpcionContinuarAgregarListas();
-                if(agregarMasListas ==false)
+                if(listasSeleccionadas.size()!=listasSeleccionadas.size())
                 {
-                    continuarAgregandoCategorias =  false;
+                    agregarMasListas = pidaOpcionContinuarAgregarListas();
+                }
+                else
+                {
+                    agregarMasListas = false;
+                    continuarAgregandoCategorias = false;
                 }
             }
+            if(agregarMasListas ==false)
+            {
+                continuarAgregandoCategorias =  false;
+
+            }
+            if(listasSeleccionadas.size()==listas.size())
+            {
+                System.out.println("No se pueden seleccionar mas listas, ya se han seleccionado todas");
+                agregarMasListas=false;
+                continuarAgregandoCategorias=false;
+
+            }
+
             if(continuarAgregandoCategorias == true)
             {
                 continuarAgregandoCategorias = pregunteSiContinuarFiltrandoCategorias();
             }
+
+            //R:Deberia ir eso en un metodo aparte
+            //R: Se deberia pida N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
+            //R: por eso se usa ArrayLista, notar que podria seguir, pidiendo tareas, entonces es prudente preguntar. Si quiere agregar mas o no.
+
         }
-        //R:Deberia ir eso en un metodo aparte
-
-        //R: Se deberia pida N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
-        //R: por eso se usa ArrayLista, notar que podria seguir, pidiendo tareas, entonces es prudente preguntar. Si quiere agregar mas o no.
-
         return listasSeleccionadas;
     }
 
@@ -179,7 +196,7 @@ public class Gestor
             int opcionUsuario = opcionUsuarioAdmTareas();
             if(opcionUsuario ==1)
             {
-                
+
                 int listaSel = pidaCodListaTarea(seleccionLista);//Se pide un codigo de lista, que a su vez es  posicion-1 en el arrayList listas 
                 listaSel--;
                 int tareaSel = pidaTarea(listaSel);
@@ -204,14 +221,13 @@ public class Gestor
         {
             if(lista.get(i).deCantidadTareas()==0)
             {
-                System.out.println(lista.get(i).deCantidadTareas());
+
                 lista.remove(i);
-                System.out.println(lista.size());
+
             }
         }
         return lista;
     }
-  
 
     public int seleccioneTareaEditar(int numLista)
     {
@@ -285,7 +301,7 @@ public class Gestor
             {
                 if(selListas.get(j).deCodigoLista() == listas.get(i).deCodigoLista())
                 {
-                    
+
                     //R: creo que se deberia mostrar un poco mas de info
                     //En realidad aqui se deberian mostar ya las listas
                     informe+="("+i+") "+listas.get(i).nombreLista+"\n\n";
@@ -472,7 +488,7 @@ public class Gestor
             muestreListasCategoria(cat);
             String mensaje = ("Digite el numero de la lista que desea seleccionar");
             listaSeleccionada = entrada.pidaNumeroRango(mensaje,listas.size(),1);
-            System.out.println(listaSeleccionada);
+
             for(int i= 0;i<listas.size();i++)
             {
                 if(listas.get(i).deCategoria()==listas.get(listaSeleccionada-1).deCategoria())
@@ -530,11 +546,6 @@ public class Gestor
         }
     }
     //Agregado metodo cargueLista
-
-    public void cargueLista()
-    {
-        categorizeListas();
-    }
 
     public void categorizeListas()
     {
@@ -664,6 +675,7 @@ public class Gestor
             //4.6 Agregue esta lista al arraylist de listas
             listas.add(unaLista);
         }
+        categorizeListas();
     }
 
     public static void main (String args[])
