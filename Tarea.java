@@ -92,6 +92,7 @@ public class Tarea implements Serializable{
     INCONCLUSO: No sé si hace falta un método en EntradaDatos para modificar responsable.
      */
     //Responsable debe ser un objeto, no un nombre. Se le debe pidar al usuario al usuario la seleccion de un responsable. mas no un nombre
+    //Esto es util si se desea modificar o visualizar desde aqui.
     public void modifiqueResponsable(Responsable resp){
         String mensaje="Inserte el nuevo responsable: ";
         responsable = resp;
@@ -203,10 +204,15 @@ public class Tarea implements Serializable{
             System.out.println(estoFalta);
         }
     }
+    
 
     public String deIdentificacion()
     {
         return identificacion;
+    }
+    public int deCodigoTarea()
+    {
+        return codigoTarea;
     }
 
     public void cambieValorProxy()

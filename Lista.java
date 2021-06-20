@@ -25,20 +25,17 @@ public class Lista implements Serializable
         identificacion = " ";
         codigoLista = codLista;
         categoriaLista = catLista;
-       
+
         genereNombreLista();
         genereDescripcion();
-        
-        genereIdentificacion(); 
-        
-        
-        listaTareas = new ArrayList<Tarea>();
-       
-    }
 
+        genereIdentificacion(); 
+
+        listaTareas = new ArrayList<Tarea>();
+    }
     public void administreLista()
     {
-    
+
     }
 
     public void administreResponsables()
@@ -63,14 +60,14 @@ public class Lista implements Serializable
             editarResponsable();
             break;
             case 2 :
-           // eliminarResponsable();
+            // eliminarResponsable();
             break;
             case 3 :
-           // agregarResponsable();
+            // agregarResponsable();
 
         }
     }
-        //Esto lo voy a enviar nuevamente en Responsables;
+    //Esto lo voy a enviar nuevamente en Responsables;
     public void editarResponsable()
     {
         //Se va a maneja el editado de los responsables mediante el codigo asignado, seria buena idea asignarle un codigo
@@ -78,7 +75,7 @@ public class Lista implements Serializable
         //Entonces un codigo aleatorio podria ser una buena idea, sin embargo se tendria que verificar que los codigos de los resposnables no se repitan
         String mensaje = "";
         int eleccionEdicion;
-      //  int posicionResponsable = pidaEleccionResponsable();//No se ha modificado el metodo, entonces devuelve un codigo en vez de posicion en la lisa,
+        //  int posicionResponsable = pidaEleccionResponsable();//No se ha modificado el metodo, entonces devuelve un codigo en vez de posicion en la lisa,
         mensaje = ("Digite 1 si desea modificar el nombre, digite 2 si desea modificar el codigo,Digite 3 si desea modificar la cantidad de horas Dedicadas\nDigite 4 si desea modificar la tareas asignadas");
         //Hay que analizar como se puede nombrar a todas las horas que se dedica una persona.
         eleccionEdicion = entrada.pidaNumeroRango(mensaje,4,1);  
@@ -106,15 +103,14 @@ public class Lista implements Serializable
     {
         String mensaje = ""; //esta variable se le mostrara al usuario cuando se pida al usuario un dato
         mensaje = ("Digite el nombre de la lista");
-        
-    
-       nombreLista = entrada.pidaTexto(mensaje);
-      
+
+        nombreLista = entrada.pidaTexto(mensaje);
     }
     public void modifiqueNombreLista()
     {
         genereIdentificacion();
     }
+
     public void modifiqueCodigoLista(int cod)
     {
         codigoLista = cod;
@@ -125,7 +121,7 @@ public class Lista implements Serializable
         //se usara el nombre y numero de lista, para generar el identificador
         //Se deberia acortar el tamaño de la identificacion, pero depende puede ser la identificacion el codifo de lista
         identificacion = (codigoLista+nombreLista);
-    
+
     }
 
     public void genereDescripcion()
@@ -133,13 +129,14 @@ public class Lista implements Serializable
         String mensaje = ""; //esta variable se le mostrara al usuario cuando se pida al usuario un dato
         mensaje = ("Digite la descripcion de la lista");
         descripcion = entrada.pidaTexto(mensaje);
-        
+
     }
 
     public void agregueTarea()
     {
-        
+
     }
+
     public void mostrarLista()
     {
         String mostrarInfo ="";
@@ -148,9 +145,10 @@ public class Lista implements Serializable
         mostrarInfo += (deInfoMinResponsables());
         mostrarInfo += (deInfoMinRecursos());
         mostrarInfo += (deInfoMinTareas());
-        
+
         System.out.println(mostrarInfo);
     }
+
     public String deInfoMinResponsables()
     {
         String infoResponsables ="";
@@ -160,6 +158,7 @@ public class Lista implements Serializable
         }
         return infoResponsables;
     }
+
     public String deInfoMinRecursos()
     {
         String infoRecursos = "";
@@ -170,6 +169,7 @@ public class Lista implements Serializable
         }
         return infoRecursos;
     }
+
     public String deInfoMinTareas()
     {
         String infoTareas ="";
@@ -180,31 +180,49 @@ public class Lista implements Serializable
         }
         return infoTareas;
     }
+    public void modifiqueTarea(int tarSel)
+    {
+        //Metodo eliminar, modificarReponsables, modificarRecursosAqui,etc aqui
+        //Metodo modNombre, descripcion, aqui.
+        //Si se llama a eliminarTaea; entonces hay que generar de nuevo codigos de tarea
+    }
     
+
+    public int deCantidadTareas()
+    {
+        return listaTareas.size();
+    }
+
     public String deCategoria()
     {
         return categoriaLista;
     }
+
     public int deCodigoLista()
     {
         return codigoLista;
     }
+
     public String deNombreLista()
     {
         return nombreLista;
     }
+
     public String deIndentifiacion()
     {
         return identificacion;
     }
+
     public String deDescripcion()
     {
         return descripcion;
     }
+
     public String deDirectorioGuardado()
     {
         return directorio;
     }
+
     public boolean directorioGuardado()
     {
         boolean directorioGuardado = true;
