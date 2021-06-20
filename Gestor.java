@@ -67,7 +67,9 @@ public class Gestor
                 cargueLista();
                 break;
                 case 3:
-                salgaPrograma();//Listo
+                try{
+                    salgaPrograma();//Listo
+                }catch(Exception e){}
                 break;
             }
 
@@ -460,12 +462,13 @@ public class Gestor
     public void salgaDelGestor()
     {}
 
-    public void salgaPrograma()
+    public void salgaPrograma() throws IOException
     {
+        cierreTodo();
         System.exit(0);
     }
 
-    public void cierreTodo()throws IOException{
+    public void cierreTodo() throws IOException{
         fis.close(); lector.close();
         fos.close(); escritor.close();
         fire.close(); bure.close();
@@ -526,7 +529,7 @@ public class Gestor
     /**
     Método para abrir las listas
      */
-    public void cargeListas()throws IOException,ClassNotFoundException,FileNotFoundException{
+    public void cargueListas()throws IOException,ClassNotFoundException,FileNotFoundException{
         //1. Se abre el archivo con el nombre "Nombres de listas" el que contiene los nombres de todas las listas
         File nombresDeListas = new File("Nombres de listas.txt");
 
