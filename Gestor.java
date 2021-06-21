@@ -488,6 +488,7 @@ public class Gestor
         }
 
         Lista nuevaLista = new Lista(listas.size()+1,categoriaSeleccionada);
+        nuevaLista.fijeFecha(fechaActual,diaActual,mesActual,anoActual);
         listas.add(nuevaLista);
         //Notar que cada vez que listas se agrega, se debe guardar en un archivo
         File nuevoFile = new File(nuevaLista.deNombreLista()+".txt");//<-- el archivo se llama igual que la lista. Se le adiciona el .txt

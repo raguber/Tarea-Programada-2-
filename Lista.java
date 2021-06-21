@@ -329,10 +329,16 @@ public class Lista implements Serializable
         if(listaTareas.size()>0){
             pregunteSobreDependencia();
         }
-
+        nuevaTarea.fijeFecha(fechaActual, diaActual,mesActual,anoActual);
         listaTareas.add(nuevaTarea);
     }
-    
+    public void fijeFecha(String fechaA, int diaA,int mesA,int anoA)
+    {
+        fechaActual = fechaA;
+        diaActual = diaA;
+        mesActual = mesA;
+        anoActual = anoA;
+    }
     public void pregunteSobreDependencia(){
         String mensaje = "¿Este tarea depende de otra?\nDigite 1 = Sí, Digite 2 = No";
         int respuesta = entrada.pidaNumeroRango(mensaje,2,1);
@@ -447,6 +453,7 @@ public class Lista implements Serializable
         }
         return infoTareas;
     }
+    
 
     public void modifiqueTarea(int tarSel)
     {

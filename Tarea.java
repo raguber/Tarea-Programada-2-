@@ -23,7 +23,8 @@ public class Tarea implements Serializable{
     ArrayList <Recurso> recursos;//recursos que tiene la tarea
     ArrayList <Tarea> dependencias;
     String fechaActual;
-    int diaActual,mesActual, anoActual;
+
+    int diaActual,mesActual, anoActual,diaInicio,mesInicio,anoInicio;
 
     /**
      * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
@@ -54,11 +55,22 @@ public class Tarea implements Serializable{
         diaActual = 0;
         mesActual = 0;
         anoActual = 0;
-        fechaInicio = genereFechaInicio();
+        fechaInicio = "";
+        diaInicio = 0;
+        mesInicio = 0;
+        anoInicio = 0;
+        genereFechaInicio();
         
         modifiqueNombre();
         modifiqueDescripcion();
         genereEstimacion();
+    }
+    public void fijeFecha(String fechaA, int diaA,int mesA,int anoA)
+    {
+        fechaActual = fechaA;
+        diaActual = diaA;
+        mesActual = mesA;
+        anoActual = anoA;
     }
     //Agregar metodo para que asigne responsable
     public String muestreInformacion(){
@@ -89,10 +101,13 @@ public class Tarea implements Serializable{
         codigoTarea = cod;
     }
 
-    public String genereFechaInicio ()
+    public void genereFechaInicio ()
     {
-        String fecha = "";
-        return fecha;
+        fechaInicio = gestorFechas.pidaFechaTarea(diaActual, mesActual,anoActual);
+        diaInicio = gestorFechas.diaInicial;
+        mesInicio = gestorFechas.mesInicial;
+        anoInicio =  gestorFechas.anoInicial;
+        fechaFin = gestorFechas.calculeFechaFin(responsable.cantidadHorasDedicadas,horas,diaActual,mesActual,anoActual, diaInicio,mesInicio,anoInicio);
     }
     
     public void modifiqueFechaInicio(){
@@ -180,10 +195,26 @@ public class Tarea implements Serializable{
     }
     public void progrese(String fechaA,int diaA,int mesA,int anoA)
     {
+        if(anoA<anoInicio)
+        {
+            if(mesA<mesInicio)
+            {
+                if(diaA>diaInicio)//Solo si la fecha actual es mayor que el inicio se progresa
+                {
+                    progreseTarea(fechaA,diaA,mesA,anoA);
+                }
+            }
+        }
         fechaActual = fechaA;
         diaActual = diaA;
         mesActual = mesA;
         anoActual = anoA;
+        
+        
+    }
+    public void progreseTarea(String fechaA, int diaA,int mesA,int anoA)
+    {
+    
     }
     public void switchEstimeEnHoras(){
         if(estimoHoras==true){
