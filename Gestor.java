@@ -273,9 +273,9 @@ public class Gestor
             System.out.println("i"+i);
             if(listaSel.get(i).deCantidadTareas()>0)
             {
-                System.out.println(lista.get(i).deCantidadTareas()+"cant");
+                
                 lista.add(listaSel.get(i));
-
+                System.out.println(lista.get(i).deCantidadTareas()+"cant");
             }
         }
 
@@ -377,6 +377,8 @@ public class Gestor
         if(seleccionUsuario == 1)
         {
             filtrarCategorias = true;
+        }else if(seleccionUsuario==2){
+            filtrarCategorias = false;
         }
 
         return filtrarCategorias;

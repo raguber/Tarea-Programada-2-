@@ -44,7 +44,7 @@ public class Lista implements Serializable
     {
         int opcionUsuario = 0;
         int seleccionTarea = 0;
-        String mensaje = ("Digite 1 si desea agregar una tarea, Digite 2 si desea eliminar o modificar una tarea\n Digite 3 si desea modificar o agregar responsables, Digite 4 si desea modificar o agregar los recursos\n Digite 5 si desea eliminar una tarea, Digite 6 si desea modificar el nombre de la lista, \nDigite 7 si desea modificar la descripcion de la lista,Digite 8 si desea modificar la categoria de la lisata ");
+        String mensaje = ("Digite 1 si desea agregar una tarea, Digite 2 si desea eliminar o modificar una tarea\n Digite 3 si desea modificar o agregar responsables, Digite 4 si desea modificar o agregar los recursos\n Digite 5 si desea eliminar una tarea, Digite 6 si desea modificar el nombre de la lista, \nDigite 7 si desea modificar la descripcion de la lista,Digite 8 si desea modificar la categoria de la lista ");
         opcionUsuario = entrada.pidaNumeroRango(mensaje,5,1);
         switch(opcionUsuario)
         {
@@ -95,7 +95,7 @@ public class Lista implements Serializable
         String mensaje = "";
         for(int i = 0; i<listaRecursos.size();i++)
         {
-            //listaRecursos.get(i).muestreInformacion();
+            listaRecursos.get(i).muestreInformacion();
         }
         mensaje += ("Digite el codigo del recurso");
         recSel = entrada.pidaNumeroRango(mensaje,listaRecursos.size(),1);
@@ -290,7 +290,6 @@ public class Lista implements Serializable
     //responsable recurso estimación
     public void agregueTarea()
     {
-        //A: Por si acaso yo hice esto, pero puede cambiarlo si lo considera necesario
         Tarea nuevaTarea;
         Responsable resp;
         Recurso rec;
@@ -299,10 +298,13 @@ public class Lista implements Serializable
             System.out.println("No existen responsables guardados se debe crear uno");
             resp = new Responsable((listaResponsables.size()+1));
 
+
+
         }
         else
         {
             resp = pidaResponsable();
+
 
         }
         if(listaRecursos.size()==0)
@@ -310,23 +312,51 @@ public class Lista implements Serializable
             System.out.println("No existen recursos guardados se debe crear uno");
             rec = new Recurso((listaRecursos.size()+1));
 
+
         }
         else
         {
             rec = pidaRecurso();
 
         }
-        nuevaTarea= new Tarea((listaTareas.size())+1,nombreLista,resp,rec);
-        //Tarea nuevaTarea = new Tarea();
+        nuevaTarea=new Tarea(listaTareas.size()+1,nombreLista,resp,rec);
+
+
+        
+
         nuevaTarea.responsable=resp;
         nuevaTarea.recursos.add(rec);
+        if(listaTareas.size()>0){
+            pregunteSobreDependencia();
+        }
 
-        //pedir recurso
-        //pedir responsable
-        //pedir estimacion
         listaTareas.add(nuevaTarea);
     }
-
+    
+    public void pregunteSobreDependencia(){
+        String mensaje = "¿Este tarea depende de otra?\nDigite 1 = Sí, Digite 2 = No";
+        int respuesta = entrada.pidaNumeroRango(mensaje,2,1);
+        if(respuesta==1){
+            agregueDependencias(pidaSeleccionTarea());
+        }
+    }
+    
+    public void agregueDependencias(int tarSel){
+        boolean noMas=false;
+        Tarea tengoDependiente;
+        int seleccion;
+        String mensaje ="¿De quién depende esta tarea?\nDigite el código o -1 para salir";
+        while(noMas==false){
+            seleccion = entrada.pidaNumeroRango(mensaje,listaTareas.size(),1);
+            if(seleccion==-1){
+                noMas=true;
+            }else{
+                tengoDependiente = listaTareas.get(seleccion);
+                listaTareas.get(tarSel).dependaDe(tengoDependiente);
+            }
+        }
+    }
+    
     public Responsable pidaResponsable()
     {
         Responsable respSel = listaResponsables.get(0);
@@ -491,7 +521,7 @@ public class Lista implements Serializable
 
     public void agregueDineroTarea(int tarSel)
     {
-
+        
     }
 
     public void modifiqueCategoria(String nuvCat)
