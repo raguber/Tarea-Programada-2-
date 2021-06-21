@@ -33,9 +33,40 @@ public class Lista implements Serializable
 
         listaTareas = new ArrayList<Tarea>();
     }
+
     public void administreLista()
     {
+        int opcionUsuario = pidaOpcionAdministreLista();
+        switch(opcionUsuario)
+        {
+            case 1:
+            agregueTarea();
+            break;
 
+            case 2:
+            modifiqueNombreLista();
+
+            break;
+            case 3:
+            modifiqueResponsables();
+
+            break;
+            case 4:
+            modifiqueRecursos();
+            break;
+            case 5:
+            eliminarTarea();
+            break;
+
+        }
+    }
+
+    public int pidaOpcionAdministreLista()
+    {
+        int opcionSeleccionada = 0;
+        String mensaje = ("Digite 1 si desea agregar una tarea, Digite 2 si desea eliminar o modificar una tarea\n Digite 3 si desea modificar o agregar responsables, Digite 4 si desea modificar o agregar los recursos\n Digite 5 si desea eliminar una tarea ");
+        opcionSeleccionada = entrada.pidaNumeroRango(mensaje,5,1);
+        return opcionSeleccionada;
     }
 
     public void administreResponsables()
@@ -106,6 +137,7 @@ public class Lista implements Serializable
 
         nombreLista = entrada.pidaTexto(mensaje);
     }
+
     public void modifiqueNombreLista()
     {
         genereIdentificacion();
@@ -183,12 +215,14 @@ public class Lista implements Serializable
         }
         return infoTareas;
     }
+
     public void modifiqueTarea(int tarSel)
     {
         //Metodo eliminar, modificarReponsables, modificarRecursosAqui,etc aqui
         //Metodo modNombre, descripcion, aqui.
         //Si se llama a eliminarTarea; entonces hay que generar de nuevo codigos de tarea
     }
+
     public void modifiqueCategoria(String nuvCat)
     {
         categoriaLista = nuvCat;
@@ -238,6 +272,25 @@ public class Lista implements Serializable
         }
         return directorioGuardado;
     }
+    public void modifiqueResponsables()
+    {
+    
+    }
+    public void modifiqueRecursos()
+    {
+    
+    }
+    public void modiqueNombreLista()
+    {
+        String mensaje = ("Digite el nuevo nombre de la lista "+nombreLista);
+        nombreLista = entrada.pidaTexto(mensaje);
+    }
+    public void eliminarTarea()
+    {
+        
+    }
+  
+    
 
     public static void main (String Args[])
     {

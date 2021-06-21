@@ -93,30 +93,24 @@ public class Gestor
         }
         else
         {
-            mensaje =("¿Qué desea hacer?\nDigite 1  si desea crear una nueva lista, Digite 2 si desea Mostrar o modificar tareas ya creadas \nDigite 3 si desea modificar una lista o agregar tareas a una lista, Digite 4 si desea borrar una lista\nDigite 5 si desea modificar categorias, Digite 6 si desea salir del gestor");
+            mensaje =("¿Qué desea hacer?\nDigite 1  si desea crear una nueva lista, Digite 2 si desea Mostrar o modificar tareas ya creadas \nDigite 3 si desea modificar una lista o agregar tareas a una lista,\nDigite 4 si desea modificar categorias, Digite 5 si desea salir del gestor");
 
             opcionElegidaLista=entrada.pidaNumeroRango(mensaje,5,1);
 
             switch(opcionElegidaLista){
                 case 1: 
-                creeLista(); //Listo 
+                creeLista(); 
                 break;
                 case 2:
                 administreTareas();
-                //Se pedira que filtre;
                 break;
                 case 3:
-                administreListaEspecifica();
-                //Incompleto
-               
-                break;
+                administreListaEspecifica();               
+                break;       
                 case 4:
-                borreLista();
-                break;
-                case 5:
                 modifiqueCategoriasGuardadas();
                 break;
-                case 6:
+                case 5:
                 salgaDelGestor();
                 break;
             }
@@ -150,6 +144,7 @@ public class Gestor
             case 2:
             listas.remove(posListaElegida);
             modificarCodigosLista();
+            categorizeListas();
             break;
         }
         
@@ -474,12 +469,6 @@ public class Gestor
         categorizeListas();
     }
 
-    public void borreLista()
-    {
-        //Tomar en cuenta que se debe cambiar todos los codigos de lista.
-        //Se debe eliminar lista de archivos.
-        //listas.remove(); //este método no espeficica cuál lista
-    }
 
     public void modificarCodigosLista()
     {
