@@ -37,16 +37,29 @@ public class Gestor
     GestorFecha gestorFechas = new GestorFecha();
     //goback
     //El Maravilloso Gestor de Listas
-        //void administreGestor()
-            //void creeLista()
-                //boolean pedirOpcionAgregarCategoria()
-                    //muestreCategoriasListas()
-                //agregarCategoria()
-                    //verifiqueExistenciaCategoria()
-                //seleccioneCategoria()
-                    //muestreCategoriasListas()
-                //categorizeListas()
-                    //verifiqueExistenciaCategoria()
+
+    //void administreGestor()
+    //void creeLista()
+    //boolean pedirOpcionAgregarCategoria()
+    //muestreCategoriasListas()
+    //agregarCategoria()
+    //verifiqueExistenciaCategoria()
+    //seleccioneCategoria()
+    //muestreCategoriasListas()
+    //categorizeListas()
+    //verifiqueExistenciaCategoria()
+
+    //void administreGestor()
+    //void creeLista()
+    //boolean pedirOpcionAgregarCategoria()
+    //muestreCategoriasListas()
+    //agregarCategoria()
+    //verifiqueExistenciaCategoria()
+    //seleccioneCategoria()
+    //muestreCategoriasListas()
+    //categorizeListas()
+    //verifiqueExistenciaCategoria()
+
     public Gestor()
     {
         listas = new ArrayList<Lista>();
@@ -65,6 +78,7 @@ public class Gestor
         //, entonces solo en caso de que listas tenga algo, se permitira determinadas opciones
         if(listas.size()==0)
         {
+            //Agregar metodo seleccioneFechaActual
             mensaje = ("No existen listas agregadas\n Digite 1, si desea crear una nueva lista, Digite 2 si desa Salir");
             opcionElegidaLista=entrada.pidaNumeroRango(mensaje,3 ,1);
             switch(opcionElegidaLista){
@@ -72,10 +86,6 @@ public class Gestor
                 creeLista();//listo
                 break;
                 case 2:
-                //R: Cargu Lista Ya no se necesita 
-                //cargueLista();
-                break;
-                case 3:
                 salgaPrograma();//Listo
                 break;
             }
@@ -97,15 +107,19 @@ public class Gestor
                 case 3:
                 administreListaEspecifica();
                 //Incompleto
+                //fALTA AGREGAR MODIFICACION DE LISTAS, 
                 break;
                 case 4:
                 borreLista();
+                break;
                 case 5:
-                
+
                 //Listo
-                cargueListas();
-                modificarCategorias();
-                
+                modifiqueCategoriasGuardadas();
+
+                break;
+
+    
                 case 6:
                 salgaDelGestor();
                 break;
@@ -352,9 +366,10 @@ public class Gestor
         posicionCategoriaSeleccionada = entrada.pidaNumeroRango(mensaje,categoriasListas.size(),1);
 
         categoriaSeleccionada = categoriasListas.get(posicionCategoriaSeleccionada-1);
+        System.out.println(categoriaSeleccionada);
         return categoriaSeleccionada;
     }
-    
+
     //A: está dentro de pedirOpcionAgregarCategoria(), que a su vez está dentro de creeLista(), que a su vez está dentro de administreGestor()
     public void muestreCategoriasListas()
     {
@@ -516,7 +531,7 @@ public class Gestor
         }
         return listaSeleccionada;
     }
-    
+
     //A: está dentro de agregarLista(), que está dentro de administreGestor()
     public boolean pedirOpcionAgregarCategoria()
     {
@@ -524,6 +539,8 @@ public class Gestor
         boolean agregarCategoria = false;
         String mensaje =("Digite 1 si desea agregar una nueva categoria, Digite 2 si desea usar una categoria existente");
         int opcionCategoria = entrada.pidaNumeroRango(mensaje,2,1);
+        //caMBIAR ESTO POR SWITCH/ SE TIENE QUE PREGUNTAR POR VACIO
+
         if(opcionCategoria==1)
         {
             agregarCategoria = true;
@@ -533,6 +550,7 @@ public class Gestor
             if(categoriasListas.size()==0)
             {
                 System.out.println("No han existido listas agregadas por lo tanto no hay categorias, se tendra que agregar una primer categoria");
+                //PREGUNTAR POR DEJAR VACIP
                 agregarCategoria = true;
             }
         }
@@ -565,13 +583,33 @@ public class Gestor
     {
         String categoria = "";
         boolean existeCategoria = false;
+        boolean categoriaUsada = false;
         for (int i = 0;i<listas.size();i++)
         {
+
             categoria = listas.get(i).deCategoria();
+
             existeCategoria = verifiqueExistenciaCategoria(categoria);
-            if(existeCategoria=false)
+
+            if(existeCategoria==false)
             {
+
                 categoriasListas.add(categoria);
+
+            }
+        }
+        for(int i=0;i<categoriasListas.size();i++)
+        {
+            for(int j=0;j<listas.size();j++)
+            {
+                if(categoriasListas.get(i).equals(listas.get(j).deCategoria())==true)
+                {
+                    categoriaUsada = true;
+                }
+            }
+            if(categoriaUsada == false)
+            {
+                categoriasListas.remove(i);
             }
         }
     }
@@ -592,7 +630,8 @@ public class Gestor
         }
         return categoriaGuardada;
     }
-    public void modificarCategorias()
+
+    public void modifiqueCategoriasGuardadas()
     {
         String mensaje = ("Digite 1 si desea eliminar una categoria, Digite 2 si desea modificar el nombre de una categoria");
         int opcionUsuario = entrada.pidaNumeroRango(mensaje,2,1);
@@ -608,8 +647,9 @@ public class Gestor
             String nuevNombre = entrada.pidaTexto(mensaje);
             modifiqueCategoria(nombreCategoria,nuevNombre);
         }
-        categorizeListas();
+
     }
+
     public void modifiqueCategoria(String nomAct, String nomNuev)
     {
         for(int i=0;i<listas.size();i++)
@@ -617,21 +657,23 @@ public class Gestor
             if (listas.get(i).deCategoria().equals(nomAct) == true)
             {
                 listas.get(i).modifiqueCategoria(nomNuev);
+                System.out.println(listas.get(i).deCategoria());
             }
         }
-        
+        categorizeListas();
     }
+
     public void salgaDelGestor()
     {
         //preguntar si el usuario quiere guardar
     }
+
 
     public void salgaPrograma() throws IOException
     {
         cierreTodo();
         System.exit(0);
     }
-    
 
     public void cierreTodo() throws IOException{
         fis.close(); lector.close();
