@@ -58,7 +58,7 @@ public class Gestor
     //seleccioneCategoria()
     //muestreCategoriasListas()
     //categorizeListas()
-    //verifiqueExistenciaCategoria()
+
 
     public Gestor()
     {
@@ -103,11 +103,12 @@ public class Gestor
                 break;
                 case 2:
                 administreTareas();
+                //Se pedira que filtre;
                 break;
                 case 3:
                 administreListaEspecifica();
                 //Incompleto
-                //fALTA AGREGAR MODIFICACION DE LISTAS, 
+               
                 break;
                 case 4:
                 borreLista();
@@ -121,6 +122,40 @@ public class Gestor
             }
         }
     }
+     public void administreListaEspecifica()
+    {
+        boolean importaCategoria = pregunteSiImportaCategoria();
+        String categoria;
+        int posListaElegida = 0;
+        int opcionUsuario = 0;
+        String mensaje = (" ");
+        if(importaCategoria == true)
+        {
+            categoria = seleccioneCategoria();
+            posListaElegida = seleccioneListaCategorias(categoria);
+            
+        }
+        else
+        {
+            posListaElegida = seleccioneLista();
+            
+        }
+        mensaje = ("Digite 1 si desea modificar o agregar una tarea a la lista, Digite 2 si desea eliminar la lista");
+        opcionUsuario = entrada.pidaNumeroRango(mensaje,2,1);
+        switch(opcionUsuario)
+        {
+            case 1:
+            listas.get(posListaElegida).administreLista();
+            break;
+            case 2:
+            listas.remove(posListaElegida);
+            modificarCodigosLista();
+            break;
+        }
+        
+        
+    }
+   
 
     public ArrayList<Lista> seleccioneListasTareas()
     {
@@ -378,24 +413,7 @@ public class Gestor
         return continuarAgregandoListas;
     }
 
-    public void administreListaEspecifica()
-    {
-        boolean importaCategoria = pregunteSiImportaCategoria();
-        String categoria;
-        int posListaElegida = 0;
-        if(importaCategoria == true)
-        {
-            categoria = seleccioneCategoria();
-            posListaElegida = seleccioneListaCategorias(categoria);
-            listas.get(posListaElegida).administreLista();
-        }
-        else
-        {
-            posListaElegida = seleccioneLista();
-            listas.get(posListaElegida-1).administreLista();
-        }
-
-    }
+   
 
     public boolean pregunteSiImportaCategoria()
     {
@@ -528,7 +546,7 @@ public class Gestor
             if(opcionSegunda==1)
             {
                 opcionCategoria = 1;
-                
+
             }
             else
             {
@@ -562,6 +580,7 @@ public class Gestor
 
     public void categorizeListas()
     {
+        categoriasListas.clear();//Se limpia para volver a encontrar todas las categorias usadas
         String categoria = "";
         boolean existeCategoria = false;
         boolean categoriaUsada = false;
@@ -579,20 +598,8 @@ public class Gestor
 
             }
         }
-        for(int i=0;i<categoriasListas.size();i++)
-        {
-            for(int j=0;j<listas.size();j++)
-            {
-                if(categoriasListas.get(i).equals(listas.get(j).deCategoria())==true)
-                {
-                    categoriaUsada = true;
-                }
-            }
-            if(categoriaUsada == false)
-            {
-                categoriasListas.remove(i);
-            }
-        }
+
+     
     }
 
     public boolean verifiqueExistenciaCategoria(String cat)
@@ -608,6 +615,7 @@ public class Gestor
                 }
             }
         }
+
         return categoriaGuardada;
     }
 
