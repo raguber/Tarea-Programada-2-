@@ -655,22 +655,25 @@ public class Gestor
         categorizeListas();
     }
 
-    public void salgaDelGestor()
+    public void salgaDelGestor()throws IOException,ClassNotFoundException
     {
         //preguntar si el usuario quiere guardar
-    }
-
-    public void salgaPrograma() throws IOException
-    {
+        guardeListas();
+        guardeNombresDeListas();
         cierreTodo();
         System.exit(0);
     }
 
+    public void salgaPrograma() 
+    {
+        System.exit(0);
+    }
+
     public void cierreTodo() throws IOException{
-        fis.close(); lector.close();
-        fos.close(); escritor.close();
-        fire.close(); bure.close();
-        fiwr.close(); buwr.close();
+        // fis.close(); lector.close();
+        // fos.close(); escritor.close();
+        // fire.close(); bure.close();
+        // fiwr.close(); buwr.close();
     }
 
     //********Métodos de escritura y lectura*************
@@ -694,6 +697,8 @@ public class Gestor
             //3. Se guarda un objeto lista en este archivo
             escritor.writeObject(listas.get(i));
         }
+        fos.close();
+        escritor.close();
     }
 
     /**
@@ -727,7 +732,8 @@ public class Gestor
     /**
     Método para abrir las listas
      */
-    public void cargueListas()throws IOException,ClassNotFoundException,FileNotFoundException{
+    public void cargueListas(){//throws IOException,ClassNotFoundException,FileNotFoundException{
+        try{
         //1. Se abre el archivo con el nombre "Nombres de listas" el que contiene los nombres de todas las listas
         File nombresDeListas = new File("Nombres de listas.txt");
 
@@ -757,6 +763,13 @@ public class Gestor
         }
         categorizeListas();
         System.out.println("Se cargaron las listas sin problemas");
+        fire.close();
+        bure.close();
+        fis.close();
+        lector.close();
+        }catch(Exception e){
+            return;
+        }
     }
 
     public static void main (String args[])throws IOException, ClassNotFoundException
@@ -766,6 +779,7 @@ public class Gestor
 
         //Lo que deberia mostrar en las interacciones con el usuario son menus;
         //En gestor se deberia mostrar un menu muy corto y simple, y llamar metodos dependiendo de la seleccion
+        gestorListas.cargueListas();
         while (continuarPrograma)
         {
             //Se deberia mostrar menu

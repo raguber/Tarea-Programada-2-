@@ -1,8 +1,9 @@
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.io.Serializable;
 
-public class GestorFecha
+public class GestorFecha implements Serializable
 {
     EntradaDatos entrada;
     int diaInicial ;

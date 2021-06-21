@@ -1,11 +1,12 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.io.Serializable;
 
 /**
  * @author Randy Agüero B90082 y Andrés Serrano C07483
  * Esta clase se usara para pedir datos al usuario
  */
-public class EntradaDatos
+public class EntradaDatos implements Serializable
 
 {
     public EntradaDatos()
