@@ -27,20 +27,25 @@ public class Tarea implements Serializable{
      * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
      */
     public Tarea(int ID, String listPert){
+        // fechaInicio = genereFechaInicio();
+        // fechaFin="";//estimación de horas semanales de esta tarea
         entrada = new EntradaDatos();
-        codigoTarea=ID;
-        listaPerteneciente = listPert;
-        dinero=0; horas=0;
+        gestorFechas = new GestorFecha();
         dependencias = new ArrayList<Tarea>();
+        listaResponsables = new ArrayList<Responsable>();
+        recursos = new ArrayList <Recurso>();
         
+        completada=false; esProxy=false;
+        estimoDinero=false; estimoHoras=false;
+        dinero=0; horas=0;
+        estadoTarea ="Pendiente";
+        
+        codigoTarea = ID;
+        listaPerteneciente = listPert;
+        fechaInicio = genereFechaInicio();
         modifiqueNombre();
         modifiqueDescripcion();
-        completada = false; estimoDinero=false; estimoHoras=false;esProxy= false;
-        listaResponsables = new ArrayList<Responsable>();
-        gestorFechas = new GestorFecha();
-        fechaInicio = genereFechaInicio();
-        fechaFin="";//estimación de horas semanales de esta tarea
-        estadoTarea = "pendiente";
+        genereEstimacion();
     }
     //Agregar metodo para que asigne responsable
 
@@ -72,7 +77,8 @@ public class Tarea implements Serializable{
         String fecha = "";
         return fecha;
     }
-
+    
+    //En desuso por ahora
     public void genereResponsable(Responsable resp){
 
         responsable = resp;
@@ -109,8 +115,31 @@ public class Tarea implements Serializable{
     public void verifiqueEstado()
     {
         
+        
     }
-
+    
+    public void genereEstimacion(){
+        String mensaje="Digite 1 si la tarea estima horas, 2 si estima dinero, 3 si estima ambas";
+        int decision = entrada.pidaNumeroRango(mensaje,3,1);
+        switch(decision){
+            case 1:estimeEnHoras();break;
+            case 2:estimeEnDinero();break;
+            case 3:estimeEnHoras();estimeEnDinero();break;
+        }
+    }
+    
+    public void estimeEnHoras(){
+        String mensaje="Inserte la cantidad de horas que estima la tarea "+nombre;
+        horas = entrada.pidaNumero(mensaje,1);
+        estimoHoras=true;
+    }
+    
+    public void estimeEnDinero(){
+        String mensaje="Inserte la cantidad de dinero que estima la tarea "+nombre;
+        dinero = entrada.pidaNumero(mensaje,1);
+        estimoDinero=true;
+    }
+    
     public void switchEstimeEnHoras(){
         if(estimoHoras==true){
             estimoHoras=false;
@@ -160,7 +189,7 @@ public class Tarea implements Serializable{
     }
     
     /**
-    Revisa si la tarea puede completarse. Toma en cuenta dependencias, 
+    Revisa si la tarea puede completarse. Toma en cuenta dependencias, estimación, y si tiene un responsable asignado.
      */
     
     public void complete(){

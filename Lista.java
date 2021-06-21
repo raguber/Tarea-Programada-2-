@@ -286,6 +286,14 @@ public class Lista implements Serializable
         //A: Por si acaso yo hice esto, pero puede cambiarlo si lo considera necesario
         
         Tarea nuevaTarea = new Tarea((listaTareas.size())+1,nombreLista);
+        Responsable nuevoResponsable = new Responsable(listaResponsables.size()+1);
+        Recurso nuevoRecurso = new Recurso(listaRecursos.size()+1);
+        nuevaTarea.responsable=nuevoResponsable;
+        nuevaTarea.recursos.add(nuevoRecurso);
+        
+        //pedir recurso
+        //pedir responsable
+        //pedir estimacion
         listaTareas.add(nuevaTarea);
     }
 
@@ -373,7 +381,7 @@ public class Lista implements Serializable
     
     public void modifiqueResponsablesTarea(int tarSel)
     {
-    
+        
     }
     public void modifiqueRecursos(int tarSel)
     {
