@@ -156,7 +156,7 @@ public class Tarea implements Serializable{
         dependencias.remove(gen);
         System.out.println("La actividad "+nombre+" ya no depende de "+gen);
     }
-
+    
     /**
     Revisa si la tarea puede completarse. Toma en cuenta dependencias, 
      */
@@ -167,7 +167,7 @@ public class Tarea implements Serializable{
         for(int i=0;i<dependencias.size();i++){
             //revisar en un "for" todas las tareas que están en el ArrayList dependencias.
             //Si alguna de las tareas no está completa, check se vuelve falso y se termina el "for"
-            if(dependencias.get(i).completada==false){
+            if(dependencias.get(i).completada==false || dependencias.get(i).esProxy==false){
                 check=false; 
                 estoFalta+="\tDepende de tareas que están incompletas\n";
                 break;
@@ -211,9 +211,12 @@ public class Tarea implements Serializable{
         if(esProxy==true)
         {
             esProxy = false;
-        }else if(esProxy==false)
+            completada=false;
+        }
+        else if(esProxy==false)
         {
             esProxy = true;
+            completada=true;
         }
     }
 
