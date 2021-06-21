@@ -13,6 +13,7 @@ public class Recurso implements Serializable{
     EntradaDatos entrada; 
     int codigoRecurso;
     public Recurso(int codR){
+        entrada = new EntradaDatos();
         nombre = genereNombre();
         cantidad= genereCantidadRecurso();
         reusable=false;
