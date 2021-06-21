@@ -26,7 +26,7 @@ public class Tarea implements Serializable{
     /**
      * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
      */
-    public Tarea(int ID, String listPert,Responsable resp,Recurso rec){
+    public Tarea(int ID, String listPert){
         // fechaInicio = genereFechaInicio();
         // fechaFin="";//estimación de horas semanales de esta tarea
         entrada = new EntradaDatos();
@@ -42,8 +42,6 @@ public class Tarea implements Serializable{
         
         codigoTarea = ID;
         listaPerteneciente = listPert;
-        responsable =resp;
-        recursos.add(rec);
         fechaInicio = genereFechaInicio();
         modifiqueNombre();
         modifiqueDescripcion();
@@ -52,7 +50,7 @@ public class Tarea implements Serializable{
     //Agregar metodo para que asigne responsable
     public String muestreInformacion(){
         String info="Nombre: "+nombre+"\tCódigo: "+codigoTarea+"\tResponsable: "+responsable+"\tRecursos: "+recursos;
-        info+="\nFecha de inicio: "+fechaInicio+"\tFecha de Fin: "+fechaFin;
+        info+="\nFecha de inicio: "+fechaInicio+"\tFecha de Fin: "+fechaFin+"\nProgreso: "+estadoTarea;
         return info;
     }
     public void modifiqueNombre(){
@@ -84,6 +82,28 @@ public class Tarea implements Serializable{
         return fecha;
     }
     
+    public void modifiqueFechaInicio(){
+        String mensaje="Inserte la nueva fecha de inicio";
+        fechaInicio=entrada.pidaTexto(mensaje);
+        System.out.println("Se modificó la fecha de inicio de esta actividad: "+nombre);
+    }
+
+    public void modifiqueFechaFin(){
+        String mensaje="Inserte la nueva fecha final";
+        fechaFin=entrada.pidaTexto(mensaje);
+        System.out.println("Se modificó la fecha final de esta actividad: "+nombre);
+    }
+    
+    public void reviseFechas(){
+        //cambio de estado de tarea
+        //if (fecha actual es mayor a fecha de inicio y todas sus dependencias están completas(o no depende de nadie))
+            //estado: en progreso
+        //else if(fecha actual es mayor a fecha final)
+            //if(puede completarse)
+                //estado: completada
+            //else if(no puede completarse por x razón)
+                //estado: atrasada
+    }
     //En desuso por ahora
     public void genereResponsable(Responsable resp){
 
@@ -160,18 +180,6 @@ public class Tarea implements Serializable{
         }else if(estimoDinero==false){
             estimoDinero=true;
         }
-    }
-
-    public void modifiqueFechaInicio(){
-        String mensaje="Inserte la nueva fecha de inicio";
-        fechaInicio=entrada.pidaTexto(mensaje);
-        System.out.println("Se modificó la fecha de inicio de esta actividad: "+nombre);
-    }
-
-    public void modifiqueFechaFin(){
-        String mensaje="Inserte la nueva fecha final";
-        fechaFin=entrada.pidaTexto(mensaje);
-        System.out.println("Se modificó la fecha final de esta actividad: "+nombre);
     }
 
     public void agregueRecurso(Recurso rec){

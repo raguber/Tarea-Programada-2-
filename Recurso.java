@@ -43,6 +43,12 @@ public class Recurso implements Serializable{
         String mensaje="Inserte la nueva descripción de este recurso";
         descripcion=entrada.pidaTexto(mensaje);
     }
+    
+    public String muestreInformacion(){
+        String info = "Recurso: "+nombre+"\tCodigo: "+codigoRecurso+"\tCantidad"+cantidad;
+        return info;
+    }
+    
     public int genereCantidadRecurso()
     {
         int cantRecurso= 0;
