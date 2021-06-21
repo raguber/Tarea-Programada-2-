@@ -392,7 +392,7 @@ public class Gestor
         else
         {
             posListaElegida = seleccioneLista();
-            listas.get(posListaElegida-1).administreLista();
+            listas.get(posListaElegida).administreLista();
         }
 
     }
@@ -528,7 +528,7 @@ public class Gestor
             if(opcionSegunda==1)
             {
                 opcionCategoria = 1;
-                
+
             }
             else
             {
@@ -562,6 +562,7 @@ public class Gestor
 
     public void categorizeListas()
     {
+        categoriasListas.clear();//Se limpia para volver a encontrar todas las categorias usadas
         String categoria = "";
         boolean existeCategoria = false;
         boolean categoriaUsada = false;
@@ -579,20 +580,8 @@ public class Gestor
 
             }
         }
-        for(int i=0;i<categoriasListas.size();i++)
-        {
-            for(int j=0;j<listas.size();j++)
-            {
-                if(categoriasListas.get(i).equals(listas.get(j).deCategoria())==true)
-                {
-                    categoriaUsada = true;
-                }
-            }
-            if(categoriaUsada == false)
-            {
-                categoriasListas.remove(i);
-            }
-        }
+
+     
     }
 
     public boolean verifiqueExistenciaCategoria(String cat)
@@ -608,6 +597,7 @@ public class Gestor
                 }
             }
         }
+
         return categoriaGuardada;
     }
 
