@@ -284,30 +284,28 @@ public class Lista implements Serializable
     //responsable recurso estimación
     public void agregueTarea()
     {
-        //A: Por si acaso yo hice esto, pero puede cambiarlo si lo considera necesario
-        Tarea nuevaTarea = new Tarea(listaTareas.size()+1,nombreLista);
+        Tarea nuevaTarea;
+        Responsable resp;
+        Recurso rec;
         if(listaResponsables.size()==0)
         {
             System.out.println("No existen responsables guardados se debe crear uno");
-            Responsable resp = new Responsable((listaResponsables.size()+1));
-            nuevaTarea.responsable=resp;
+            resp = new Responsable((listaResponsables.size()+1));
         }
         else
         {
-            Responsable resp = pidaResponsable();
-            nuevaTarea.responsable=resp;
+            resp = pidaResponsable();
         }
         if(listaRecursos.size()==0)
         {
             System.out.println("No existen recursos guardados se debe crear uno");
-            Recurso rec = new Recurso((listaRecursos.size()+1));
-            nuevaTarea.recursos.add(rec);
+            rec = new Recurso((listaRecursos.size()+1));
         }
         else
         {
-            Recurso rec = pidaRecurso();
-            nuevaTarea.recursos.add(rec);
+            rec = pidaRecurso();
         }
+        nuevaTarea=new Tarea(listaTareas.size()+1,nombreLista,resp,rec);
         listaTareas.add(nuevaTarea);
     }
 
@@ -442,8 +440,6 @@ public class Lista implements Serializable
 
     public void modifiqueResponsablesTarea(int tarSel)
     {
-
-        
 
 
 

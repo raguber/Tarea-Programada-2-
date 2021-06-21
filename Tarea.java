@@ -26,7 +26,7 @@ public class Tarea implements Serializable{
     /**
      * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
      */
-    public Tarea(int ID, String listPert){
+    public Tarea(int ID, String listPert,Responsable resp,Recurso rec){
         // fechaInicio = genereFechaInicio();
         // fechaFin="";//estimación de horas semanales de esta tarea
         entrada = new EntradaDatos();
@@ -42,6 +42,8 @@ public class Tarea implements Serializable{
         
         codigoTarea = ID;
         listaPerteneciente = listPert;
+        responsable=resp;
+        recursos.add(rec);
         fechaInicio = genereFechaInicio();
         modifiqueNombre();
         modifiqueDescripcion();
@@ -299,8 +301,7 @@ public class Tarea implements Serializable{
 
     public static void main(String args[])
     {
-        Tarea tarea1 = new Tarea(0, "List1");
-
+    
     }
 
 }
