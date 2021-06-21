@@ -58,14 +58,14 @@ public class Tarea implements Serializable{
     public void modifiqueNombre(){
         String mensaje="Escribe el nuevo nombre";
         nombre=entrada.pidaTexto(mensaje);
-        System.out.println("Se modificó el nombre de esta actividad: "+nombre);
+        System.out.println("Se modificó el nombre de esta tarea: "+nombre);
         modifiqueIdentificacion();
     }
 
     public void modifiqueDescripcion(){
         String mensaje="Escriba la nueva descripción: ";
         descripcion=entrada.pidaTexto(mensaje);
-        System.out.println("Se modificó la descripción de esta actividad: "+nombre);
+        System.out.println("Se modificó la descripción de esta tarea: "+nombre);
     }
 
     public void modifiqueIdentificacion()
@@ -87,13 +87,13 @@ public class Tarea implements Serializable{
     public void modifiqueFechaInicio(){
         String mensaje="Inserte la nueva fecha de inicio";
         fechaInicio=entrada.pidaTexto(mensaje);
-        System.out.println("Se modificó la fecha de inicio de esta actividad: "+nombre);
+        System.out.println("Se modificó la fecha de inicio de esta tarea: "+nombre);
     }
 
     public void modifiqueFechaFin(){
         String mensaje="Inserte la nueva fecha final";
         fechaFin=entrada.pidaTexto(mensaje);
-        System.out.println("Se modificó la fecha final de esta actividad: "+nombre);
+        System.out.println("Se modificó la fecha final de esta tarea: "+nombre);
     }
     
     public void reviseFechas(){
@@ -122,7 +122,7 @@ public class Tarea implements Serializable{
     public void modifiqueResponsable(Responsable resp){
         String mensaje="Inserte el nuevo responsable: ";
         responsable = resp;
-        System.out.println("Se modificó el responsable de esta actividad: "+nombre);
+        System.out.println("Se modificó el responsable de esta tarea: "+nombre);
     }
 
     public void elimineResponsable(){
@@ -132,13 +132,13 @@ public class Tarea implements Serializable{
     public void modifiqueHoras(){
         String mensaje="Inserte la nueva cantidad de horas";
         horas=entrada.pidaNumero(mensaje,0);
-        System.out.println("Se modificó el tiempo estimado de esta actividad: "+nombre);
+        System.out.println("Se modificó el tiempo estimado de esta tarea: "+nombre);
     }
 
     public void modifiqueDinero(){
         String mensaje="Inserte la nueva cantidad de dinero";
         dinero=entrada.pidaNumero(mensaje,0);
-        System.out.println("Se modificó el dinero estimado de esta actividad: "+nombre);
+        System.out.println("Se modificó el dinero estimado de esta tarea: "+nombre);
     }
     public void verifiqueEstado()
     {
@@ -183,25 +183,27 @@ public class Tarea implements Serializable{
             estimoDinero=true;
         }
     }
-
+    
+    public void pregunteSobreDependencias(){}
+    
     public void agregueRecurso(Recurso rec){
         recursos.add(rec);
-        System.out.println("La actividad "+nombre+" ahora necesita el recurso "+rec);
+        System.out.println("La tarea "+nombre+" ahora necesita el recurso "+rec);
     }
 
     public void elimineRecurso(Recurso rec){
         recursos.remove(rec);
-        System.out.println("La actividad "+nombre+" ya no necesita el recurso "+rec);
+        System.out.println("La tarea "+nombre+" ya no necesita el recurso "+rec);
     }
 
     public void dependaDe(Tarea gen){
         dependencias.add(gen);
-        System.out.println("La actividad "+nombre+" ahora depende de "+gen);
+        System.out.println("La tarea "+nombre+" ahora depende de "+gen);
     }
 
     public void yaNoDependaDe(Tarea gen){
         dependencias.remove(gen);
-        System.out.println("La actividad "+nombre+" ya no depende de "+gen);
+        System.out.println("La tarea "+nombre+" ya no depende de "+gen);
     }
     
     /**

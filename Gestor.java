@@ -351,6 +351,8 @@ public class Gestor
         if(seleccionUsuario == 1)
         {
             filtrarCategorias = true;
+        }else if(seleccionUsuario==2){
+            filtrarCategorias = false;
         }
 
         return filtrarCategorias;
