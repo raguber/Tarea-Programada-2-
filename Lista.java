@@ -38,19 +38,18 @@ public class Lista implements Serializable
     {
         int opcionUsuario = 0;
         int seleccionTarea = 0;
-         String mensaje = ("Digite 1 si desea agregar una tarea, Digite 2 si desea eliminar o modificar una tarea\n Digite 3 si desea modificar o agregar responsables, Digite 4 si desea modificar o agregar los recursos\n Digite 5 si desea eliminar una tarea, Digite 6 si desea modificar el nombre de la lista, \nDigite 7 si desea modificar la descripcion de la lista,Digite 8 si desea modificar la categoria de la lisata ");
+        String mensaje = ("Digite 1 si desea agregar una tarea, Digite 2 si desea eliminar o modificar una tarea\n Digite 3 si desea modificar o agregar responsables, Digite 4 si desea modificar o agregar los recursos\n Digite 5 si desea eliminar una tarea, Digite 6 si desea modificar el nombre de la lista, \nDigite 7 si desea modificar la descripcion de la lista,Digite 8 si desea modificar la categoria de la lisata ");
         opcionUsuario = entrada.pidaNumeroRango(mensaje,5,1);
         switch(opcionUsuario)
         {
             case 1:
             agregueTarea();
-            
+
             break;
 
             case 2:
             seleccionTarea = pidaSeleccionTarea();
             modifiqueTarea(seleccionTarea);
-         
 
             break;
             case 3:
@@ -77,24 +76,27 @@ public class Lista implements Serializable
 
         }
     }
+
     public void modifiqueCategoriaLista()
     {
-        
+
     }
+
     public int seleccioneRecurso()
     {
-        
+
         int recSel = 0;
         String mensaje = "";
         for(int i = 0; i<listaRecursos.size();i++)
         {
-          //listaRecursos.get(i).muestreInformacion();
+            //listaRecursos.get(i).muestreInformacion();
         }
         mensaje += ("Digite el codigo del recurso");
         recSel = entrada.pidaNumeroRango(mensaje,listaRecursos.size(),1);
         recSel--;
         return recSel;
     }
+
     public void modifiqueAdmResponsables()
     {
         int opcionModificarResponsables = pidaOpcionModResponsables();
@@ -104,7 +106,7 @@ public class Lista implements Serializable
             case 1:
             respSel = seleccioneResponsables();
             listaResponsables.get(respSel).desasigneTarea();
-            
+
             break;
             case 2:
             respSel = seleccioneResponsables();
@@ -119,7 +121,7 @@ public class Lista implements Serializable
             listaResponsables.add(resp);
         }
     }
-   
+
     public int pidaOpcionModResponsables()
     {
         int opcionSel = 0;
@@ -127,30 +129,31 @@ public class Lista implements Serializable
         opcionSel = entrada.pidaNumeroRango(mensaje,4,1);
         return opcionSel;
     }
-     public int seleccioneResponsables()
+
+    public int seleccioneResponsables()
     {
         int respSel = 0;
         String mensaje = "";
         for(int i = 0; i<listaResponsables.size();i++)
         {
-             listaResponsables.get(i).muestreInformacion();
+            listaResponsables.get(i).muestreInformacion();
         }
         mensaje = ("Digite el codigo de responsable");
         respSel = entrada.pidaNumeroRango(mensaje,listaResponsables.size(),1);
         respSel--;
         return respSel;
     }
-    
+
     public int pidaSeleccionTarea()
     {
         int tareaSel = 0;
         String mensaje = "";
-        
+
         for(int i = 0;i<listaTareas.size();i++)
         {
             mensaje += ("Codigo tarea: "+listaTareas.get(i).deCodigoTarea()+" nombre"+listaTareas.get(i).deNombre());
             mensaje += "\n";
-         }
+        }
         mensaje = ("Digite el codigo de la tarea");
         tareaSel = entrada.pidaNumeroRango(mensaje,listaTareas.size(),1);
         tareaSel--;
@@ -227,7 +230,6 @@ public class Lista implements Serializable
 
     }
 
-    
     public void muestreInformacionResponsables()
     {
         System.out.println("Se mostrarán las categorías de listas");
@@ -236,17 +238,16 @@ public class Lista implements Serializable
             System.out.println("Responsable: "+(i+1)+" "+listaResponsables.get(i).nombre);
         }
     }
-    
+
     //A:pidaEleccionResponsable
     public int pidaEleccionResponsable()
     {
         String mensaje = "Digite el número del responsable que desea seleccionar, debe ser un número entre 1 y"+listaResponsables.size();
         int posicionResponsable = entrada.pidaNumeroRango(mensaje,listaResponsables.size(),1);
-        
-        
+
         return posicionResponsable;
     }
-    
+
     public void genereNombreLista()
     {
         String mensaje = ""; //esta variable se le mostrara al usuario cuando se pida al usuario un dato
@@ -284,9 +285,74 @@ public class Lista implements Serializable
     public void agregueTarea()
     {
         //A: Por si acaso yo hice esto, pero puede cambiarlo si lo considera necesario
-        
+        if(listaResponsables.size()==0)
+        {
+            System.out.println("No existen responsables guardados se debe crear uno");
+            Responsable resp = new Responsable((listaResponsables.size()+1));
+        }
+        else
+        {
+            Responsable resp = pidaResponsable();
+        }
+        if(listaRecursos.size()==0)
+        {
+            System.out.println("No existen responsables guardados se debe crear uno");
+            Recurso rec = new Recurso((listaResponsables.size()+1));
+        }
+        else
+        {
+            Recurso rec = pidaRecurso();
+        }
+
         Tarea nuevaTarea = new Tarea((listaTareas.size())+1,nombreLista);
         listaTareas.add(nuevaTarea);
+    }
+
+    public Responsable pidaResponsable()
+    {
+        Responsable respSel = listaResponsables.get(0);
+
+        String mensaje = ("Digite 1 si desea seleccionar un responsable existente, Digite 2 si desea seleccionar un responsable nuevo");
+        int opcion = entrada.pidaNumeroRango(mensaje,2,1);
+        if((opcion == 1)&&(listaResponsables.size()>0))
+        {
+            int posRes;
+            posRes = seleccioneResponsables();
+            respSel = listaResponsables.get(posRes);
+        }
+        else
+        {
+            if(listaResponsables.size()==0&&(opcion ==1))
+            {
+                System.out.println("No existen responsables guardados, debe hacer un nuevo");
+            }
+            respSel = new Responsable(listaResponsables.size());
+        }
+
+        return respSel;
+    }
+
+    public Recurso pidaRecurso()
+    {
+        Recurso recSel = listaRecursos.get(0);
+        String mensaje = ("Digite 1 si desea seleccionar un recurso existente, Digite 2 si desea seleccionar un recurso nuevo");
+        int opcion = entrada.pidaNumeroRango(mensaje,2,1);
+        if((opcion == 1)&&(listaRecursos.size()>0))
+        {
+            int posRec;
+            posRec = seleccioneRecurso();
+            recSel = listaRecursos.get(posRec);
+        }
+        else
+        {
+            if(listaRecursos.size()==0&&(opcion ==1))
+            {
+                System.out.println("No existen responsables guardados, debe hacer un nuevo");
+            }
+            recSel = new Recurso(listaResponsables.size()+1);
+        }
+
+        return recSel;
     }
 
     public void mostrarLista()
@@ -362,7 +428,7 @@ public class Lista implements Serializable
         //Metodo modNombre, descripcion, aqui.
         //Si se llama a eliminarTarea; entonces hay que generar de nuevo codigos de tarea
     }
-    
+
     public int pidaOpcionModTareas()
     {
         int eleccion = 0;
@@ -370,27 +436,32 @@ public class Lista implements Serializable
         eleccion = entrada.pidaNumeroRango(mensaje,5,1);
         return eleccion;
     }
-    
+
     public void modifiqueResponsablesTarea(int tarSel)
     {
-    
+
     }
+
     public void modifiqueRecursos(int tarSel)
     {
-        
+
     }
+
     public void expandaFechaFinal(int tarSel)
     {
-    
+
     }
+
     public void agregueDineroTarea(int tarSel)
     {
-        
+
     }
+
     public void modifiqueCategoria(String nuvCat)
     {
         categoriaLista = nuvCat;
     }
+
     public void elimineTarea(int tarSel)
     {
         listaTareas.remove(tarSel);
@@ -440,31 +511,53 @@ public class Lista implements Serializable
         }
         return directorioGuardado;
     }
+
     public void modifiqueResponsable()
     {
-    
+
     }
-   
+
     public void modifiqueAdmRecursos()
     {
         String mensaje = ("Digite 1 si desea modificar el nombre de un recurso, digite 2 si desea modificar la descripcion de un recurso, digite 3 si desea eliminar un recurso");
         int opcionSel = entrada.pidaNumeroRango(mensaje,3,1);
-        
+        int recSel = 0;
+        switch(opcionSel)
+        {
+            case 1:
+            recSel = seleccioneRecurso();
+            listaRecursos.get(recSel).modifiqueNombre();
+            break;
+            case 2:
+            recSel = seleccioneRecurso();
+            //listaRecursos.get(recSel).modifiqueDescripcion();
+            break;
+            case 3:
+            recSel = seleccioneRecurso();
+            // if(listaRecursos.get(recSel).estaAsignado()==true)
+            // {
+            // System.out.println("El recurso esta asignado, hasta que no se termine la tarea con el recurso asignado, no se puede eliminar el recurso");
+            // }
+            // else
+            // {
+            // listaRecursos.remove(recSel);
+            // }
+            break;
+        }
+
     }
+
     public void modiqueNombreLista()
     {
         String mensaje = ("Digite el nuevo nombre de la lista "+nombreLista);
         nombreLista = entrada.pidaTexto(mensaje);
     }
-  
+
     public void modifiqueDescripcionLista()
     {
         String mensaje = ("Digite la nueva descripcion de la lista "+nombreLista);
         nombreLista = entrada.pidaTexto(mensaje);
     }
-    
-  
-    
 
     public static void main (String Args[])
     {
