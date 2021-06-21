@@ -37,10 +37,14 @@ public class Lista implements Serializable
     public void administreLista()
     {
         int opcionUsuario = pidaOpcionAdministreLista();
+        int seleccionTarea = 0;
+         String mensaje = ("Digite 1 si desea agregar una tarea, Digite 2 si desea eliminar o modificar una tarea\n Digite 3 si desea modificar o agregar responsables, Digite 4 si desea modificar o agregar los recursos\n Digite 5 si desea eliminar una tarea ");
+        opcionUsuario = entrada.pidaNumeroRango(mensaje,5,1);
         switch(opcionUsuario)
         {
             case 1:
-            agregueTarea();
+            seleccionTarea = pidaSeleccionTarea();
+            modifiqueTarea(seleccionTarea);
             break;
 
             case 2:
@@ -48,17 +52,78 @@ public class Lista implements Serializable
 
             break;
             case 3:
-            modifiqueResponsables();
+            modifiqueAdmResponsables();
 
             break;
             case 4:
             modifiqueRecursos();
             break;
             case 5:
-            eliminarTarea();
+            seleccionTarea = pidaSeleccionTarea();
+            elimineTarea(seleccionTarea);
             break;
 
         }
+    }
+    public void modifiqueAdmResponsables()
+    {
+        int opcionModificarResponsables = pidaOpcionModResponsables();
+        int respSel = 0;
+        switch(opcionModificarResponsables)
+        {
+            case 1:
+            respSel = seleccioneResponsables();
+            listaResponsables.get(respSel).desasigneTarea();
+            
+            break;
+            case 2:
+            respSel = seleccioneResponsables();
+            listaResponsables.get(respSel).editeNombre();
+            break;
+            case 3:
+            respSel = seleccioneResponsables();
+            listaResponsables.get(respSel).editeHorasDedicadas();
+            break;
+            case 4:
+            Responsable resp = new Responsable((listaResponsables.size()+1));
+            listaResponsables.add(resp);
+        }
+    }
+   
+    public int pidaOpcionModResponsables()
+    {
+        int opcionSel = 0;
+        String mensaje = ("Digite 1 si desea eliminar tareas de un responsable, Digte 2 si desea modificar el nombre de un responsable, Digite 3 si desea modificar las horas asignadas de un responsable, Digite 4 si desea agregar un responsable");
+        opcionSel = entrada.pidaNumeroRango(mensaje,4,1);
+        return opcionSel;
+    }
+     public int seleccioneResponsables()
+    {
+        int respSel = 0;
+        String mensaje = "";
+        for(int i = 0; i<listaResponsables.size();i++)
+        {
+            listaResponsables.get(i).muestreInformacion();
+        }
+        mensaje = ("Digite el codigo de responsable");
+        respSel = entrada.pidaNumeroRango(mensaje,listaResponsables.size(),1);
+        return respSel;
+    }
+    
+    public int pidaSeleccionTarea()
+    {
+        int tareaSel = 0;
+        String mensaje = "";
+        
+        for(int i = 0;i<listaTareas.size();i++)
+        {
+            mensaje += ("Codigo tarea: "+listaTareas.get(i).deCodigoTarea()+" nombre"+listaTareas.get(i).deNombre());
+            mensaje += "\n";
+         }
+        mensaje = ("Digite el codigo de la tarea");
+        tareaSel = entrada.pidaNumeroRango(mensaje,listaTareas.size(),1);
+        tareaSel--;
+        return tareaSel;
     }
 
     public int pidaOpcionAdministreLista()
@@ -92,6 +157,7 @@ public class Lista implements Serializable
             break;
             case 2 :
             // eliminarResponsable();
+            // actualizeTareas();
             break;
             case 3 :
             // agregarResponsable();
@@ -238,14 +304,64 @@ public class Lista implements Serializable
 
     public void modifiqueTarea(int tarSel)
     {
+        int opcionModificacionTareas = pidaOpcionModTareas();
+        switch(opcionModificacionTareas)
+        {
+            case 1:
+            elimineTarea(tarSel);
+            break;
+            case 2:
+            modifiqueResponsablesTarea(tarSel);
+            break;
+            case 3:
+            modifiqueRecursos(tarSel);
+            break;
+            case 4:
+            expandaFechaFinal(tarSel);
+            break;
+            case 5:
+            agregueDineroTarea(tarSel);
+            break;
+            case 6:
+            listaTareas.get(tarSel).modifiqueNombre();
+            case 7:
+            listaTareas.get(tarSel).modifiqueDescripcion();
+        }
         //Metodo eliminar, modificarReponsables, modificarRecursosAqui,etc aqui
         //Metodo modNombre, descripcion, aqui.
         //Si se llama a eliminarTarea; entonces hay que generar de nuevo codigos de tarea
     }
-
+    
+    public int pidaOpcionModTareas()
+    {
+        int eleccion = 0;
+        String mensaje = ("Digite 1 si desea eliminar la tarea, Digite 2 si desea modificar los responsables de la tarea\nDigite 3 si desea modificar los recursos de la tarea, Digite 4 si desea expandir la fecha de finalizacion\nDigite 5 para agregar dinero a la tarea, Digite 6 para modificar el nombre de la tarea\nDigite 7 para modificar la descripcion de la tarea");
+        eleccion = entrada.pidaNumeroRango(mensaje,5,1);
+        return eleccion;
+    }
+    public void modifiqueResponsablesTarea(int tarSel)
+    {
+    
+    }
+    public void modifiqueRecursos(int tarSel)
+    {
+        
+    }
+    public void expandaFechaFinal(int tarSel)
+    {
+    
+    }
+    public void agregueDineroTarea(int tarSel)
+    {
+        
+    }
     public void modifiqueCategoria(String nuvCat)
     {
         categoriaLista = nuvCat;
+    }
+    public void elimineTarea(int tarSel)
+    {
+        listaTareas.remove(tarSel);
     }
 
     public int deCantidadTareas()
@@ -292,7 +408,7 @@ public class Lista implements Serializable
         }
         return directorioGuardado;
     }
-    public void modifiqueResponsables()
+    public void modifiqueResponsable()
     {
     
     }
@@ -305,10 +421,8 @@ public class Lista implements Serializable
         String mensaje = ("Digite el nuevo nombre de la lista "+nombreLista);
         nombreLista = entrada.pidaTexto(mensaje);
     }
-    public void eliminarTarea()
-    {
-        
-    }
+  
+    
   
     
 

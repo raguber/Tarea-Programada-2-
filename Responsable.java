@@ -47,14 +47,19 @@ public class Responsable implements Serializable
         tareasAsignadas.add(tareaAsignada);
     }
     
-    //A
-    public void desasigneTarea(Tarea tarAsig)
+    public void desasigneTarea()
+    {
+        
+    }
+    public void elimineTarea(Tarea tarAsig)
     {
         tareasAsignadas.remove(tarAsig);
     }
     
     public void editeNombre()
     {
+        String mensaje = ("Digite el nuevo nombre del responsable "+nombre);
+        nombre = entrada.pidaTexto(mensaje);
         genereIdentificacion();
     }
     public void editeHorasDedicadas()
