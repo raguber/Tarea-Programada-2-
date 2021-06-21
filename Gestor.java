@@ -34,7 +34,12 @@ public class Gestor
 
     EntradaDatos entrada;
 
-    GestorFecha gestorFechas = new GestorFecha();
+    GestorFecha gestorFechas;
+
+    int diaActual;
+    int mesActual;
+    int anoActual;
+    String fechaActual;
     //goback
     //El Maravilloso Gestor de Listas
 
@@ -59,16 +64,18 @@ public class Gestor
     //muestreCategoriasListas()
     //categorizeListas()
 
-
     public Gestor()
     {
         listas = new ArrayList<Lista>();
         listasArchivos = new ArrayList<File>();
         entrada = new EntradaDatos();
         categoriasListas = new ArrayList<String>();
+        gestorFechas = new GestorFecha();
+        diaActual = 0;
+        mesActual = 0;
+        anoActual = 0;
 
     }
-
     public void administreGestor()throws IOException,ClassNotFoundException
     {
         //Hay que dejarle a la lista que modifique Tareas.
@@ -78,7 +85,9 @@ public class Gestor
         //, entonces solo en caso de que listas tenga algo, se permitira determinadas opciones
         if(listas.size()==0)
         {
-            //Agregar metodo seleccioneFechaActual
+            System.out.println("No existe guardado una fecha en el gestor, por favor ingrese los datos");
+            seleccioneFechaActual();
+
             mensaje = ("No existen listas agregadas\n Digite 1, si desea crear una nueva lista, Digite 2 si desa Salir");
             opcionElegidaLista=entrada.pidaNumeroRango(mensaje,3 ,1);
             switch(opcionElegidaLista){
@@ -93,7 +102,7 @@ public class Gestor
         }
         else
         {
-            mensaje =("¿Qué desea hacer?\nDigite 1  si desea crear una nueva lista, Digite 2 si desea Mostrar o modificar tareas ya creadas \nDigite 3 si desea modificar una lista o agregar tareas a una lista,\nDigite 4 si desea modificar categorias, Digite 5 si desea salir del gestor");
+            mensaje =("¿Qué desea hacer?\nDigite 1  si desea crear una nueva lista, Digite 2 si desea Mostrar, modificar o progresar tareas ya creadas \nDigite 3 si desea modificar una lista o agregar tareas a una lista,\nDigite 4 si desea modificar categorias, Digite 5 si desea salir del gestor");
 
             opcionElegidaLista=entrada.pidaNumeroRango(mensaje,5,1);
 
@@ -116,7 +125,16 @@ public class Gestor
             }
         }
     }
-     public void administreListaEspecifica()
+
+    public void seleccioneFechaActual()
+    {
+        fechaActual = gestorFechas.pidaFecha();
+        diaActual = gestorFechas.deDiaInicial();
+        mesActual = gestorFechas.deMesInicial();
+        anoActual = gestorFechas.deAnoInicial();
+    }
+
+    public void administreListaEspecifica()
     {
         boolean importaCategoria = pregunteSiImportaCategoria();
         String categoria;
@@ -127,12 +145,12 @@ public class Gestor
         {
             categoria = seleccioneCategoria();
             posListaElegida = seleccioneListaCategorias(categoria);
-            
+
         }
         else
         {
             posListaElegida = seleccioneLista();
-            
+
         }
         mensaje = ("Digite 1 si desea modificar o agregar una tarea a la lista, Digite 2 si desea eliminar la lista");
         opcionUsuario = entrada.pidaNumeroRango(mensaje,2,1);
@@ -147,10 +165,8 @@ public class Gestor
             categorizeListas();
             break;
         }
-        
-        
+
     }
-   
 
     public ArrayList<Lista> seleccioneListasTareas()
     {
@@ -410,7 +426,6 @@ public class Gestor
         return continuarAgregandoListas;
     }
 
-   
 
     public boolean pregunteSiImportaCategoria()
     {
@@ -470,7 +485,6 @@ public class Gestor
         listasArchivos.add(nuevoFile);
         categorizeListas();
     }
-
 
     public void modificarCodigosLista()
     {
@@ -590,9 +604,7 @@ public class Gestor
             }
         }
 
-     
     }
-
     public boolean verifiqueExistenciaCategoria(String cat)
     {
         boolean categoriaGuardada = false;
