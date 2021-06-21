@@ -27,10 +27,6 @@ public class Gestor
     FileWriter fiwr;
     BufferedReader bure;
     BufferedWriter buwr;
-    //A: agregué un método para cerrar todo esto, se llama cierreTodo(). Iba a meterlo inicialmente en cierrePrograma pero decídí dejarlo
-    //fuera, dígame usted si aprueba meterlo en cierrePrograma
-
-    //R: Metalo ahi, porque de eso se trata el metodo
 
     JFileChooser chooser;
     ArrayList<String> categoriasListas;
@@ -39,6 +35,18 @@ public class Gestor
     EntradaDatos entrada;
 
     GestorFecha gestorFechas = new GestorFecha();
+    //goback
+    //El Maravilloso Gestor de Listas
+    //void administreGestor()
+    //void creeLista()
+    //boolean pedirOpcionAgregarCategoria()
+    //muestreCategoriasListas()
+    //agregarCategoria()
+    //verifiqueExistenciaCategoria()
+    //seleccioneCategoria()
+    //muestreCategoriasListas()
+    //categorizeListas()
+    //verifiqueExistenciaCategoria()
     public Gestor()
     {
         listas = new ArrayList<Lista>();
@@ -48,7 +56,7 @@ public class Gestor
 
     }
 
-    public void administreGestor()
+    public void administreGestor()throws IOException,ClassNotFoundException
     {
         //Hay que dejarle a la lista que modifique Tareas.
         int opcionElegidaLista = 0;
@@ -78,7 +86,7 @@ public class Gestor
 
             switch(opcionElegidaLista){
                 case 1: 
-                creeLista();//Listo
+                creeLista(); //Listo 
                 break;
                 case 2:
                 administreTareas();
@@ -92,8 +100,11 @@ public class Gestor
                 borreLista();
                 break;
                 case 5:
-                modificarCategorias();
+                //Listo
+                 modifiqueCategoriasGuardadas();
+
                 break;
+               
                 case 6:
                 salgaDelGestor();
                 break;
@@ -328,7 +339,7 @@ public class Gestor
 
         return filtrarCategorias;
     }
-
+    //A: está dentro de creeLista, que está dentro de administreGestor()
     public String seleccioneCategoria()
     {
         String categoriaSeleccionada = "";
@@ -344,9 +355,10 @@ public class Gestor
         return categoriaSeleccionada;
     }
 
+    //A: está dentro de pedirOpcionAgregarCategoria(), que a su vez está dentro de creeLista(), que a su vez está dentro de administreGestor()
     public void muestreCategoriasListas()
     {
-        System.out.println("Se mostraran las categorias de listas");
+        System.out.println("Se mostrarán las categorías de listas");
         for(int i=0;i<categoriasListas.size();i++)
         {
             System.out.println("Categoria: "+(i+1)+" "+categoriasListas.get(i));
@@ -432,7 +444,7 @@ public class Gestor
         }
         return categoria;
     }
-
+    //A: está dentro de administreGestor
     public void creeLista(){
         boolean agregarCategoria = pedirOpcionAgregarCategoria();
         String categoriaSeleccionada ="";
@@ -505,6 +517,7 @@ public class Gestor
         return listaSeleccionada;
     }
 
+    //A: está dentro de agregarLista(), que está dentro de administreGestor()
     public boolean pedirOpcionAgregarCategoria()
     {
         muestreCategoriasListas();
@@ -512,7 +525,7 @@ public class Gestor
         String mensaje =("Digite 1 si desea agregar una nueva categoria, Digite 2 si desea usar una categoria existente");
         int opcionCategoria = entrada.pidaNumeroRango(mensaje,2,1);
         //caMBIAR ESTO POR SWITCH/ SE TIENE QUE PREGUNTAR POR VACIO
-        
+
         if(opcionCategoria==1)
         {
             agregarCategoria = true;
@@ -586,6 +599,7 @@ public class Gestor
         }
     }
 
+    //A: está dentro de agregarCategoria()
     public boolean verifiqueExistenciaCategoria(String cat)
     {
         boolean categoriaGuardada = false;
@@ -601,7 +615,8 @@ public class Gestor
         }
         return categoriaGuardada;
     }
-    public void modificarCategorias()
+
+    public void modifiqueCategoriasGuardadas()
     {
         String mensaje = ("Digite 1 si desea eliminar una categoria, Digite 2 si desea modificar el nombre de una categoria");
         int opcionUsuario = entrada.pidaNumeroRango(mensaje,2,1);
@@ -619,6 +634,7 @@ public class Gestor
         }
 
     }
+
     public void modifiqueCategoria(String nomAct, String nomNuev)
     {
         for(int i=0;i<listas.size();i++)
@@ -631,18 +647,21 @@ public class Gestor
         }
         categorizeListas();
     }
+
     public void salgaDelGestor()
     {
         System.exit(0);
+
     }
 
-    public void salgaPrograma()
+
+    public void salgaPrograma() throws IOException
     {
+        cierreTodo();
         System.exit(0);
     }
-    
 
-    public void cierreTodo()throws IOException{
+    public void cierreTodo() throws IOException{
         fis.close(); lector.close();
         fos.close(); escritor.close();
         fire.close(); bure.close();
@@ -703,7 +722,7 @@ public class Gestor
     /**
     Método para abrir las listas
      */
-    public void cargeListas()throws IOException,ClassNotFoundException,FileNotFoundException{
+    public void cargueListas()throws IOException,ClassNotFoundException,FileNotFoundException{
         //1. Se abre el archivo con el nombre "Nombres de listas" el que contiene los nombres de todas las listas
         File nombresDeListas = new File("Nombres de listas.txt");
 
@@ -732,9 +751,10 @@ public class Gestor
             listas.add(unaLista);
         }
         categorizeListas();
+        System.out.println("Se cargaron las listas sin problemas");
     }
 
-    public static void main (String args[])
+    public static void main (String args[])throws IOException, ClassNotFoundException
     {
         Gestor gestorListas = new Gestor();
         boolean continuarPrograma = true;

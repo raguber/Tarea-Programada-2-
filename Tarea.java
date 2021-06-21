@@ -170,6 +170,7 @@ public class Tarea implements Serializable{
     /**
     Revisa si la tarea puede completarse. Toma en cuenta dependencias, 
      */
+    
     public void complete(){
         boolean check=true;//Este booleano debe ser true para que esta tarea pueda completarse. Se asume inicialmente que sí puede completarse.
         String estoFalta="La tarea no puede completarse porque:\n";
@@ -205,7 +206,7 @@ public class Tarea implements Serializable{
         }
     }
     
-
+    
     public String deIdentificacion()
     {
         return identificacion;
