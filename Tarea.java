@@ -22,6 +22,9 @@ public class Tarea implements Serializable{
     EntradaDatos entrada;
     ArrayList <Recurso> recursos;//recursos que tiene la tarea
     ArrayList <Tarea> dependencias;
+    String fechaActual;
+
+    int diaActual,mesActual, anoActual,diaInicio,mesInicio,anoInicio;
 
     /**
      * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
@@ -42,12 +45,32 @@ public class Tarea implements Serializable{
         
         codigoTarea = ID;
         listaPerteneciente = listPert;
-        responsable=resp;
+
+        responsable =resp;
+        listaResponsables.add(resp);
+
+
         recursos.add(rec);
-        fechaInicio = genereFechaInicio();
+        fechaActual = "";
+        diaActual = 0;
+        mesActual = 0;
+        anoActual = 0;
+        fechaInicio = "";
+        diaInicio = 0;
+        mesInicio = 0;
+        anoInicio = 0;
+        genereFechaInicio();
+        
         modifiqueNombre();
         modifiqueDescripcion();
         genereEstimacion();
+    }
+    public void fijeFecha(String fechaA, int diaA,int mesA,int anoA)
+    {
+        fechaActual = fechaA;
+        diaActual = diaA;
+        mesActual = mesA;
+        anoActual = anoA;
     }
     //Agregar metodo para que asigne responsable
     public String muestreInformacion(){
@@ -56,7 +79,7 @@ public class Tarea implements Serializable{
         return info;
     }
     public void modifiqueNombre(){
-        String mensaje="Escribe el nuevo nombre";
+        String mensaje="Escribe el nuevo nombre de la tarea";
         nombre=entrada.pidaTexto(mensaje);
         System.out.println("Se modificó el nombre de esta tarea: "+nombre);
         modifiqueIdentificacion();
@@ -78,10 +101,13 @@ public class Tarea implements Serializable{
         codigoTarea = cod;
     }
 
-    public String genereFechaInicio ()
+    public void genereFechaInicio ()
     {
-        String fecha = "";
-        return fecha;
+        fechaInicio = gestorFechas.pidaFechaTarea(diaActual, mesActual,anoActual);
+        diaInicio = gestorFechas.diaInicial;
+        mesInicio = gestorFechas.mesInicial;
+        anoInicio =  gestorFechas.anoInicial;
+        fechaFin = gestorFechas.calculeFechaFin(responsable.cantidadHorasDedicadas,horas,diaActual,mesActual,anoActual, diaInicio,mesInicio,anoInicio);
     }
     
     public void modifiqueFechaInicio(){
@@ -166,7 +192,7 @@ public class Tarea implements Serializable{
     }
     
     public void estimeEnHoras(){
-        String mensaje="Inserte la cantidad de horas que estima la tarea "+nombre;
+        String mensaje="Inserte la cantidad de horas semanales que se nesesitan para realizar la tarea"+nombre;
         horas = entrada.pidaNumero(mensaje,1);
         estimoHoras=true;
     }
@@ -176,7 +202,29 @@ public class Tarea implements Serializable{
         dinero = entrada.pidaNumero(mensaje,1);
         estimoDinero=true;
     }
+    public void progrese(String fechaA,int diaA,int mesA,int anoA)
+    {
+        if(anoA<anoInicio)
+        {
+            if(mesA<mesInicio)
+            {
+                if(diaA>diaInicio)//Solo si la fecha actual es mayor que el inicio se progresa
+                {
+                    progreseTarea(fechaA,diaA,mesA,anoA);
+                }
+            }
+        }
+        fechaActual = fechaA;
+        diaActual = diaA;
+        mesActual = mesA;
+        anoActual = anoA;
+        
+        
+    }
+    public void progreseTarea(String fechaA, int diaA,int mesA,int anoA)
+    {
     
+    }
     public void switchEstimeEnHoras(){
         if(estimoHoras==true){
             estimoHoras=false;
@@ -291,7 +339,9 @@ public class Tarea implements Serializable{
         String responsables = "";
         if(esProxy == false)
         {
+
             responsables = responsable.deNombre();
+
         }
         else
         {

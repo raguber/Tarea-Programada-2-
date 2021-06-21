@@ -252,6 +252,11 @@ public class GestorFecha implements Serializable
     {
         return anoInicial;
     }
+    public String calculeFechaFin(int cantHorasDed,int cantHorasT, int diaA, int mesA,int anoA,int diaI,int mesI,int anoI)
+    {
+        String fecha ="";
+        return fecha;
+    }
 
     public boolean verifiqueAnoBisiesto()
     {

@@ -76,6 +76,7 @@ public class Gestor
         anoActual = 0;
 
     }
+
     public void administreGestor()throws IOException,ClassNotFoundException
     {
         //Hay que dejarle a la lista que modifique Tareas.
@@ -85,7 +86,7 @@ public class Gestor
         //, entonces solo en caso de que listas tenga algo, se permitira determinadas opciones
         if(listas.size()==0)
         {
-            System.out.println("No existe guardado una fecha en el gestor, por favor ingrese los datos");
+            System.out.println("No existe guardada una fecha en el gestor, por favor ingrese los datos");
             seleccioneFechaActual();
 
             mensaje = ("No existen listas agregadas\n Digite 1, si desea crear una nueva lista, Digite 2 si desa Salir");
@@ -244,13 +245,22 @@ public class Gestor
             }
             else
             {
-                //modificarTiempo
+                seleccioneFechaActual();
+                actualizeFechas();
             }
             //Se va a usar la identificacion de la lista y la identificacion de la tarea para editar eliminar o algo en las tareas-
         }
         else
         {
             System.out.println("Todas las listas seleccionadas estan vacias, debe seleccionar otras listas, o agregar tareas para poder gestionar las tareas");
+        }
+    }
+
+    public void actualizeFechas()
+    {
+        for(int i=0;i<listas.size();i++)
+        {
+            listas.get(i).actualizeFechas(fechaActual, diaActual,mesActual,anoActual);
         }
     }
 
@@ -426,7 +436,6 @@ public class Gestor
         return continuarAgregandoListas;
     }
 
-
     public boolean pregunteSiImportaCategoria()
     {
         boolean importaCategoria = false;
@@ -479,6 +488,7 @@ public class Gestor
         }
 
         Lista nuevaLista = new Lista(listas.size()+1,categoriaSeleccionada);
+        nuevaLista.fijeFecha(fechaActual,diaActual,mesActual,anoActual);
         listas.add(nuevaLista);
         //Notar que cada vez que listas se agrega, se debe guardar en un archivo
         File nuevoFile = new File(nuevaLista.deNombreLista()+".txt");//<-- el archivo se llama igual que la lista. Se le adiciona el .txt
@@ -545,7 +555,7 @@ public class Gestor
         if((opcionCategoria == 2)&(categoriasListas.size()==0))
         {
             System.out.println("No han existido listas agregadas por lo tanto no hay categorias");
-            //PREGUNTAR POR DEJAR VACIP
+
             mensaje = ("Digite 1 si desea agregar una categoria nueva, Digite 2 si desea agregar una lista sin categoria");
             int opcionSegunda = entrada.pidaNumeroRango(mensaje,2,1);
             if(opcionSegunda==1)
@@ -605,6 +615,7 @@ public class Gestor
         }
 
     }
+
     public boolean verifiqueExistenciaCategoria(String cat)
     {
         boolean categoriaGuardada = false;

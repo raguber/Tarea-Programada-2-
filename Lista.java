@@ -13,7 +13,8 @@ public class Lista implements Serializable
     ArrayList<Tarea> listaTareas;
     EntradaDatos entrada;
     String categoriaLista;
-    int codigoLista;
+    int codigoLista,diaActual,mesActual,anoActual;
+    String fechaActual;
     String directorio;
     public Lista(int codLista,String catLista)
     {
@@ -23,6 +24,11 @@ public class Lista implements Serializable
         String directorio = " ";
         nombreLista = "";
         identificacion = " ";
+        fechaActual = "";
+        diaActual = 0;
+        mesActual = 0;
+        anoActual = 0;
+        
         codigoLista = codLista;
         categoriaLista = catLista;
 
@@ -323,10 +329,16 @@ public class Lista implements Serializable
         if(listaTareas.size()>0){
             pregunteSobreDependencia();
         }
-
+        nuevaTarea.fijeFecha(fechaActual, diaActual,mesActual,anoActual);
         listaTareas.add(nuevaTarea);
     }
-    
+    public void fijeFecha(String fechaA, int diaA,int mesA,int anoA)
+    {
+        fechaActual = fechaA;
+        diaActual = diaA;
+        mesActual = mesA;
+        anoActual = anoA;
+    }
     public void pregunteSobreDependencia(){
         String mensaje = "¿Este tarea depende de otra?\nDigite 1 = Sí, Digite 2 = No";
         int respuesta = entrada.pidaNumeroRango(mensaje,2,1);
@@ -441,6 +453,7 @@ public class Lista implements Serializable
         }
         return infoTareas;
     }
+    
 
     public void modifiqueTarea(int tarSel)
     {
@@ -479,6 +492,22 @@ public class Lista implements Serializable
         eleccion = entrada.pidaNumeroRango(mensaje,5,1);
         return eleccion;
     }
+    public void actualizeFechas(String fecha,int diaA,int mes,int anoA)
+    {
+        fechaActual = fecha;
+        diaActual = diaA;
+        mesActual = mes;
+        anoActual = anoA;
+        progreseTareas();
+    }
+    public void progreseTareas()
+    {
+        for(int i=0;i<listaTareas.size();i++)
+        {
+            listaTareas.get(i).progrese(fechaActual,diaActual,mesActual,anoActual);
+        }
+    }
+    
 
     public void modifiqueResponsablesTarea(int tarSel)
     {
