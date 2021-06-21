@@ -131,10 +131,13 @@ public class Lista implements Serializable
         descripcion = entrada.pidaTexto(mensaje);
 
     }
-
+    //responsable recurso estimación
     public void agregueTarea()
     {
-
+        //A:esto lo hice yo
+        String mensaje;
+        Tarea nuevaTarea = new Tarea(listaTareas.size(),nombreLista);
+        listaTareas.add(nuevaTarea);
     }
 
     public void mostrarLista()
