@@ -272,7 +272,7 @@ public class Tarea implements Serializable{
         String responsables = "";
         if(esProxy == false)
         {
-            responsables = listaResponsables.get(0).deNombre();
+            responsables = responsable.deNombre();
         }
         else
         {

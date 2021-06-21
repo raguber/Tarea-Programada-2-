@@ -317,7 +317,7 @@ public class Lista implements Serializable
 
 
         
-        nuevaTarea= new Tarea((listaTareas.size())+1,nombreLista,resp,rec);
+
         //Tarea nuevaTarea = new Tarea();
         nuevaTarea.responsable=resp;
         nuevaTarea.recursos.add(rec);
