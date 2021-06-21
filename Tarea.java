@@ -26,28 +26,19 @@ public class Tarea implements Serializable{
     /**
      * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
      */
-    // nombre, e identificador, lista ***, responsable no lo veo 
-    ///Ver que quiza sea buena idea asignar valores desde esta clase y no desde el gestor
-    //Quiza el gestor sea mas conveniente tenerlo para que solo indique que se haga una tarea,
-    //Se podria hacer un metodo main, que llame a los metodos para que llenen los datos.
-    //Esto seria importante para reducir el codigo en el gestor,
-
-    //Esto tambien ayudaria a simplificar la Clase Lista
-    //Ya que las listas tienen tareas, No solo el gesto
-    //Por supuesto solo es una idea.
-
     public Tarea(int ID, String listPert){
         codigoTarea=ID;
         listaPerteneciente = listPert;
         dinero=0; horas=0;
         dependencias = new ArrayList<Tarea>();
-
-        descripcion="";
+        modifiqueDescripcion();
+        modifiqueNombre();
         completada = false; estimoDinero=false; estimoHoras=false;esProxy= false;
         listaResponsables = new ArrayList<Responsable>();
         gestorFechas = new GestorFecha();
         fechaInicio = genereFechaInicio();
         fechaFin="";//estimación de horas semanales de esta tarea
+        estadoTarea = "pendiente";
     }
     //Agregar metodo para que asigne responsable
 
@@ -78,7 +69,6 @@ public class Tarea implements Serializable{
     {
         String fecha = "";
         return fecha;
-
     }
 
     public void genereResponsable(Responsable resp){
@@ -218,11 +208,13 @@ public class Tarea implements Serializable{
 
     public void cambieValorProxy()
     {
-        esProxy = false;
-    }
-    public String deEstadoTarea()
-    {
-        return estadoTarea;
+        if(esProxy==true)
+        {
+            esProxy = false;
+        }else if(esProxy==false)
+        {
+            esProxy = true;
+        }
     }
 
     public String deResponsablesNombre()

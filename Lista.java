@@ -134,7 +134,7 @@ public class Lista implements Serializable
     //responsable recurso estimación
     public void agregueTarea()
     {
-        //A:esto lo hice yo
+        //A: Por si acaso yo hice esto, pero puede cambiarlo si lo considera necesario
         String mensaje;
         Tarea nuevaTarea = new Tarea(listaTareas.size(),nombreLista);
         listaTareas.add(nuevaTarea);
@@ -179,7 +179,7 @@ public class Lista implements Serializable
         for(int i=0;i<listaTareas.size();i++)
         {
             infoTareas += ("\t Nombre Tarea : "+listaTareas.get(i).deNombre()+" Identificacion Tarea "+listaTareas.get(i).deIdentificacion()+"\n"); 
-            infoTareas += ("\t Responsables  : "+listaTareas.get(i).deResponsablesNombre()+" Estado Tarea : "+listaTareas.get(i).deEstadoTarea()+"\n");
+            infoTareas += ("\t Responsables  : "+listaTareas.get(i).deResponsablesNombre()+" Estado Tarea : "+listaTareas.get(i).estadoTarea+"\n");
         }
         return infoTareas;
     }
