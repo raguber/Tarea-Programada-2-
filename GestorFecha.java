@@ -135,6 +135,122 @@ public class GestorFecha
         String fechaActual = (diaInicial+"/"+mesInicial+"/"+anoInicial);
         return fechaActual;
     }
+    public String pidaFechaTarea(int diaA, int mesA, int anoA)
+    {
+        diaInicial = diaA;
+        mesInicial = mesA;
+        String mensaje = ("Digite el año de inicio de la tarea");
+        int anoTemp = -1;
+
+        while(anoTemp<anoInicial)
+        {
+            anoTemp = entrada.pidaNumero(mensaje,1900);
+            if(anoTemp<anoInicial)
+            {
+                System.out.println("El año ingresado es menor que el año guardado, no se puede empezar una tarea desde el pasado");
+
+            }
+        }
+        anoInicial = anoTemp;
+        int mesActualTemp = (mesInicial-1);
+        mensaje = ("Digite el numero del mes \n1: enero , 2: febrero, 3: marzo, 4: abril, 5: mayo, 6 junion\n7: julio, 8: Agosto, 9: Septiembre, 10: Octubre , 11: Noviembre, 12, Diciembre");
+        while(mesActualTemp<mesInicial)
+        {
+
+            mesActualTemp = entrada.pidaNumeroRango(mensaje,12,1);
+            if(mesActualTemp<mesInicial)
+            {
+                System.out.println("El mes ingresado es menor al mes guardadado, no se puede puede empezar una tarea desde el pasado");
+            }
+        }
+        int diaMaximo = 0;
+
+        switch(mesActualTemp)
+        {
+            case 1:
+            diaMaximo = 31;
+            break;
+            case 2:
+            boolean anoBisiesto = verifiqueAnoBisiesto();
+            if(anoBisiesto== true)
+            {
+                diaMaximo = 29;
+            }
+            else
+            {
+                diaMaximo = 28;
+            }
+            break;
+            case 3:
+            diaMaximo = 31;
+            break;
+            case 4:
+            diaMaximo = 30;
+            break;
+            case 5:
+            diaMaximo = 31;
+            break;
+            case 6:
+            diaMaximo = 30;
+            break;
+            case 7:
+            diaMaximo = 31;
+            break;
+            case 8:
+            diaMaximo = 31;
+            break;
+            case 9:
+            diaMaximo = 30;
+            break;
+            case 10:
+            diaMaximo = 31;
+            break;
+            case 11:
+            diaMaximo = 30;
+            break;
+            case 12:
+            diaMaximo = 31;
+            break;
+        }
+
+        int diaActualTemp = (diaInicial-1);
+        mensaje = ("Digite el dia de inicio de la tarea, digite un numero entre 1 y "+diaMaximo);
+        if(mesActualTemp==mesInicial)
+
+        {
+            while(diaActualTemp<=diaInicial)
+            {
+                diaActualTemp = entrada.pidaNumeroRango(mensaje,diaMaximo,1);
+
+                if(diaActualTemp<=diaInicial)
+                {
+                    System.out.println("No se puede elegir un dia anterior, si se esta en el mismo mes, no se puede regresar al pasado");
+                }
+            }
+           
+        }
+        else
+        {
+            diaActualTemp = entrada.pidaNumeroRango(mensaje,diaMaximo,1);
+        }
+        diaInicial = diaActualTemp;
+        mesInicial = mesActualTemp;
+        
+        String fechaActual = (diaInicial+"/"+mesInicial+"/"+anoInicial);
+        return fechaActual;
+    }
+    public int deDiaInicial()
+    {
+        return diaInicial;
+    }
+    public int deMesInicial()
+    {
+        return mesInicial;
+    }
+    public int deAnoInicial()
+    {
+        return anoInicial;
+    }
 
     public boolean verifiqueAnoBisiesto()
     {
