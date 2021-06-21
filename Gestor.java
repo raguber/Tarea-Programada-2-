@@ -113,22 +113,14 @@ public class Gestor
                 borreLista();
                 break;
                 case 5:
-
-                //Listo
                 modifiqueCategoriasGuardadas();
-
                 break;
-
-    
                 case 6:
                 salgaDelGestor();
                 break;
             }
         }
     }
-
-    //R: Se deberia analizar muestreTareas como mostrarInformacionTareas para X cantidad de tareas
-    //R: Se tiene la situacion de como adminstrar tareas, en teoria, podria pidase la lista a modficar y luego tareas
 
     public ArrayList<Lista> seleccioneListasTareas()
     {
@@ -138,75 +130,51 @@ public class Gestor
         ArrayList<Lista> listasSeleccionadas = new ArrayList<Lista>();
         boolean continuarAgregandoCategorias = pregunteSiImportaCategoria();
         boolean agregarMasListas = true;
-        while(continuarAgregandoCategorias||listasSeleccionadas.size()<listas.size())
+        int listaSeleccionada = 0;
+        boolean listaAgregada = true;
+        while(agregarMasListas)
         {
-            if(continuarAgregandoCategorias==true)
+            if(continuarAgregandoCategorias == true)
             {
-
                 categoria = seleccioneCategoria();
-
+                listaSeleccionada = seleccioneListaCategorias(categoria);
             }
             else
             {
+                listaSeleccionada = seleccioneLista();
+            }
 
+            int seleccionLista = listaSeleccionada;
+            if(verifiqueSiTareaSeleccionada(listas.get(seleccionLista),listasSeleccionadas )== false)
+            {
+                listasSeleccionadas.add(listas.get(seleccionLista));
+            }
+            else
+            {
+                System.out.println("Error, La tarea elegida ya ha sido seleccionada");
+
+            }
+
+            if(listasSeleccionadas.size()!=listas.size())
+            {
+                agregarMasListas = pidaOpcionContinuarAgregarListas();//Retorn un boolean, en caso de falso se sale del while
+                if(agregarMasListas == true)
+                {
+                    continuarAgregandoCategorias = pregunteSiContinuarFiltrandoCategorias();
+                }
+            }
+            else
+            {
+                System.out.println("No se pueden seleccionar mas listas, ya se han seleccionado todas");
                 agregarMasListas = false;
                 continuarAgregandoCategorias = false;
             }
 
-            while(agregarMasListas)
-            {
-                if(continuarAgregandoCategorias == true)
-                {
-                    int listaSeleccionada = seleccioneListaCategorias(categoria);
-                }
-                else
-                {
-                    int listaSeleccionada = seleccioneLista();
-                }
-
-                int seleccionLista = 0;
-                if(verifiqueSiTareaSeleccionada(listas.get(seleccionLista),listasSeleccionadas )== false)
-                {
-                    listasSeleccionadas.add(listas.get(seleccionLista));
-
-                }
-                else
-                {
-                    System.out.println("Error, La tarea elegida ya ha sido seleccionada");
-                }
-                if(listasSeleccionadas.size()!=listasSeleccionadas.size())
-                {
-                    agregarMasListas = pidaOpcionContinuarAgregarListas();
-                }
-                else
-                {
-                    agregarMasListas = false;
-                    continuarAgregandoCategorias = false;
-                }
-            }
-            if(agregarMasListas ==false)
-            {
-                continuarAgregandoCategorias =  false;
-
-            }
-            if(listasSeleccionadas.size()==listas.size())
-            {
-                System.out.println("No se pueden seleccionar mas listas, ya se han seleccionado todas");
-                agregarMasListas=false;
-                continuarAgregandoCategorias=false;
-
-            }
-
-            if(continuarAgregandoCategorias == true)
-            {
-                continuarAgregandoCategorias = pregunteSiContinuarFiltrandoCategorias();
-            }
-
-            //R:Deberia ir eso en un metodo aparte
-            //R: Se deberia pida N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
-            //R: por eso se usa ArrayLista, notar que podria seguir, pidiendo tareas, entonces es prudente preguntar. Si quiere agregar mas o no.
-
         }
+        //R:Deberia ir eso en un metodo aparte
+        //R: Se deberia pida N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
+        //R: por eso se usa ArrayLista, notar que podria seguir, pidiendo tareas, entonces es prudente preguntar. Si quiere agregar mas o no.
+        listasSeleccionadas.size();
         return listasSeleccionadas;
     }
 
@@ -215,7 +183,7 @@ public class Gestor
         ArrayList<Lista> seleccionLista = seleccioneListasTareas();
         muestreTareas(seleccionLista);
         seleccionLista = elimineListasVacias(seleccionLista);
-
+        System.out.println(seleccionLista.size()+" asd");
         if(seleccionLista.size() != 0)
         {
             System.out.println("Se eliminaron las listas sin tareas");
@@ -240,18 +208,21 @@ public class Gestor
         }
     }
 
-    public ArrayList<Lista> elimineListasVacias(ArrayList<Lista> listSel)
+    public ArrayList<Lista> elimineListasVacias(ArrayList<Lista> listaSel)
     {
-        ArrayList<Lista> lista = listSel;
-        for(int i=0;i<lista.size();i++)
-        {
-            if(lista.get(i).deCantidadTareas()==0)
-            {
+        ArrayList<Lista> lista = new ArrayList<Lista>();
 
-                lista.remove(i);
+        for(int i=0;i<listaSel.size();i++)
+        {
+            System.out.println("i"+i);
+            if(listaSel.get(i).deCantidadTareas()>0)
+            {
+                System.out.println(lista.get(i).deCantidadTareas()+"cant");
+                lista.add(listaSel.get(i));
 
             }
         }
+
         return lista;
     }
 
@@ -416,7 +387,7 @@ public class Gestor
         {
             categoria = seleccioneCategoria();
             posListaElegida = seleccioneListaCategorias(categoria);
-            listas.get(posListaElegida-1).administreLista();
+            listas.get(posListaElegida).administreLista();
         }
         else
         {
@@ -461,16 +432,22 @@ public class Gestor
     }
     //A: está dentro de administreGestor
     public void creeLista(){
-        boolean agregarCategoria = pedirOpcionAgregarCategoria();
+        int opcionAgregarCategoria = pedirOpcionAgregarCategoria();
         String categoriaSeleccionada ="";
-        if(agregarCategoria == true)
+        switch(opcionAgregarCategoria)
         {
+            case 1://Agregar una categoria nueva
             categoriaSeleccionada = agregarCategoria();
-        }
-        else
-        {
+            break;
+            case 2://Seleccionar una lista existente
             categoriaSeleccionada = seleccioneCategoria();
+            break;
+            case 3://dejar lista vacia;
+            System.out.println("Se ha seleccionado dejar la lista sin categoria");
+            categoriaSeleccionada = "Sin categoria";
+            break;
         }
+
         Lista nuevaLista = new Lista(listas.size()+1,categoriaSeleccionada);
         listas.add(nuevaLista);
         //Notar que cada vez que listas se agrega, se debe guardar en un archivo
@@ -500,9 +477,10 @@ public class Gestor
         int posListaSeleccionada = 0;
         String mensaje = "";
         muestreListas();
-        System.out.println("Seleccione una lista");
+        System.out.println("Digite el codigo de la lista");
         mensaje =  ("Digite un numero entre 1 y "+listas.size());
         posListaSeleccionada = entrada.pidaNumeroRango(mensaje,listas.size(),1);
+        posListaSeleccionada--;//se sabe que el codigo es la posicion de la lista, entonces si se selecciona 1 de codigo la posicion es 0;
         return posListaSeleccionada;
     }
 
@@ -514,12 +492,12 @@ public class Gestor
         while(listaSeleccionadaIncorrecta)
         { 
             muestreListasCategoria(cat);
-            String mensaje = ("Digite el numero de la lista que desea seleccionar");
+            String mensaje = ("Digite el codigo de la lista que desea seleccionar");
             listaSeleccionada = entrada.pidaNumeroRango(mensaje,listas.size(),1);
-
+            listaSeleccionada--;
             for(int i= 0;i<listas.size();i++)
             {
-                if(listas.get(i).deCategoria()==listas.get(listaSeleccionada-1).deCategoria())
+                if(listas.get(listaSeleccionada).deCategoria().equals(cat)==true)
                 {
                     listaSeleccionadaIncorrecta = false;
                 }
@@ -533,29 +511,32 @@ public class Gestor
     }
 
     //A: está dentro de agregarLista(), que está dentro de administreGestor()
-    public boolean pedirOpcionAgregarCategoria()
+    public int pedirOpcionAgregarCategoria()
     {
         muestreCategoriasListas();
-        boolean agregarCategoria = false;
-        String mensaje =("Digite 1 si desea agregar una nueva categoria, Digite 2 si desea usar una categoria existente");
-        int opcionCategoria = entrada.pidaNumeroRango(mensaje,2,1);
-        //caMBIAR ESTO POR SWITCH/ SE TIENE QUE PREGUNTAR POR VACIO
 
-        if(opcionCategoria==1)
+        boolean entradaIncorrecta = true;
+        String mensaje =("Digite 1 si desea agregar una nueva categoria, Digite 2 si desea usar una categoria existente, Digite 3 si desea agregar una lista sin categoria");
+        int opcionCategoria = entrada.pidaNumeroRango(mensaje,3,1);
+
+        if((opcionCategoria == 2)&(categoriasListas.size()==0))
         {
-            agregarCategoria = true;
-        }
-        else
-        {
-            if(categoriasListas.size()==0)
+            System.out.println("No han existido listas agregadas por lo tanto no hay categorias");
+            //PREGUNTAR POR DEJAR VACIP
+            mensaje = ("Digite 1 si desea agregar una categoria nueva, Digite 2 si desea agregar una lista sin categoria");
+            int opcionSegunda = entrada.pidaNumeroRango(mensaje,2,1);
+            if(opcionSegunda==1)
             {
-                System.out.println("No han existido listas agregadas por lo tanto no hay categorias, se tendra que agregar una primer categoria");
-                //PREGUNTAR POR DEJAR VACIP
-                agregarCategoria = true;
+                opcionCategoria = 1;
+                
+            }
+            else
+            {
+                opcionCategoria = 3;
             }
         }
-        return agregarCategoria;
 
+        return opcionCategoria;
     }
 
     public void muestreListas()
@@ -614,7 +595,6 @@ public class Gestor
         }
     }
 
-    //A: está dentro de agregarCategoria()
     public boolean verifiqueExistenciaCategoria(String cat)
     {
         boolean categoriaGuardada = false;
@@ -633,6 +613,7 @@ public class Gestor
 
     public void modifiqueCategoriasGuardadas()
     {
+        muestreCategoriasListas();
         String mensaje = ("Digite 1 si desea eliminar una categoria, Digite 2 si desea modificar el nombre de una categoria");
         int opcionUsuario = entrada.pidaNumeroRango(mensaje,2,1);
         if(opcionUsuario==1)
@@ -667,7 +648,6 @@ public class Gestor
     {
         //preguntar si el usuario quiere guardar
     }
-
 
     public void salgaPrograma() throws IOException
     {
