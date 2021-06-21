@@ -291,8 +291,7 @@ public class Tarea implements Serializable{
 
     public static void main(String args[])
     {
-        Tarea tarea1 = new Tarea(0, "List1");
-
+    
     }
 
 }
