@@ -48,7 +48,7 @@ public class Lista implements Serializable
         //Mostrar Responsables **Esto se podria hacer de una vez; sin necesidad de mostrar dos veces, 
         //Para elegir un responsables**Por el momento mostrar dos veces parece ser lo mejor
 
-        //muestreInformacionResponsables();
+        muestreInformacionResponsables();
         //Ver no deberia ser una opcion porque ya se mostro informacion directa;
         //No deberia porque agregar la opcion "ver responsable" pero no debe ser necesario
         mensaje = ("Digite 1 si desea editar un responsable, Digite 2 si desea eliminar un responsable, Digite 3 si desea agregar un responsable");
@@ -99,6 +99,26 @@ public class Lista implements Serializable
 
     }
 
+    
+    public void muestreInformacionResponsables()
+    {
+        System.out.println("Se mostrarán las categorías de listas");
+        for(int i=0;i<listaResponsables.size();i++)
+        {
+            System.out.println("Responsable: "+(i+1)+" "+listaResponsables.get(i).nombre);
+        }
+    }
+    
+    //A:pidaEleccionResponsable
+    public int pidaEleccionResponsable()
+    {
+        String mensaje = "Digite el número del responsable que desea seleccionar, debe ser un número entre 1 y"+listaResponsables.size();
+        int posicionResponsable = entrada.pidaNumeroRango(mensaje,listaResponsables.size(),1);
+        
+        
+        return posicionResponsable;
+    }
+    
     public void genereNombreLista()
     {
         String mensaje = ""; //esta variable se le mostrara al usuario cuando se pida al usuario un dato

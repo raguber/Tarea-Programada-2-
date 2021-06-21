@@ -43,9 +43,16 @@ public class Responsable implements Serializable
 
     public void asigneTarea(Tarea tarAsig)
     {
-        //Tarea tareaAsignada = tarAsig;
-        //tarea.add(tareaAsignada);
+        Tarea tareaAsignada = tarAsig;
+        tareasAsignadas.add(tareaAsignada);
     }
+    
+    //A
+    public void desasigneTarea(Tarea tarAsig)
+    {
+        tareasAsignadas.remove(tarAsig);
+    }
+    
     public void editeNombre()
     {
         genereIdentificacion();
