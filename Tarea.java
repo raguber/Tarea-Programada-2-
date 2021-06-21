@@ -26,7 +26,7 @@ public class Tarea implements Serializable{
     /**
      * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
      */
-    public Tarea(int ID, String listPert){
+    public Tarea(int ID, String listPert,Responsable resp,Recurso rec){
         // fechaInicio = genereFechaInicio();
         // fechaFin="";//estimación de horas semanales de esta tarea
         entrada = new EntradaDatos();
@@ -42,13 +42,19 @@ public class Tarea implements Serializable{
         
         codigoTarea = ID;
         listaPerteneciente = listPert;
+        responsable =resp;
+        recursos.add(rec);
         fechaInicio = genereFechaInicio();
         modifiqueNombre();
         modifiqueDescripcion();
         genereEstimacion();
     }
     //Agregar metodo para que asigne responsable
-
+    public String muestreInformacion(){
+        String info="Nombre: "+nombre+"\tCódigo: "+codigoTarea+"\tResponsable: "+responsable+"\tRecursos: "+recursos;
+        info+="\nFecha de inicio: "+fechaInicio+"\tFecha de Fin: "+fechaFin;
+        return info;
+    }
     public void modifiqueNombre(){
         String mensaje="Escribe el nuevo nombre";
         nombre=entrada.pidaTexto(mensaje);

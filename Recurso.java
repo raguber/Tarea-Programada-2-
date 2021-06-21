@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @version 11/6/2021
  */
 public class Recurso implements Serializable{
-    String nombre;
+    String nombre,descripcion;
     int cantidad;
     boolean reusable;
     String identificacion;
@@ -15,16 +15,13 @@ public class Recurso implements Serializable{
     public Recurso(int codR){
         entrada = new EntradaDatos();
         nombre = genereNombre();
+        descripcion = genereDescripcion();
         cantidad= genereCantidadRecurso();
         reusable=false;
         codigoRecurso = codR;
         String indentificacion = genereIdentificacion();
     }
     
-    public void modifiqueNombre(){
-        String mensaje="Inserte el nuevo nombre de este recurso: ";
-        nombre=entrada.pidaTexto(mensaje);
-    }
     public String genereNombre()
     {
         String nom ="";
@@ -32,6 +29,19 @@ public class Recurso implements Serializable{
         nom = entrada.pidaTexto(mensaje);
         
         return nom;
+    }
+    public String genereDescripcion(){
+        String mensaje ="Digite la descripción de este recurso";
+        String desc = entrada.pidaTexto(mensaje);
+        return desc;
+    }
+    public void modifiqueNombre(){
+        String mensaje="Inserte el nuevo nombre de este recurso: ";
+        nombre=entrada.pidaTexto(mensaje);
+    }
+    public void modifiqueDescripcion(){
+        String mensaje="Inserte la nueva descripción de este recurso";
+        descripcion=entrada.pidaTexto(mensaje);
     }
     public int genereCantidadRecurso()
     {
@@ -73,7 +83,6 @@ public class Recurso implements Serializable{
     }
     public String deNombre()
     {
-
         return nombre;
     }
     public int deCantidad()
