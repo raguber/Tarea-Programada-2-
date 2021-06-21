@@ -15,12 +15,15 @@ public class Responsable implements Serializable
     EntradaDatos entrada;
     public Responsable(int codResp)//Lo mismo, se deberia cambiar, es poco importante ya que el usuario va a seleccionar un responsable
     {
+        entrada = new EntradaDatos();
         codigoResponsable = codResp;
         nombre = " ";
         identificacion = "";
         cantidadHorasDedicadas = 0;
         cantidadHorasDisponibles = 0;
-        entrada = new EntradaDatos();
+        genereNombre();
+        genereIdentificacion();
+        genereCantidadHorasDedicadas();
     }
 
     public void genereNombre()

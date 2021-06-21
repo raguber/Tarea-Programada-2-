@@ -296,8 +296,8 @@ public class Lista implements Serializable
         }
         if(listaRecursos.size()==0)
         {
-            System.out.println("No existen responsables guardados se debe crear uno");
-            Recurso rec = new Recurso((listaResponsables.size()+1));
+            System.out.println("No existen recursos guardados se debe crear uno");
+            Recurso rec = new Recurso((listaRecursos.size()+1));
         }
         else
         {
