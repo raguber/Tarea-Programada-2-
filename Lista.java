@@ -143,7 +143,7 @@ public class Lista implements Serializable
     public void mostrarLista()
     {
         String mostrarInfo ="";
-        mostrarInfo += ("Numero Lista "+codigoLista+"\n");
+        mostrarInfo += (" Codigo Lista "+codigoLista+"\n");
         mostrarInfo += ("Categoria: "+categoriaLista+" Nombre de la lista "+nombreLista+" Identificacion: "+identificacion+"\n");
         mostrarInfo += (deInfoMinResponsables());
         mostrarInfo += (deInfoMinRecursos());
@@ -187,7 +187,7 @@ public class Lista implements Serializable
     {
         //Metodo eliminar, modificarReponsables, modificarRecursosAqui,etc aqui
         //Metodo modNombre, descripcion, aqui.
-        //Si se llama a eliminarTaea; entonces hay que generar de nuevo codigos de tarea
+        //Si se llama a eliminarTarea; entonces hay que generar de nuevo codigos de tarea
     }
     public void modifiqueCategoria(String nuvCat)
     {
