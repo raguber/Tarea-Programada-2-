@@ -291,21 +291,40 @@ public class Lista implements Serializable
         {
             System.out.println("No existen responsables guardados se debe crear uno");
             resp = new Responsable((listaResponsables.size()+1));
+
+
+
         }
         else
         {
             resp = pidaResponsable();
+
+
         }
         if(listaRecursos.size()==0)
         {
             System.out.println("No existen recursos guardados se debe crear uno");
             rec = new Recurso((listaRecursos.size()+1));
+
+
         }
         else
         {
             rec = pidaRecurso();
+
         }
         nuevaTarea=new Tarea(listaTareas.size()+1,nombreLista,resp,rec);
+
+
+        
+        nuevaTarea= new Tarea((listaTareas.size())+1,nombreLista,resp,rec);
+        //Tarea nuevaTarea = new Tarea();
+        nuevaTarea.responsable=resp;
+        nuevaTarea.recursos.add(rec);
+
+        //pedir recurso
+        //pedir responsable
+        //pedir estimacion
         listaTareas.add(nuevaTarea);
     }
 
