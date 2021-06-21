@@ -37,6 +37,7 @@ public class Gestor
     GestorFecha gestorFechas = new GestorFecha();
     //goback
     //El Maravilloso Gestor de Listas
+
     //void administreGestor()
     //void creeLista()
     //boolean pedirOpcionAgregarCategoria()
@@ -47,6 +48,18 @@ public class Gestor
     //muestreCategoriasListas()
     //categorizeListas()
     //verifiqueExistenciaCategoria()
+
+    //void administreGestor()
+    //void creeLista()
+    //boolean pedirOpcionAgregarCategoria()
+    //muestreCategoriasListas()
+    //agregarCategoria()
+    //verifiqueExistenciaCategoria()
+    //seleccioneCategoria()
+    //muestreCategoriasListas()
+    //categorizeListas()
+    //verifiqueExistenciaCategoria()
+
     public Gestor()
     {
         listas = new ArrayList<Lista>();
@@ -100,11 +113,13 @@ public class Gestor
                 borreLista();
                 break;
                 case 5:
+
                 //Listo
-                 modifiqueCategoriasGuardadas();
+                modifiqueCategoriasGuardadas();
 
                 break;
-               
+
+    
                 case 6:
                 salgaDelGestor();
                 break;
@@ -650,8 +665,7 @@ public class Gestor
 
     public void salgaDelGestor()
     {
-        System.exit(0);
-
+        //preguntar si el usuario quiere guardar
     }
 
 
