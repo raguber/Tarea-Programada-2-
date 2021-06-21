@@ -27,12 +27,14 @@ public class Tarea implements Serializable{
      * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
      */
     public Tarea(int ID, String listPert){
+        entrada = new EntradaDatos();
         codigoTarea=ID;
         listaPerteneciente = listPert;
         dinero=0; horas=0;
         dependencias = new ArrayList<Tarea>();
-        modifiqueDescripcion();
+        
         modifiqueNombre();
+        modifiqueDescripcion();
         completada = false; estimoDinero=false; estimoHoras=false;esProxy= false;
         listaResponsables = new ArrayList<Responsable>();
         gestorFechas = new GestorFecha();

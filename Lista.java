@@ -36,19 +36,21 @@ public class Lista implements Serializable
 
     public void administreLista()
     {
-        int opcionUsuario = pidaOpcionAdministreLista();
+        int opcionUsuario = 0;
         int seleccionTarea = 0;
-         String mensaje = ("Digite 1 si desea agregar una tarea, Digite 2 si desea eliminar o modificar una tarea\n Digite 3 si desea modificar o agregar responsables, Digite 4 si desea modificar o agregar los recursos\n Digite 5 si desea eliminar una tarea ");
+         String mensaje = ("Digite 1 si desea agregar una tarea, Digite 2 si desea eliminar o modificar una tarea\n Digite 3 si desea modificar o agregar responsables, Digite 4 si desea modificar o agregar los recursos\n Digite 5 si desea eliminar una tarea, Digite 6 si desea modificar el nombre de la lista, \nDigite 7 si desea modificar la descripcion de la lista,Digite 8 si desea modificar la categoria de la lisata ");
         opcionUsuario = entrada.pidaNumeroRango(mensaje,5,1);
         switch(opcionUsuario)
         {
             case 1:
-            seleccionTarea = pidaSeleccionTarea();
-            modifiqueTarea(seleccionTarea);
+            agregueTarea();
+            
             break;
 
             case 2:
-            modifiqueNombreLista();
+            seleccionTarea = pidaSeleccionTarea();
+            modifiqueTarea(seleccionTarea);
+         
 
             break;
             case 3:
@@ -56,14 +58,42 @@ public class Lista implements Serializable
 
             break;
             case 4:
-            modifiqueRecursos();
+            modifiqueAdmRecursos();
             break;
             case 5:
             seleccionTarea = pidaSeleccionTarea();
             elimineTarea(seleccionTarea);
             break;
+            case 6:
+            modifiqueNombreLista();
+            break;
+            case 7: 
+            modifiqueDescripcionLista();
+            break;
+            case 8:
+            modifiqueCategoriaLista();
+
+            break;
 
         }
+    }
+    public void modifiqueCategoriaLista()
+    {
+        
+    }
+    public int seleccioneRecurso()
+    {
+        
+        int recSel = 0;
+        String mensaje = "";
+        for(int i = 0; i<listaRecursos.size();i++)
+        {
+          //listaRecursos.get(i).muestreInformacion();
+        }
+        mensaje += ("Digite el codigo del recurso");
+        recSel = entrada.pidaNumeroRango(mensaje,listaRecursos.size(),1);
+        recSel--;
+        return recSel;
     }
     public void modifiqueAdmResponsables()
     {
@@ -103,10 +133,11 @@ public class Lista implements Serializable
         String mensaje = "";
         for(int i = 0; i<listaResponsables.size();i++)
         {
-            listaResponsables.get(i).muestreInformacion();
+             listaResponsables.get(i).muestreInformacion();
         }
         mensaje = ("Digite el codigo de responsable");
         respSel = entrada.pidaNumeroRango(mensaje,listaResponsables.size(),1);
+        respSel--;
         return respSel;
     }
     
@@ -253,8 +284,8 @@ public class Lista implements Serializable
     public void agregueTarea()
     {
         //A: Por si acaso yo hice esto, pero puede cambiarlo si lo considera necesario
-        String mensaje;
-        Tarea nuevaTarea = new Tarea(listaTareas.size(),nombreLista);
+        
+        Tarea nuevaTarea = new Tarea((listaTareas.size())+1,nombreLista);
         listaTareas.add(nuevaTarea);
     }
 
@@ -339,6 +370,7 @@ public class Lista implements Serializable
         eleccion = entrada.pidaNumeroRango(mensaje,5,1);
         return eleccion;
     }
+    
     public void modifiqueResponsablesTarea(int tarSel)
     {
     
@@ -412,9 +444,12 @@ public class Lista implements Serializable
     {
     
     }
-    public void modifiqueRecursos()
+   
+    public void modifiqueAdmRecursos()
     {
-    
+        String mensaje = ("Digite 1 si desea modificar el nombre de un recurso, digite 2 si desea modificar la descripcion de un recurso, digite 3 si desea eliminar un recurso");
+        int opcionSel = entrada.pidaNumeroRango(mensaje,3,1);
+        
     }
     public void modiqueNombreLista()
     {
@@ -422,6 +457,11 @@ public class Lista implements Serializable
         nombreLista = entrada.pidaTexto(mensaje);
     }
   
+    public void modifiqueDescripcionLista()
+    {
+        String mensaje = ("Digite la nueva descripcion de la lista "+nombreLista);
+        nombreLista = entrada.pidaTexto(mensaje);
+    }
     
   
     
