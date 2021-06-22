@@ -2,6 +2,9 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.io.Serializable;
+/**
+ * @author Randy Agüero B90082 y Andrés Serrano C07483
+ */
 
 public class GestorFecha implements Serializable
 {
@@ -262,12 +265,22 @@ public class GestorFecha implements Serializable
         int anoInicial = anoA;
         int diaInicial = diaA;
         int mesInicial = mesA;
+
         cantHorasDed /= 7;
+        cantHorasDed /= 7;
+        int cantDias = 0;
         if (cantHorasDed == 0)
         {
             cantHorasDed = 1;//Horas por dia
         }
-        int cantDias = (cantHorasT/cantHorasDed);//cantHorasDed, no puede ser 0, porque el responsable solo puede trabajar 1 hora minimo;
+        if(cantHorasDed>1)
+        {
+            cantDias = (cantHorasT/cantHorasDed);
+        }//cantHorasDed, no puede ser 0, porque el responsable solo puede trabajar 1 hora minimo;
+        else
+        {
+            
+        }
         if(cantDias<=0)
         {
             cantDias = 1;//Como minimo una tarea tendra un dia.
