@@ -39,6 +39,16 @@ public class Lista implements Serializable
 
         listaTareas = new ArrayList<Tarea>();
     }
+    public String deInfoTareas()
+    {
+        String info = "";
+        for(int i= 0;i<listaTareas.size();i++)
+        {
+            info = listaTareas.get(i).muestreInformacion();
+            System.out.println(info);
+        }
+        return info;
+    }
 
     public void administreLista()
     {

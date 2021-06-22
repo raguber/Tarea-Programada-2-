@@ -124,7 +124,7 @@ public class GestorFecha implements Serializable
                     System.out.println("No se puede elegir un dia anterior, si se esta en el mismo mes, no se puede regresar al pasado");
                 }
             }
-           
+
         }
         else
         { 
@@ -132,10 +132,11 @@ public class GestorFecha implements Serializable
         }
         diaInicial = diaActualTemp;
         mesInicial = mesActualTemp;
-        
+
         String fechaActual = (diaInicial+"/"+mesInicial+"/"+anoInicial);
         return fechaActual;
     }
+
     public String pidaFechaTarea(int diaA, int mesA, int anoA)
     {
         diaInicial = diaA;
@@ -228,7 +229,7 @@ public class GestorFecha implements Serializable
                     System.out.println("No se puede elegir un dia anterior, si se esta en el mismo mes, no se puede regresar al pasado");
                 }
             }
-           
+
         }
         else
         {
@@ -236,26 +237,125 @@ public class GestorFecha implements Serializable
         }
         diaInicial = diaActualTemp;
         mesInicial = mesActualTemp;
-        
+
         String fechaActual = (diaInicial+"/"+mesInicial+"/"+anoInicial);
         return fechaActual;
     }
+
     public int deDiaInicial()
     {
         return diaInicial;
     }
+
     public int deMesInicial()
     {
         return mesInicial;
     }
+
     public int deAnoInicial()
     {
         return anoInicial;
     }
+
     public String calculeFechaFin(int cantHorasDed,int cantHorasT, int diaA, int mesA,int anoA,int diaI,int mesI,int anoI)
     {
-        String fecha ="";
+        int anoInicial = anoA;
+        int diaInicial = diaA;
+        int mesInicial = mesA;
+        cantHorasDed /= 7;
+        if (cantHorasDed == 0)
+        {
+            cantHorasDed = 1;//Horas por dia
+        }
+        int cantDias = (cantHorasT/cantHorasDed);//cantHorasDed, no puede ser 0, porque el responsable solo puede trabajar 1 hora minimo;
+        if(cantDias<=0)
+        {
+            cantDias = 1;//Como minimo una tarea tendra un dia.
+        }
+        boolean anoBisiesto = true;
+        while(cantDias>364)//365 un ano Completo
+        {
+            anoBisiesto = verifiqueAnoBisiesto();
+            if(anoBisiesto == true)
+            {
+                anoInicial++;
+                cantDias =- 366;
+            }
+            else
+            {
+                anoInicial++;
+                cantDias =- 365;
+            }
+        }
+        int diaMaximo = deCantDiasMes(anoInicial);
+        while(cantDias>diaMaximo)
+        {
+
+            mesInicial++;
+            cantDias-= diaMaximo;
+            diaMaximo = deCantDiasMes(mesInicial);
+        }
+        if(cantDias == 0)
+        {
+            diaInicial = 1;
+        }
+
+        String fecha = (diaInicial+"/"+mesInicial+"/"+anoInicial);
         return fecha;
+    }
+
+    public int deCantDiasMes(int mes)
+    {
+        int diaMaximo = 0;
+
+        switch(mes)
+        {
+            case 1:
+            diaMaximo = 31;
+            break;
+            case 2:
+            boolean anoBisiesto = verifiqueAnoBisiesto();
+            if(anoBisiesto== true)
+            {
+                diaMaximo = 29;
+            }
+            else
+            {
+                diaMaximo = 28;
+            }
+            break;
+            case 3:
+            diaMaximo = 31;
+            break;
+            case 4:
+            diaMaximo = 30;
+            break;
+            case 5:
+            diaMaximo = 31;
+            break;
+            case 6:
+            diaMaximo = 30;
+            break;
+            case 7:
+            diaMaximo = 31;
+            break;
+            case 8:
+            diaMaximo = 31;
+            break;
+            case 9:
+            diaMaximo = 30;
+            break;
+            case 10:
+            diaMaximo = 31;
+            break;
+            case 11:
+            diaMaximo = 30;
+            break;
+            case 12:
+            diaMaximo = 31;
+            break;
+        }
+        return diaMaximo;
     }
 
     public boolean verifiqueAnoBisiesto()
