@@ -221,7 +221,7 @@ public class Gestor
         //R:Deberia ir eso en un metodo aparte
         //R: Se deberia pida N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
         //R: por eso se usa ArrayLista, notar que podria seguir, pidiendo tareas, entonces es prudente preguntar. Si quiere agregar mas o no.
-        listasSeleccionadas.size();
+        
         return listasSeleccionadas;
     }
 
@@ -237,16 +237,9 @@ public class Gestor
             int opcionUsuario = opcionUsuarioAdmTareas();
             if(opcionUsuario ==1)
             {
-
-                int listaSel = pidaCodListaTarea(seleccionLista);//Se pide un codigo de lista, que a su vez es  posicion-1 en el arrayList listas 
-                listaSel--;
-                int tareaSel = pidaTarea(listaSel);
-                listas.get(listaSel).modifiqueTarea(tareaSel);
-            }
-            else
-            {
                 seleccioneFechaActual();
                 actualizeFechas();
+
             }
             //Se va a usar la identificacion de la lista y la identificacion de la tarea para editar eliminar o algo en las tareas-
         }
@@ -273,7 +266,7 @@ public class Gestor
             System.out.println("i"+i);
             if(listaSel.get(i).deCantidadTareas()>0)
             {
-                
+
                 lista.add(listaSel.get(i));
                 System.out.println(lista.get(i).deCantidadTareas()+"cant");
             }
@@ -340,8 +333,8 @@ public class Gestor
     public int opcionUsuarioAdmTareas()
     {
         int opcionSeleccionada = 0;
-        String mensaje = ("Digite 1 si desea modificar o eliminar una tarea, Digite 2 si desea progresar el tiempo");
-        opcionSeleccionada = entrada.pidaNumeroRango(mensaje,2,1);
+        String mensaje = ("Digite 1 si desea progresar el tiempo");
+        opcionSeleccionada = entrada.pidaNumeroRango(mensaje,1,1);
         return opcionSeleccionada;
     }
 
@@ -350,21 +343,10 @@ public class Gestor
         String informe="";
         for(int j=0;j<selListas.size();j++)
         {
-            for(int i=0;i<listas.size();i++)//No necesariamente se sabe cual es la posicion ni el numero de codigo, se sabe que el numero de lista es la posicion en el array de listas.
-            {
-                if(selListas.get(j).deCodigoLista() == listas.get(i).deCodigoLista())
-                {
 
-                    //R: creo que se deberia mostrar un poco mas de info
-                    //En realidad aqui se deberian mostar ya las listas
-                    informe+="("+i+") "+listas.get(i).nombreLista+"\n\n";
-                    for(int t=0;t<listas.get(i).listaTareas.size();i++){
-                        informe+= "\t"+t+". "+listas.get(i).listaTareas.get(t).nombre+"\n";
-                    }
-                    informe+="\n\n";
-                }
-            }
+            selListas.get(j).deInfoTareas();
         }
+
         //R: se deberia mostrar con un print desde aqui informe,
     }
 
@@ -745,39 +727,39 @@ public class Gestor
      */
     public void cargueListas(){//throws IOException,ClassNotFoundException,FileNotFoundException{
         try{
-        //1. Se abre el archivo con el nombre "Nombres de listas" el que contiene los nombres de todas las listas
-        File nombresDeListas = new File("Nombres de listas.txt");
+            //1. Se abre el archivo con el nombre "Nombres de listas" el que contiene los nombres de todas las listas
+            File nombresDeListas = new File("Nombres de listas.txt");
 
-        //2. Se crean los objetos necesarios para leer este archivo
-        fire = new FileReader(nombresDeListas);
-        bure = new BufferedReader(fire);
+            //2. Se crean los objetos necesarios para leer este archivo
+            fire = new FileReader(nombresDeListas);
+            bure = new BufferedReader(fire);
 
-        //3. Se lee tamaño, indica la cantidad de listas que había la última vez que se cerró el programa
-        int tamaño = Integer.parseInt(bure.readLine());
-        String unNombre="";
-        //4. Se leen todos los nombres, se abren todos los archivos y se crean todos los objetos Lista
-        for(int i=0;i<tamaño;i++){
-            //4.1. Lea este nombre de lista
-            unNombre = bure.readLine();
-            //4.2. Carge en un objeto File, el archivo con este nombre leído
-            File cargueEsto = new File(unNombre+".txt");
-            //4.3. Agregue este objeto file al arraylist de files/archivos
-            listasArchivos.add(cargueEsto);
+            //3. Se lee tamaño, indica la cantidad de listas que había la última vez que se cerró el programa
+            int tamaño = Integer.parseInt(bure.readLine());
+            String unNombre="";
+            //4. Se leen todos los nombres, se abren todos los archivos y se crean todos los objetos Lista
+            for(int i=0;i<tamaño;i++){
+                //4.1. Lea este nombre de lista
+                unNombre = bure.readLine();
+                //4.2. Carge en un objeto File, el archivo con este nombre leído
+                File cargueEsto = new File(unNombre+".txt");
+                //4.3. Agregue este objeto file al arraylist de files/archivos
+                listasArchivos.add(cargueEsto);
 
-            //4.4. Creción de los objetos necesarios para leer este archivo
-            fis = new FileInputStream(cargueEsto);
-            lector = new ObjectInputStream(fis);
-            //4.5. Lea la lista y cree un objeto lista
-            Lista unaLista = (Lista) lector.readObject();
-            //4.6 Agregue esta lista al arraylist de listas
-            listas.add(unaLista);
-        }
-        categorizeListas();
-        System.out.println("Se cargaron las listas sin problemas");
-        fire.close();
-        bure.close();
-        fis.close();
-        lector.close();
+                //4.4. Creción de los objetos necesarios para leer este archivo
+                fis = new FileInputStream(cargueEsto);
+                lector = new ObjectInputStream(fis);
+                //4.5. Lea la lista y cree un objeto lista
+                Lista unaLista = (Lista) lector.readObject();
+                //4.6 Agregue esta lista al arraylist de listas
+                listas.add(unaLista);
+            }
+            categorizeListas();
+            System.out.println("Se cargaron las listas sin problemas");
+            fire.close();
+            bure.close();
+            fis.close();
+            lector.close();
         }catch(Exception e){
             return;
         }

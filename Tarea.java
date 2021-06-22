@@ -23,7 +23,7 @@ public class Tarea implements Serializable{
     ArrayList <Recurso> recursos;//recursos que tiene la tarea
     ArrayList <Tarea> dependencias;
     String fechaActual;
-
+    int progreso;
     int diaActual,mesActual, anoActual,diaInicio,mesInicio,anoInicio;
 
     /**
@@ -60,7 +60,7 @@ public class Tarea implements Serializable{
         mesInicio = 0;
         anoInicio = 0;
         genereFechaInicio();
-        
+        progreso = 0;
         modifiqueNombre();
         modifiqueDescripcion();
         genereEstimacion();
@@ -74,8 +74,8 @@ public class Tarea implements Serializable{
     }
     //Agregar metodo para que asigne responsable
     public String muestreInformacion(){
-        String info="Nombre: "+nombre+"\tCódigo: "+codigoTarea+"\tResponsable: "+responsable+"\tRecursos: "+recursos;
-        info+="\nFecha de inicio: "+fechaInicio+"\tFecha de Fin: "+fechaFin+"\nProgreso: "+estadoTarea;
+        String info="Nombre: "+nombre+"\nCódigo: "+codigoTarea+"\nResponsable: "+deResponsablesNombre()+"\nRecursos: "+recursos;
+        info+="\nFecha de inicio: "+fechaInicio+"\nFecha de Fin: "+fechaFin+"\nProgreso: "+progreso+"\n";
         return info;
     }
     public void modifiqueNombre(){
@@ -177,7 +177,6 @@ public class Tarea implements Serializable{
     
     public void verifiqueEstado()
     {
-        
         
     }
     

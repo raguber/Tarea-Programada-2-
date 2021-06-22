@@ -262,7 +262,11 @@ public class GestorFecha implements Serializable
         int anoInicial = anoA;
         int diaInicial = diaA;
         int mesInicial = mesA;
-        cantHorasDed /= 7; //Horas por dia
+        cantHorasDed /= 7;
+        if (cantHorasDed == 0)
+        {
+            cantHorasDed = 1;//Horas por dia
+        }
         int cantDias = (cantHorasT/cantHorasDed);//cantHorasDed, no puede ser 0, porque el responsable solo puede trabajar 1 hora minimo;
         if(cantDias<=0)
         {
@@ -286,7 +290,7 @@ public class GestorFecha implements Serializable
         int diaMaximo = deCantDiasMes(anoInicial);
         while(cantDias>diaMaximo)
         {
-            
+
             mesInicial++;
             cantDias-= diaMaximo;
             diaMaximo = deCantDiasMes(mesInicial);
