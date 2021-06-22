@@ -28,6 +28,9 @@ public class Tarea implements Serializable{
 
     int progreso;
 
+
+    
+
     int diaActual,mesActual, anoActual,diaInicio,mesInicio,anoInicio;
 
     /**
