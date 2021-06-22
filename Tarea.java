@@ -24,12 +24,7 @@ public class Tarea implements Serializable{
     ArrayList <Tarea> dependencias;
     String fechaActual;
 
-    GestorFecha fecha;
-
     int progreso;
-
-
-    
 
     int diaActual,mesActual, anoActual,diaInicio,mesInicio,anoInicio;
 
@@ -43,7 +38,7 @@ public class Tarea implements Serializable{
         dependencias = new ArrayList<Tarea>();
         listaResponsables = new ArrayList<Responsable>();
         recursos = new ArrayList <Recurso>();
-        fecha = new GestorFecha();
+
         
         completada=false; esProxy=false;
         estimoDinero=false; estimoHoras=false;
