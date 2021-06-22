@@ -9,9 +9,14 @@ public class Recurso implements Serializable{
     String nombre,descripcion;
     int cantidad;
     boolean reusable;
+    boolean estaAsignado;
     String identificacion;
     EntradaDatos entrada; 
     int codigoRecurso;
+    
+    /**
+       Creador de recursos
+       */
     public Recurso(int codR){
         entrada = new EntradaDatos();
         nombre = genereNombre();

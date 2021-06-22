@@ -752,6 +752,8 @@ public class Gestor
             buwr.write(listas.get(i).nombreLista);
             buwr.newLine();
         }
+        buwr.flush();buwr.close();
+        fiwr.flush();fiwr.close();
     }
 
     /**

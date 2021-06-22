@@ -130,7 +130,7 @@ public class GestorFecha implements Serializable
 
         }
         else
-        {
+        { 
             diaActualTemp = entrada.pidaNumeroRango(mensaje,diaMaximo,1);
         }
         diaInicial = diaActualTemp;
