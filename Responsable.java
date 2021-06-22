@@ -13,7 +13,7 @@ public class Responsable implements Serializable
     String nombre;
     String identificacion;//Nom +cod
     EntradaDatos entrada;
-    public Responsable(int codResp)//Lo mismo, se deberia cambiar, es poco importante ya que el usuario va a seleccionar un responsable
+    public Responsable(int codResp)
     {
         entrada = new EntradaDatos();
         codigoResponsable = codResp;
@@ -41,7 +41,7 @@ public class Responsable implements Serializable
 
     public void genereIdentificacion()
     {
-        identificacion = codigoResponsable+nombre;//Para mostrar seria util mostrar solo una cantidad x de caracteres solo por visualizacion
+        identificacion = codigoResponsable+nombre;
     }
 
     public void asigneTarea(Tarea tarAsig)
@@ -80,17 +80,11 @@ public class Responsable implements Serializable
         int cantidadNuevaHorasDedicadas = 0;
         int cantidadHorasOcupadas = cantidadHorasDedicadas-cantidadHorasDisponibles;//Revisar si esto funciona
         String mensaje = ("Digite la cantidad de horas que el responsable usa semanalmente para hacer tareas\nEl responsable debe dedicarse al menos 1 hora y como maximo 40");
-        //Si se tienen horas asignadas, el trabajador no puede dejar tareas sin responsable.
-        //Estaria la posibilidad de pida solo un numero mayor que cantidad horas ocupadas
-        //Sin embargo lo mejor es informar al usuario y que pregunte si desea eliminar tareas en caso de reducir el numero de horas de Dedicadas y esten ocupadas.
-        //Esto tambien daria el caso de tareas que no pueden asignarse.
+        
         cantidadNuevaHorasDedicadas = entrada.pidaNumeroRango(mensaje, 40,1);
         if(cantidadNuevaHorasDedicadas<cantidadHorasDedicadas)
         {
-            //En caso de tener tareas, no se pueden dejar sin responsable, al menos que el usuario lo indique.
-            //El programa debe ser capaz de resolverle al usuario la situacion de bajar la cantidad de horas a la semana,
-            //Sin quedarse sin espacio, excepto a eleccion del usuario.
-            //Otra cosa que se puede analizar es que se podria obligar al usuario a desasignarTareas hasta que tenga horas asignadas menores o iguales a las nuevas horas 
+            
             if(cantidadNuevaHorasDedicadas<cantidadHorasOcupadas)
             {
                 // System.out.println("El responsable "+nombre+" T

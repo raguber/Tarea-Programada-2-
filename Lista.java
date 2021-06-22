@@ -6,7 +6,7 @@ import java.io.Serializable;
  */
 public class Lista implements Serializable
 {
-    //Cada lista tendra responsables taras y recursos.
+    
     ArrayList<Responsable> listaResponsables;
     ArrayList<Recurso> listaRecursos;
     String nombreLista, identificacion, descripcion;
