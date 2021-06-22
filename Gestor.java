@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 /**
+ * Esta clase administra las listas
  * Estudiantes:
  *  Randy Jossue Aguero Bermudez Carne B90082
  *  Andrés Esteban Serrano Robles Carne C07483
@@ -40,30 +41,10 @@ public class Gestor
     int mesActual;
     int anoActual;
     String fechaActual;
-    //goback
-    //El Maravilloso Gestor de Listas
 
-    //void administreGestor()
-    //void creeLista()
-    //boolean pedirOpcionAgregarCategoria()
-    //muestreCategoriasListas()
-    //agregarCategoria()
-    //verifiqueExistenciaCategoria()
-    //seleccioneCategoria()
-    //muestreCategoriasListas()
-    //categorizeListas()
-    //verifiqueExistenciaCategoria()
-
-    //void administreGestor()
-    //void creeLista()
-    //boolean pedirOpcionAgregarCategoria()
-    //muestreCategoriasListas()
-    //agregarCategoria()
-    //verifiqueExistenciaCategoria()
-    //seleccioneCategoria()
-    //muestreCategoriasListas()
-    //categorizeListas()
-
+    /**
+     * Contructor del gestor
+     */
     public Gestor()
     {
         listas = new ArrayList<Lista>();
@@ -77,6 +58,10 @@ public class Gestor
 
     }
 
+    /**
+     * Desde aqui se administra el inicio del gestor
+     * 
+     */
     public void administreGestor()throws IOException,ClassNotFoundException
     {
         //Hay que dejarle a la lista que modifique Tareas.
@@ -127,6 +112,10 @@ public class Gestor
         }
     }
 
+    /**
+     * Metodo para solicitar el ingreso de la fecha
+     */
+
     public void seleccioneFechaActual()
     {
         fechaActual = gestorFechas.pidaFecha();
@@ -134,6 +123,10 @@ public class Gestor
         mesActual = gestorFechas.deMesInicial();
         anoActual = gestorFechas.deAnoInicial();
     }
+
+    /**
+     * Metodo para administrar una lista
+     */
 
     public void administreListaEspecifica()
     {
@@ -169,6 +162,9 @@ public class Gestor
 
     }
 
+    /**
+     * Este metodo devuelve un  arrayLista con listas seleccionadas por el usuario
+     */
     public ArrayList<Lista> seleccioneListasTareas()
     {
 
@@ -221,9 +217,13 @@ public class Gestor
         //R:Deberia ir eso en un metodo aparte
         //R: Se deberia pida N cantidad de listas para mostrar, hay que filtrarlas. El enunciado de la tarea no dice que como filtrarlas, entonces preguntarle al usuario una seleccion
         //R: por eso se usa ArrayLista, notar que podria seguir, pidiendo tareas, entonces es prudente preguntar. Si quiere agregar mas o no.
-        
+
         return listasSeleccionadas;
     }
+
+    /**
+     * Metodo para controlar la administracion de tarea
+     */
 
     public void administreTareas()
     {
@@ -249,6 +249,9 @@ public class Gestor
         }
     }
 
+    /**
+     * Metodo que actualiza Fechas
+     */
     public void actualizeFechas()
     {
         for(int i=0;i<listas.size();i++)
@@ -256,6 +259,10 @@ public class Gestor
             listas.get(i).actualizeFechas(fechaActual, diaActual,mesActual,anoActual);
         }
     }
+
+    /**
+     * Este metodo elimina listas vacias de tareas
+     */
 
     public ArrayList<Lista> elimineListasVacias(ArrayList<Lista> listaSel)
     {
@@ -275,6 +282,10 @@ public class Gestor
         return lista;
     }
 
+    /**
+     * Posibilita editar una tarea segun el codigo
+     */
+
     public int seleccioneTareaEditar(int numLista)
     {
         int tareaSeleccionada = 0;
@@ -287,6 +298,10 @@ public class Gestor
         tareaSeleccionada = entrada.pidaNumeroRango(mensaje,cantTareas,1);
         return tareaSeleccionada;
     }
+
+    /**
+     * metodo para pedir codigoLista
+     */
 
     public int pidaCodListaTarea(ArrayList<Lista> listasFil)
     {
@@ -321,22 +336,20 @@ public class Gestor
         }
         return listaSel;  
     }
-    //Como se muestran todas las tareas
-    public int pidaTarea(int numLista)
-    {
-        int numTarea = 0;
-
-        return numTarea;
-
-    }
+    /**
+     * metodo que pregunta si desea progresar el tiempo
+     */
 
     public int opcionUsuarioAdmTareas()
     {
         int opcionSeleccionada = 0;
-        String mensaje = ("Digite 1 si desea progresar el tiempo");
-        opcionSeleccionada = entrada.pidaNumeroRango(mensaje,1,1);
+        String mensaje = ("Digite 1 si desea progresar el tiempo, 2 si no");
+        opcionSeleccionada = entrada.pidaNumeroRango(mensaje,2,1);
         return opcionSeleccionada;
     }
+    /**
+     * Metodo que muestra tareas seleccionadas previamente
+     */
 
     public void muestreTareas(ArrayList<Lista> selListas)
     {
@@ -347,8 +360,11 @@ public class Gestor
             selListas.get(j).deInfoTareas();
         }
 
-        //R: se deberia mostrar con un print desde aqui informe,
+
     }
+    /**
+     * Pregunta si desea filtrar categorias
+     */
 
     public boolean pregunteSiContinuarFiltrandoCategorias()
     {
@@ -365,7 +381,9 @@ public class Gestor
 
         return filtrarCategorias;
     }
-    //A: está dentro de creeLista, que está dentro de administreGestor()
+    /**
+     * Metodo para preguntar por seleccion categoria
+     */
     public String seleccioneCategoria()
     {
         String categoriaSeleccionada = "";
@@ -381,7 +399,9 @@ public class Gestor
         return categoriaSeleccionada;
     }
 
-    //A: está dentro de pedirOpcionAgregarCategoria(), que a su vez está dentro de creeLista(), que a su vez está dentro de administreGestor()
+   /**
+    * Metodo para mostrar categorias de las listas
+    */
     public void muestreCategoriasListas()
     {
         System.out.println("Se mostrarán las categorías de listas");
@@ -390,6 +410,9 @@ public class Gestor
             System.out.println("Categoria: "+(i+1)+" "+categoriasListas.get(i));
         }
     }
+    /**
+     * Metodo verifica si una tarea esta seleccionada
+     */
 
     public boolean verifiqueSiTareaSeleccionada(Lista list, ArrayList<Lista> listSel)
     {
@@ -404,6 +427,9 @@ public class Gestor
         }
         return tareaSeleccionada;
     }
+    /**
+     * Metodo que pide si se desea continuar agrengado listas
+     */
 
     public boolean pidaOpcionContinuarAgregarListas()
     {
@@ -417,6 +443,9 @@ public class Gestor
         }
         return continuarAgregandoListas;
     }
+    /**
+     * Metodo que pregunta si la categoria importa
+     */
 
     public boolean pregunteSiImportaCategoria()
     {
@@ -431,6 +460,9 @@ public class Gestor
         return importaCategoria;
 
     }
+    /**
+     * metodo que agrega categoria
+     */
 
     public String agregarCategoria()
     {
@@ -451,7 +483,7 @@ public class Gestor
         }
         return categoria;
     }
-    //A: está dentro de administreGestor
+    
     public void creeLista(){
         int opcionAgregarCategoria = pedirOpcionAgregarCategoria();
         String categoriaSeleccionada ="";
@@ -525,7 +557,7 @@ public class Gestor
         return listaSeleccionada;
     }
 
-    //A: está dentro de agregarLista(), que está dentro de administreGestor()
+   
     public int pedirOpcionAgregarCategoria()
     {
         muestreCategoriasListas();
@@ -573,7 +605,7 @@ public class Gestor
             }
         }
     }
-    //Agregado metodo cargueLista
+
 
     public void categorizeListas()
     {
