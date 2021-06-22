@@ -311,13 +311,13 @@ public class Lista implements Serializable
         {
             System.out.println("No existen recursos guardados se debe crear uno");
             rec = new Recurso((listaRecursos.size()+1));
-
+            rec.estaAsignado=true;
 
         }
         else
         {
             rec = pidaRecurso();
-
+            rec.estaAsignado=true;
         }
         nuevaTarea=new Tarea(listaTareas.size()+1,nombreLista,resp,rec);
 
@@ -604,18 +604,18 @@ public class Lista implements Serializable
             break;
             case 2:
             recSel = seleccioneRecurso();
-            //listaRecursos.get(recSel).modifiqueDescripcion();
+            listaRecursos.get(recSel).modifiqueDescripcion();
             break;
             case 3:
             recSel = seleccioneRecurso();
-            // if(listaRecursos.get(recSel).estaAsignado()==true)
-            // {
-            // System.out.println("El recurso esta asignado, hasta que no se termine la tarea con el recurso asignado, no se puede eliminar el recurso");
-            // }
-            // else
-            // {
-            // listaRecursos.remove(recSel);
-            // }
+            if(listaRecursos.get(recSel).estaAsignado==true)
+            {
+            System.out.println("El recurso esta asignado, hasta que no se termine la tarea con el recurso asignado, no se puede eliminar el recurso");
+            }
+            else
+            {
+            listaRecursos.remove(recSel);
+            }
             break;
         }
 

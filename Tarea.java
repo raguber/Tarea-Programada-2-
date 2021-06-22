@@ -24,19 +24,20 @@ public class Tarea implements Serializable{
     ArrayList <Tarea> dependencias;
     String fechaActual;
 
+    GestorFecha fecha;
     int diaActual,mesActual, anoActual,diaInicio,mesInicio,anoInicio;
 
     /**
-     * MODIFICADO: El constructor solo pide un nombre, lista de pertenencia, responsable y un id.
+     * El constructor de tareas pide en su argumento, una indentificación, lista en la que pertenece, un responsable, y un recurso.
+     * 
      */
     public Tarea(int ID, String listPert,Responsable resp,Recurso rec){
-        // fechaInicio = genereFechaInicio();
-        // fechaFin="";//estimación de horas semanales de esta tarea
         entrada = new EntradaDatos();
         gestorFechas = new GestorFecha();
         dependencias = new ArrayList<Tarea>();
         listaResponsables = new ArrayList<Responsable>();
         recursos = new ArrayList <Recurso>();
+        fecha = new GestorFecha();
         
         completada=false; esProxy=false;
         estimoDinero=false; estimoHoras=false;
@@ -48,7 +49,7 @@ public class Tarea implements Serializable{
 
         responsable =resp;
         listaResponsables.add(resp);
-
+        //fecha.pidaFechaTarea();
 
         recursos.add(rec);
         fechaActual = "";
@@ -72,7 +73,6 @@ public class Tarea implements Serializable{
         mesActual = mesA;
         anoActual = anoA;
     }
-    //Agregar metodo para que asigne responsable
     public String muestreInformacion(){
         String info="Nombre: "+nombre+"\tCódigo: "+codigoTarea+"\tResponsable: "+responsable+"\tRecursos: "+recursos;
         info+="\nFecha de inicio: "+fechaInicio+"\tFecha de Fin: "+fechaFin+"\nProgreso: "+estadoTarea;
@@ -121,18 +121,7 @@ public class Tarea implements Serializable{
         fechaFin=entrada.pidaTexto(mensaje);
         System.out.println("Se modificó la fecha final de esta tarea: "+nombre);
     }
-    
-    public void reviseFechas(){
-        //cambio de estado de tarea
-        //if (fecha actual es mayor a fecha de inicio y todas sus dependencias están completas(o no depende de nadie))
-            //estado: en progreso
-        //else if(fecha actual es mayor a fecha final)
-            //if(puede completarse)
-                //estado: completada
-            //else if(no puede completarse por x razón)
-                //estado: atrasada
-    }
-    //En desuso por ahora
+
     public void genereResponsable(Responsable resp){
 
         responsable = resp;
@@ -143,8 +132,6 @@ public class Tarea implements Serializable{
     Solicita un responsable. Sirve para crear o para modificarlo.
     INCONCLUSO: No sé si hace falta un método en EntradaDatos para modificar responsable.
      */
-    //Responsable debe ser un objeto, no un nombre. Se le debe pidar al usuario al usuario la seleccion de un responsable. mas no un nombre
-    //Esto es util si se desea modificar o visualizar desde aqui.
     public void modifiqueResponsable(Responsable resp){
         String mensaje="Inserte el nuevo responsable: ";
         responsable = resp;
@@ -276,7 +263,7 @@ public class Tarea implements Serializable{
      */
     
     public void complete(){
-        boolean check=true;//Este booleano debe ser true para que esta tarea pueda completarse. Se asume inicialmente que sí puede completarse.
+        boolean check=true;
         String estoFalta="La tarea no puede completarse porque:\n";
         for(int i=0;i<dependencias.size();i++){
             //revisar en un "for" todas las tareas que están en el ArrayList dependencias.
