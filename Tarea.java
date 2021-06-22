@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Tarea implements Serializable{
 
     String listaPerteneciente;
-    int codigoTarea,dinero,horas;
+    int codigoTarea,dinero,horas,horasProgreso,dineroProgreso;
     boolean completada,estimoDinero,estimoHoras,esProxy;
     String nombre,descripcion,fechaInicio,fechaFin;
     GestorFecha gestorFechas;
@@ -166,6 +166,15 @@ public class Tarea implements Serializable{
         dinero=entrada.pidaNumero(mensaje,0);
         System.out.println("Se modificó el dinero estimado de esta tarea: "+nombre);
     }
+    
+    public void progreseDinero(){
+        if(estimoDinero==true){
+            String mensaje="Deposite una cantidad de dinero";
+            System.out.println("Cantidad de dinero actual: "+dineroProgreso+" ---> Cantidad de dinero necesario: "+dinero+"\nFalta "+(dinero-dineroProgreso));
+            dinero-=entrada.pidaNumeroRango(mensaje,dinero,1);
+        }
+    }
+    
     public void verifiqueEstado()
     {
         
@@ -252,6 +261,14 @@ public class Tarea implements Serializable{
     public void yaNoDependaDe(Tarea gen){
         dependencias.remove(gen);
         System.out.println("La tarea "+nombre+" ya no depende de "+gen);
+    }
+    
+    public void progrese(){
+        if(esProxy==true){
+            
+        }else if(esProxy==false){
+            
+        }
     }
     
     /**
@@ -350,10 +367,4 @@ public class Tarea implements Serializable{
     public String deListaPerteneciente(){
         return listaPerteneciente;
     }
-
-    public static void main(String args[])
-    {
-    
-    }
-
 }

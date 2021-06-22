@@ -511,7 +511,7 @@ public class Lista implements Serializable
 
     public void modifiqueResponsablesTarea(int tarSel)
     {
-
+        
 
 
     }
@@ -528,7 +528,7 @@ public class Lista implements Serializable
 
     public void agregueDineroTarea(int tarSel)
     {
-        
+        listaTareas.get(tarSel).progreseDinero();
     }
 
     public void modifiqueCategoria(String nuvCat)
